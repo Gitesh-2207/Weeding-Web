@@ -11,7 +11,6 @@ import { Countdown } from './components/Countdown';
 import { InvitationCard } from './components/InvitationCard';
 import { FamilyInvitation } from './components/FamilyInvitation';
 import { WeddingEvents } from './components/WeddingEvents';
-import { GuestExperience } from './components/GuestExperience';
 import { VenueSection } from './components/VenueSection';
 import { Footer } from './components/Footer';
 import { Sparkles } from 'lucide-react';
@@ -108,11 +107,6 @@ export default function App() {
           lang={lang}
         />
 
-        {/* Guest Hospitality & Experience */}
-        <GuestExperience
-          data={weddingData}
-          t={t}
-        />
 
         {/* Destination Venue Information */}
         <VenueSection

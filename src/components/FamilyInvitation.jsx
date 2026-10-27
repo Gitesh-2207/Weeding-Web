@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CornerFlourish, FloralGarland } from './common/DecorativeElements';
+import { Heart } from 'lucide-react';
 
 // Sacred Indian Lotus Motif representing divine blessings, purity and respect for elders
 const LotusMotif = ({ className = "w-10 h-10", color = "#D4A853" }) => (
@@ -62,10 +63,16 @@ const LotusMotif = ({ className = "w-10 h-10", color = "#D4A853" }) => (
 
 export const FamilyInvitation = ({ data }) => {
   // --------------------------------------------------------------------------
-  // EDITABLE FAMILY NAMES: Customize easily here or via weddingData.js
+  // EDITABLE DETAILS: Replace images, names, and family titles as needed
   // --------------------------------------------------------------------------
+  const brideName = data?.couple?.bride?.fullName || "Khushbu Patidar";
+  const groomName = data?.couple?.groom?.fullName || "Abhay Patidar";
   const brideFamilyName = data?.couple?.bride?.family || "The Patidar Family";
   const groomFamilyName = data?.couple?.groom?.family || "The Patidar Family";
+
+  // Demo image paths (replace with actual photographs when ready)
+  const brideImage = "/images/demo-bride.jpg";
+  const groomImage = "/images/demo-groom.jpg";
 
   return (
     <section
@@ -75,13 +82,13 @@ export const FamilyInvitation = ({ data }) => {
       {/* Background Soft Golden Ambiance Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-3xl mx-auto relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 35, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="relative p-7 sm:p-14 md:p-16 rounded-3xl bg-cream-card border-2 border-[#D4A853]/60 shadow-royal-lg text-center overflow-hidden hover:shadow-gold-glow transition-shadow duration-700"
+          className="relative p-6 sm:p-12 md:p-14 rounded-3xl bg-cream-card border-2 border-[#D4A853]/60 shadow-royal-lg text-center overflow-hidden hover:shadow-gold-glow transition-shadow duration-700"
         >
           {/* Inner Dashed Royal Border */}
           <div className="absolute inset-3 sm:inset-5 md:inset-6 border border-[#D4A853]/35 border-dashed rounded-2xl pointer-events-none" />
@@ -127,7 +134,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mb-5 sm:mb-7"
+            className="mb-4 sm:mb-6"
           >
             <p className="text-xs sm:text-sm font-serif tracking-[0.28em] sm:tracking-[0.32em] uppercase text-[#D4A853] font-semibold">
               WITH THE BLESSINGS OF OUR ELDERS
@@ -149,7 +156,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.85, delay: 0.25 }}
-            className="my-5 sm:my-7 px-2"
+            className="my-4 sm:my-6 px-2"
           >
             <div className="flex items-center justify-center gap-3 sm:gap-4">
               <span className="hidden md:inline-block text-[#D4A853]/60 text-lg">✦</span>
@@ -160,7 +167,95 @@ export const FamilyInvitation = ({ data }) => {
             </div>
           </motion.div>
 
-          {/* 3. Invitation Message */}
+          {/* 3. Two Image Cards: Bride & Groom */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.85, delay: 0.3 }}
+            className="my-8 sm:my-10 max-w-2xl mx-auto"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 items-center relative">
+              {/* Center Decorative Interlocking Knot (Visible on Tablet/Desktop) */}
+              <div className="hidden sm:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-[#FFFDF9] border-2 border-[#D4A853] shadow-md items-center justify-center">
+                <Heart className="w-5 h-5 text-burgundy fill-burgundy/20 animate-pulse" />
+              </div>
+
+              {/* Bride Image Card */}
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.35 }}
+                className="group relative rounded-t-[2.75rem] rounded-b-2xl p-3 sm:p-3.5 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 text-center"
+              >
+                {/* Arch-shaped Image Frame */}
+                <div className="relative rounded-t-[2.5rem] rounded-b-xl overflow-hidden aspect-[3/4] border border-[#D4A853]/40 shadow-inner bg-cream-50">
+                  <img
+                    src={brideImage}
+                    alt={brideName}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
+                  {/* Corner Accent in frame */}
+                  <div className="absolute top-3 left-3 text-[10px] font-serif uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/90 text-burgundy shadow-xs border border-[#D4A853]/50">
+                    The Bride
+                  </div>
+                </div>
+
+                {/* Bride Details */}
+                <div className="pt-4 pb-2 px-2">
+                  <h3 className="font-playfair text-xl sm:text-2xl font-semibold text-burgundy tracking-wide">
+                    {brideName}
+                  </h3>
+                  <p className="mt-1 text-xs sm:text-sm font-cormorant italic text-royal-brown/85">
+                    Daughter of {brideFamilyName}
+                  </p>
+                  <p className="mt-0.5 text-[11px] font-serif uppercase tracking-wider text-[#84662B]">
+                    Sundrel (M.P.)
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Groom Image Card */}
+              <motion.div
+                whileHover={{ y: -6 }}
+                transition={{ duration: 0.35 }}
+                className="group relative rounded-t-[2.75rem] rounded-b-2xl p-3 sm:p-3.5 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 text-center"
+              >
+                {/* Arch-shaped Image Frame */}
+                <div className="relative rounded-t-[2.5rem] rounded-b-xl overflow-hidden aspect-[3/4] border border-[#D4A853]/40 shadow-inner bg-cream-50">
+                  <img
+                    src={groomImage}
+                    alt={groomName}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
+                  {/* Corner Accent in frame */}
+                  <div className="absolute top-3 right-3 text-[10px] font-serif uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/90 text-burgundy shadow-xs border border-[#D4A853]/50">
+                    The Groom
+                  </div>
+                </div>
+
+                {/* Groom Details */}
+                <div className="pt-4 pb-2 px-2">
+                  <h3 className="font-playfair text-xl sm:text-2xl font-semibold text-burgundy tracking-wide">
+                    {groomName}
+                  </h3>
+                  <p className="mt-1 text-xs sm:text-sm font-cormorant italic text-royal-brown/85">
+                    Son of {groomFamilyName}
+                  </p>
+                  <p className="mt-0.5 text-[11px] font-serif uppercase tracking-wider text-[#84662B]">
+                    Sundrel (M.P.)
+                  </p>
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* 4. Invitation Message */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -183,7 +278,7 @@ export const FamilyInvitation = ({ data }) => {
           {/* Delicate Center Floral Garland Divider */}
           <FloralGarland className="my-6 sm:my-8 max-w-xs mx-auto opacity-75" />
 
-          {/* 4. Family Names Section */}
+          {/* 5. Family Names Section */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
