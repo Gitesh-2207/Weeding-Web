@@ -100,9 +100,9 @@ export const AnimatedCouple = ({ t }) => {
   const ceremonyItems = [
     {
       id: 'wedding',
-      label: t.coupleAnimation?.tabs?.wedding || "Royal Varmala",
+      label: t.coupleAnimation?.tabs?.wedding || "Royal Forever",
       icon: Crown,
-      image: "/images/cartoon-wedding.jpg",
+      image: "/images/couple-hero.jpeg",
       themeColor: "from-amber-700 via-rose-700 to-amber-900",
       accentBorder: "border-[#C5A15A]",
       story: t.coupleAnimation?.stories?.wedding || {
@@ -114,30 +114,30 @@ export const AnimatedCouple = ({ t }) => {
     },
     {
       id: 'haldi',
-      label: t.coupleAnimation?.tabs?.haldi || "Playful Haldi",
+      label: t.coupleAnimation?.tabs?.haldi || "Candid Romance",
       icon: Flower2,
-      image: "/images/cartoon-haldi.jpg",
+      image: "/images/couple-candid.jpeg",
       themeColor: "from-yellow-600 via-amber-500 to-orange-600",
       accentBorder: "border-amber-400",
       story: t.coupleAnimation?.stories?.haldi || {
-        tag: "24 November 2026 • 2:00 PM",
-        quote: "Drenched in auspicious yellow turmeric, surrounded by warmth, laughter, and playful family banters.",
-        dialogueBride: "Watch out for the yellow splash! 🌼",
-        dialogueGroom: "All the festive glow is shining on you! 💛"
+        tag: "24 November 2026 • Moments of Joy",
+        quote: "Spontaneous laughter, shared glances, and sweet promises beneath open skies.",
+        dialogueBride: "Every moment with you is special! 🌸",
+        dialogueGroom: "My forever smile begins with you! 💛"
       }
     },
     {
       id: 'sangeet',
-      label: t.coupleAnimation?.tabs?.sangeet || "Sangeet Dance",
+      label: t.coupleAnimation?.tabs?.sangeet || "Better Together",
       icon: Music,
-      image: "/images/cartoon-sangeet.jpg",
+      image: "/images/couple-stage.jpeg",
       themeColor: "from-indigo-900 via-purple-800 to-pink-700",
       accentBorder: "border-purple-400",
       story: t.coupleAnimation?.stories?.sangeet || {
-        tag: "24 November 2026 • 8:00 PM",
-        quote: "Twirling under midnight stars, celebrating beats of joy, music, and royal rhythm.",
-        dialogueBride: "Dancing the night away together! 🎶",
-        dialogueGroom: "Every step is pure magic with you! 💫"
+        tag: "Celebration Night • Rings & Roses",
+        quote: "Surrounded by loved ones, flowers, and the glow of celebration as our families unite.",
+        dialogueBride: "A dream evening filled with love! 💐",
+        dialogueGroom: "Forever and always, Better Together! 💫"
       }
     }
   ];

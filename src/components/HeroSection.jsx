@@ -104,10 +104,33 @@ export const HeroSection = ({ data, t, lang }) => {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-base sm:text-xl font-cormorant italic text-royal-brown font-medium max-w-lg mx-auto my-4 tracking-wide"
+          className="text-base sm:text-xl font-cormorant italic text-royal-brown font-medium max-w-lg mx-auto my-3 tracking-wide"
         >
           "{t.hero.subtitle}"
         </motion.p>
+
+        {/* Royal Arch Couple Portrait Frame */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.55, duration: 0.8 }}
+          className="my-3 sm:my-4 relative"
+        >
+          <div className="relative mx-auto w-36 sm:w-44 h-48 sm:h-56 rounded-t-full rounded-b-3xl p-1.5 bg-gradient-to-b from-gold via-cream-50 to-gold shadow-royal-lg border border-gold/70 group hover:shadow-gold-glow transition-all duration-500">
+            <div className="w-full h-full rounded-t-full rounded-b-2xl overflow-hidden relative bg-cream-50">
+              <img
+                src={data?.couple?.heroImage || "/images/couple-hero.jpeg"}
+                alt={`${data.couple.bride.fullName} & ${data.couple.groom.fullName}`}
+                className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-burgundy/40 via-transparent to-transparent pointer-events-none" />
+            </div>
+            {/* Elegant Name Badge Tag */}
+            <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-cream-50/95 border border-gold/70 text-[10px] sm:text-[11px] font-serif uppercase tracking-widest text-burgundy font-semibold shadow-sm whitespace-nowrap">
+              Khushbu &amp; Abhay
+            </div>
+          </div>
+        </motion.div>
 
         {/* Garland separator */}
         <FloralGarland className="my-2 max-w-md" />

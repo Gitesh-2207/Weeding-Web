@@ -108,8 +108,27 @@ export const InvitationCard = ({ data, t }) => {
             </p>
           </motion.div>
 
+          {/* Sacred Hand & Mehndi Medallion */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="my-3 sm:my-5 flex justify-center"
+          >
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-gradient-to-tr from-gold via-cream-50 to-gold shadow-royal border border-gold/60">
+              <div className="w-full h-full rounded-full overflow-hidden border border-gold/40">
+                <img
+                  src="/images/couple-hands-heart.jpeg"
+                  alt="A Sacred Promise"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+            </div>
+          </motion.div>
+
           {/* Delicate Floral Garland Divider */}
-          <FloralGarland className="my-5 sm:my-7 max-w-sm mx-auto opacity-80" />
+          <FloralGarland className="my-4 sm:my-6 max-w-sm mx-auto opacity-80" />
 
           {/* 4. Wedding Date (Prominently Styled with Golden Accent) */}
           <motion.div

@@ -12,6 +12,7 @@ import { InvitationCard } from './components/InvitationCard';
 import { FamilyInvitation } from './components/FamilyInvitation';
 import { EngagementClips } from './components/EngagementClips';
 import { WeddingEvents } from './components/WeddingEvents';
+import { WeddingGallery } from './components/WeddingGallery';
 import { VenueSection } from './components/VenueSection';
 import { Footer } from './components/Footer';
 import { Sparkles } from 'lucide-react';
@@ -113,6 +114,11 @@ export default function App() {
           lang={lang}
         />
 
+        {/* Real Couple Photo Gallery & Lightbox */}
+        <WeddingGallery
+          data={weddingData}
+          t={t}
+        />
 
         {/* Destination Venue Information */}
         <VenueSection
