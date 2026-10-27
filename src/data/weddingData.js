@@ -44,38 +44,45 @@ export const weddingData = {
   },
   engagement: {
     label: "BEFORE THE WEDDING BELLS…",
-    clips: [
+    photos: [
       {
-        id: "clip-1",
+        id: "photo-1",
+        title: "The Palace Twilight",
+        caption: "Hand in hand beneath the royal arches",
+        image: "/images/engagement-photo-4.jpg",
+        aspect: "wide",
+      },
+      {
+        id: "photo-2",
         title: "The Beautiful Yes",
-        subtitle: "Ring Ceremony & Eternal Promise",
-        tag: "THE PROPOSAL",
-        duration: "0:45",
-        thumbnail: "/images/engagement-clip-1.jpg",
-        videoUrl: "", // Paste your MP4/WebM video file path or URL (e.g., "/videos/engagement-proposal.mp4")
-        isFeatured: true,
+        caption: "The ring ceremony & an eternal promise",
+        image: "/images/engagement-photo-1.jpg",
+        aspect: "portrait",
       },
       {
-        id: "clip-2",
+        id: "photo-3",
         title: "Under The Canopy of Lights",
-        subtitle: "Laughter, Music & Twilight Celebration",
-        tag: "CELEBRATION",
-        duration: "0:30",
-        thumbnail: "/images/engagement-clip-2.jpg",
-        videoUrl: "", // e.g., "/videos/engagement-celebration.mp4"
-        isFeatured: false,
+        caption: "Laughter, music & twilight celebration",
+        image: "/images/engagement-photo-2.jpg",
+        aspect: "portrait",
       },
       {
-        id: "clip-3",
+        id: "photo-4",
         title: "Whispers of Forever",
-        subtitle: "Petals Shower & Family Blessings",
-        tag: "MOMENTS",
-        duration: "0:25",
-        thumbnail: "/images/engagement-clip-3.jpg",
-        videoUrl: "", // e.g., "/videos/engagement-candid.mp4"
-        isFeatured: false,
+        caption: "Petals shower & boundless joy",
+        image: "/images/engagement-photo-3.jpg",
+        aspect: "portrait",
       },
     ],
+    video: {
+      id: "clip-main",
+      title: "The Beautiful Yes",
+      subtitle: "Official Engagement Film • Ring Ceremony & Eternal Promise",
+      tag: "ENGAGEMENT FILM",
+      duration: "0:45",
+      thumbnail: "/images/engagement-photo-1.jpg",
+      videoUrl: "", // Paste your MP4/WebM video file path or URL (e.g., "/videos/engagement-proposal.mp4")
+    },
   },
   venue: {
     name: "Sundrel, Dhar",
