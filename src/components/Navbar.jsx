@@ -16,6 +16,7 @@ export const Navbar = ({ data, t, lang, setLang }) => {
 
   const navLinks = [
     { href: '#invitation', label: t.nav.invitation },
+    { href: '#engagement', label: lang === 'hi' ? 'सगाई' : 'Engagement' },
     { href: '#events', label: t.nav.events },
     { href: '#venue', label: t.nav.venue, highlight: true },
   ];

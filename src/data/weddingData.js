@@ -42,6 +42,41 @@ export const weddingData = {
     displayYear: "2026",
     daysRange: "24 - 25 November 2026",
   },
+  engagement: {
+    label: "BEFORE THE WEDDING BELLS…",
+    clips: [
+      {
+        id: "clip-1",
+        title: "The Beautiful Yes",
+        subtitle: "Ring Ceremony & Eternal Promise",
+        tag: "THE PROPOSAL",
+        duration: "0:45",
+        thumbnail: "/images/engagement-clip-1.jpg",
+        videoUrl: "", // Paste your MP4/WebM video file path or URL (e.g., "/videos/engagement-proposal.mp4")
+        isFeatured: true,
+      },
+      {
+        id: "clip-2",
+        title: "Under The Canopy of Lights",
+        subtitle: "Laughter, Music & Twilight Celebration",
+        tag: "CELEBRATION",
+        duration: "0:30",
+        thumbnail: "/images/engagement-clip-2.jpg",
+        videoUrl: "", // e.g., "/videos/engagement-celebration.mp4"
+        isFeatured: false,
+      },
+      {
+        id: "clip-3",
+        title: "Whispers of Forever",
+        subtitle: "Petals Shower & Family Blessings",
+        tag: "MOMENTS",
+        duration: "0:25",
+        thumbnail: "/images/engagement-clip-3.jpg",
+        videoUrl: "", // e.g., "/videos/engagement-candid.mp4"
+        isFeatured: false,
+      },
+    ],
+  },
   venue: {
     name: "Sundrel, Dhar",
     displayLine1: "SUNDREL, DHAR",

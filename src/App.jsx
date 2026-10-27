@@ -10,6 +10,7 @@ import { HeroSection } from './components/HeroSection';
 import { Countdown } from './components/Countdown';
 import { InvitationCard } from './components/InvitationCard';
 import { FamilyInvitation } from './components/FamilyInvitation';
+import { EngagementClips } from './components/EngagementClips';
 import { WeddingEvents } from './components/WeddingEvents';
 import { VenueSection } from './components/VenueSection';
 import { Footer } from './components/Footer';
@@ -97,6 +98,11 @@ export default function App() {
 
         {/* Two Families, One Celebration - Family Invitation */}
         <FamilyInvitation
+          data={weddingData}
+        />
+
+        {/* Engagement Memories & Video Clips */}
+        <EngagementClips
           data={weddingData}
         />
 
