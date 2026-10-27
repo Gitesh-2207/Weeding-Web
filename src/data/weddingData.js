@@ -21,7 +21,8 @@ export const weddingData = {
       fullName: "Abhay Patidar",
       family: "Patidar Family",
       parents: "Patidar Family",
-      city: "Sundrel, Dhar, Madhya Pradesh, India",
+      city: "Mandleshwar, Khargone, Madhya Pradesh, India",
+      shortCity: "Mandleshwar (M.P.)",
       image: "/images/demo-groom.jpeg",
     },
     bride: {
@@ -31,6 +32,7 @@ export const weddingData = {
       family: "Patidar Family",
       parents: "Patidar Family",
       city: "Sundrel, Dhar, Madhya Pradesh, India",
+      shortCity: "Sundrel (M.P.)",
       image: "/images/demo-bride.png",
     },
     combinedName: "Khushbu Patidar & Abhay Patidar",

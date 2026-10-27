@@ -74,6 +74,10 @@ export const FamilyInvitation = ({ data }) => {
   const brideImage = data?.couple?.bride?.image || "/images/demo-bride.png";
   const groomImage = data?.couple?.groom?.image || "/images/demo-groom.jpeg";
 
+  // City / Location
+  const brideCity = data?.couple?.bride?.shortCity || "Sundrel (M.P.)";
+  const groomCity = data?.couple?.groom?.shortCity || "Mandleshwar (M.P.)";
+
   return (
     <section
       id="family-invitation"
@@ -212,7 +216,7 @@ export const FamilyInvitation = ({ data }) => {
                     Daughter of {brideFamilyName}
                   </p>
                   <p className="mt-0.5 text-[11px] font-serif uppercase tracking-wider text-[#84662B]">
-                    Sundrel (M.P.)
+                    {brideCity}
                   </p>
                 </div>
               </motion.div>
@@ -248,7 +252,7 @@ export const FamilyInvitation = ({ data }) => {
                     Son of {groomFamilyName}
                   </p>
                   <p className="mt-0.5 text-[11px] font-serif uppercase tracking-wider text-[#84662B]">
-                    Sundrel (M.P.)
+                    {groomCity}
                   </p>
                 </div>
               </motion.div>
