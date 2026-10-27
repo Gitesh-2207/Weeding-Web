@@ -14,28 +14,28 @@ export const EngagementClips = ({ data }) => {
       id: "photo-1",
       title: "The Palace Twilight",
       caption: "Hand in hand beneath the royal arches",
-      image: "/images/engagement-photo-4.jpg",
+      image: "/images/engagement-photo-4.jpeg",
       aspect: "wide",
     },
     {
       id: "photo-2",
       title: "The Beautiful Yes",
       caption: "The ring ceremony & an eternal promise",
-      image: "/images/engagement-photo-1.jpg",
+      image: "/images/engagement-photo-1.jpeg",
       aspect: "portrait",
     },
     {
       id: "photo-3",
       title: "Under The Canopy of Lights",
       caption: "Laughter, music & twilight celebration",
-      image: "/images/engagement-photo-2.jpg",
+      image: "/images/engagement-photo-2.jpeg",
       aspect: "portrait",
     },
     {
       id: "photo-4",
       title: "Whispers of Forever",
       caption: "Petals shower & boundless joy",
-      image: "/images/engagement-photo-3.jpg",
+      image: "/images/engagement-photo-3.jpeg",
       aspect: "portrait",
     },
   ];
@@ -46,9 +46,9 @@ export const EngagementClips = ({ data }) => {
     title: "The Beautiful Yes",
     subtitle: "Official Engagement Film • Ring Ceremony & Eternal Promise",
     tag: "ENGAGEMENT FILM",
-    duration: "0:45",
-    thumbnail: "/images/engagement-photo-1.jpg",
-    videoUrl: "",
+    duration: "0:17",
+    thumbnail: "/images/engagement-photo-1.jpeg",
+    videoUrl: "/engclip.mp4",
   };
 
   const handleCloseVideoModal = useCallback(() => {
@@ -94,7 +94,7 @@ export const EngagementClips = ({ data }) => {
       <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#C5A15A]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-5xl mx-auto relative z-10">
-        
+
         {/* ========================================================================= */}
         {/* 1. ENGAGEMENT HEADING & ROMANTIC STORYTELLING TEXT                        */}
         {/* ========================================================================= */}
@@ -169,7 +169,7 @@ export const EngagementClips = ({ data }) => {
 
           {/* Asymmetrical Editorial Collage Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
-            
+
             {/* Photo 1: Wide Hero Heritage Archway (Large Featured Spread) */}
             {photos[0] && (
               <motion.div
@@ -189,7 +189,7 @@ export const EngagementClips = ({ data }) => {
                     className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
-                  
+
                   {/* Hover View Badge */}
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20">
@@ -227,7 +227,7 @@ export const EngagementClips = ({ data }) => {
                     className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
-                  
+
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20">
                       <Eye className="w-3 h-3 text-[#D4A853]" />

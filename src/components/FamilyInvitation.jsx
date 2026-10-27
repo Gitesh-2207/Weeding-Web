@@ -70,9 +70,9 @@ export const FamilyInvitation = ({ data }) => {
   const brideFamilyName = data?.couple?.bride?.family || "The Patidar Family";
   const groomFamilyName = data?.couple?.groom?.family || "The Patidar Family";
 
-  // Demo image paths (replace with actual photographs when ready)
-  const brideImage = "/images/demo-bride.jpg";
-  const groomImage = "/images/demo-groom.jpg";
+  // Actual/Demo image paths
+  const brideImage = data?.couple?.bride?.image || "/images/demo-bride.png";
+  const groomImage = data?.couple?.groom?.image || "/images/demo-groom.jpeg";
 
   return (
     <section

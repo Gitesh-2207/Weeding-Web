@@ -79,9 +79,9 @@ export const weddingData = {
       title: "The Beautiful Yes",
       subtitle: "Official Engagement Film • Ring Ceremony & Eternal Promise",
       tag: "ENGAGEMENT FILM",
-      duration: "0:45",
-      thumbnail: "/images/engagement-photo-1.jpg",
-      videoUrl: "", // Paste your MP4/WebM video file path or URL (e.g., "/videos/engagement-proposal.mp4")
+      duration: "0:17",
+      thumbnail: "/images/engagement-photo-1.jpeg",
+      videoUrl: "/engclip.mp4",
     },
   },
   venue: {
