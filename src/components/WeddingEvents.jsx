@@ -370,21 +370,13 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-20 sm:mt-28 text-center max-w-2xl mx-auto px-4"
+          className="mt-20 sm:mt-28 text-center max-w-3xl mx-auto px-4"
         >
-          <div className="h-[1px] w-32 sm:w-48 bg-gradient-to-r from-transparent via-[#D4A853] to-transparent mx-auto mb-6" />
+          <div className="h-[1px] w-36 sm:w-56 bg-gradient-to-r from-transparent via-[#D4A853] to-transparent mx-auto mb-6" />
 
-          <p className="font-playfair text-lg sm:text-2xl md:text-3xl font-semibold text-burgundy tracking-wide leading-relaxed">
+          <p className="font-playfair text-2xl sm:text-4xl md:text-5xl font-semibold text-burgundy tracking-wide leading-tight sm:leading-snug drop-shadow-xs">
             Two Families. One Beautiful Beginning. Forever Together.
           </p>
-
-          <div className="mt-4 flex items-center justify-center space-x-3 text-[#D4A853]">
-            <span className="text-xs text-burgundy">♦</span>
-            <span className="text-xs font-serif tracking-[0.25em] uppercase text-gold-dark font-medium">
-              शुभ विवाह • मांगलिक प्रसंग
-            </span>
-            <span className="text-xs text-burgundy">♦</span>
-          </div>
         </motion.div>
 
       </div>
