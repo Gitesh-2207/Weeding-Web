@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-ivory: #F8F1E3;
+  --color-cream: #FFF9EF;
+  --color-gold: #C5A15A;
+  --color-burgundy: #6F2927;
+  --color-olive: #5D6244;
+  --color-brown: #51402F;
+  --color-text: #42362C;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F1E3;
+}
+::-webkit-scrollbar-thumb {
+  background: #C5A15A;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9B7832;
+}
+
+/* Paper texture & background patterns */
+.bg-paper-pattern {
+  background-color: #F8F1E3;
+  background-image: 
+    radial-gradient(#C5A15A 0.4px, transparent 0.4px),
+    radial-gradient(#6F2927 0.25px, #F8F1E3 0.25px);
+  background-size: 24px 24px;
+  background-position: 0 0, 12px 12px;
+  background-attachment: fixed;
+}
+
+.bg-cream-card {
+  background: linear-gradient(135deg, #FFFDF9 0%, #FFF9EF 60%, #FBF3E4 100%);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #84662B 0%, #C5A15A 35%, #F4DE9C 60%, #C5A15A 80%, #84662B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border-gradient {
+  border-image: linear-gradient(to right, #84662B, #C5A15A, #F4DE9C, #C5A15A, #84662B) 1;
+}
+
+.gold-metallic-box {
+  background: linear-gradient(135deg, #C5A15A 0%, #E2CA91 50%, #9B7832 100%);
+}
+
+/* Elegant Ornamental Card Border */
+.ornate-border {
+  border: 1px solid rgba(197, 161, 90, 0.4);
+  position: relative;
+}
+
+.ornate-border::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed rgba(197, 161, 90, 0.35);
+  pointer-events: none;
+}
+
+/* Floating Petals Container */
+.petals-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 40;
+}
+
+/* Shimmer animation effect */
+.shimmer-badge {
+  background: linear-gradient(90deg, rgba(197,161,90,0.1) 0%, rgba(197,161,90,0.3) 50%, rgba(197,161,90,0.1) 100%);
+  background-size: 200% 100%;
+  animation: shimmerMove 4s infinite linear;
+}
+
+@keyframes shimmerMove {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Floral Arch Frame Outline */
+.arch-frame {
+  border-radius: 200px 200px 8px 8px;
+}
