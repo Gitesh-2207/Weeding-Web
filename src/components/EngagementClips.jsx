@@ -1,55 +1,74 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Play, X, Film, Clock, Sparkles, Camera, Eye } from 'lucide-react';
+import { Play, X, Film, Clock, Sparkles, Camera, Eye, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { CornerFlourish, FloralGarland } from './common/DecorativeElements';
+
+// Stable default fallbacks outside component to optimize memoization and prevent re-evaluations
+const DEFAULT_PHOTOS = [
+  {
+    id: "photo-1",
+    title: "The Palace Twilight",
+    caption: "Hand in hand beneath the royal arches",
+    image: "/images/engagement-photo-4.jpeg",
+    aspect: "portrait",
+  },
+  {
+    id: "photo-2",
+    title: "The Beautiful Yes",
+    caption: "The ring ceremony & an eternal promise",
+    image: "/images/engagement-photo-1.jpeg",
+    aspect: "portrait",
+  },
+  {
+    id: "photo-3",
+    title: "Under The Canopy of Lights",
+    caption: "Laughter, music & twilight celebration",
+    image: "/images/engagement-photo-2.jpeg",
+    aspect: "portrait",
+  },
+  {
+    id: "photo-4",
+    title: "Whispers of Forever",
+    caption: "Petals shower & boundless joy",
+    image: "/images/engagement-photo-3.jpeg",
+    aspect: "portrait",
+  },
+];
+
+const DEFAULT_VIDEO = {
+  id: "clip-main",
+  title: "The Beautiful Yes",
+  subtitle: "Official Engagement Film • Ring Ceremony & Eternal Promise",
+  tag: "ENGAGEMENT FILM",
+  duration: "0:17",
+  thumbnail: "/images/engagement-photo-1.jpeg",
+  videoUrl: "/engclip.mp4",
+};
 
 export const EngagementClips = ({ data }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [activePhoto, setActivePhoto] = useState(null);
+  const [isPlayingInline, setIsPlayingInline] = useState(false);
   const videoRef = useRef(null);
+  const inlineVideoRef = useRef(null);
 
-  // Fallback engagement photos
-  const photos = data?.engagement?.photos || [
-    {
-      id: "photo-1",
-      title: "The Palace Twilight",
-      caption: "Hand in hand beneath the royal arches",
-      image: "/images/engagement-photo-4.jpeg",
-      aspect: "wide",
-    },
-    {
-      id: "photo-2",
-      title: "The Beautiful Yes",
-      caption: "The ring ceremony & an eternal promise",
-      image: "/images/engagement-photo-1.jpeg",
-      aspect: "portrait",
-    },
-    {
-      id: "photo-3",
-      title: "Under The Canopy of Lights",
-      caption: "Laughter, music & twilight celebration",
-      image: "/images/engagement-photo-2.jpeg",
-      aspect: "portrait",
-    },
-    {
-      id: "photo-4",
-      title: "Whispers of Forever",
-      caption: "Petals shower & boundless joy",
-      image: "/images/engagement-photo-3.jpeg",
-      aspect: "portrait",
-    },
-  ];
+  // Engagement photos and video
+  const photos = data?.engagement?.photos || DEFAULT_PHOTOS;
+  const video = data?.engagement?.video || DEFAULT_VIDEO;
 
-  // Fallback engagement video
-  const video = data?.engagement?.video || {
-    id: "clip-main",
-    title: "The Beautiful Yes",
-    subtitle: "Official Engagement Film • Ring Ceremony & Eternal Promise",
-    tag: "ENGAGEMENT FILM",
-    duration: "0:17",
-    thumbnail: "/images/engagement-photo-1.jpeg",
-    videoUrl: "/engclip.mp4",
-  };
+  // Preload all engagement images on mount for instant rendering and faster viewing
+  useEffect(() => {
+    photos.forEach((p) => {
+      if (p?.image) {
+        const img = new Image();
+        img.src = p.image;
+      }
+    });
+    if (video?.thumbnail) {
+      const vThumb = new Image();
+      vThumb.src = video.thumbnail;
+    }
+  }, [photos, video]);
 
   const handleCloseVideoModal = useCallback(() => {
     if (videoRef.current) {
@@ -62,12 +81,32 @@ export const EngagementClips = ({ data }) => {
     setActivePhoto(null);
   }, []);
 
-  // Keyboard shortcut (Escape) to close any active modal
+  const handlePrevPhoto = useCallback((e) => {
+    if (e) e.stopPropagation();
+    if (!activePhoto) return;
+    const currentIndex = photos.findIndex((p) => p.id === activePhoto.id);
+    const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
+    setActivePhoto(photos[prevIndex]);
+  }, [activePhoto, photos]);
+
+  const handleNextPhoto = useCallback((e) => {
+    if (e) e.stopPropagation();
+    if (!activePhoto) return;
+    const currentIndex = photos.findIndex((p) => p.id === activePhoto.id);
+    const nextIndex = (currentIndex + 1) % photos.length;
+    setActivePhoto(photos[nextIndex]);
+  }, [activePhoto, photos]);
+
+  // Keyboard navigation (Escape, ArrowLeft, ArrowRight)
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         if (selectedVideo) handleCloseVideoModal();
         if (activePhoto) handleClosePhotoModal();
+      } else if (e.key === 'ArrowLeft' && activePhoto) {
+        handlePrevPhoto();
+      } else if (e.key === 'ArrowRight' && activePhoto) {
+        handleNextPhoto();
       }
     };
 
@@ -82,7 +121,7 @@ export const EngagementClips = ({ data }) => {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
-  }, [selectedVideo, activePhoto, handleCloseVideoModal, handleClosePhotoModal]);
+  }, [selectedVideo, activePhoto, handleCloseVideoModal, handleClosePhotoModal, handlePrevPhoto, handleNextPhoto]);
 
   return (
     <section
@@ -93,7 +132,7 @@ export const EngagementClips = ({ data }) => {
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-10 w-[500px] h-[500px] bg-[#C5A15A]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-5xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
 
         {/* ========================================================================= */}
         {/* 1. ENGAGEMENT HEADING & ROMANTIC STORYTELLING TEXT                        */}
@@ -103,7 +142,7 @@ export const EngagementClips = ({ data }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-14 sm:mb-16"
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
         >
           {/* Top Label */}
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cream-50 border border-[#D4A853]/50 shadow-xs mb-4">
@@ -148,263 +187,190 @@ export const EngagementClips = ({ data }) => {
         </motion.div>
 
         {/* ========================================================================= */}
-        {/* 2. ENGAGEMENT PHOTOS GALLERY (Collage Layout with Varied Sizes)            */}
+        {/* 2. ENGAGEMENT PHOTOS GALLERY (Properly Sized & Optimized Portrait Frames) */}
         {/* ========================================================================= */}
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.85, delay: 0.2 }}
-          className="mb-14 sm:mb-18"
+          className="mb-14 sm:mb-20"
         >
           <div className="flex items-center justify-between mb-5 px-1">
-            <div className="flex items-center space-x-2 text-xs font-serif uppercase tracking-widest text-[#84662B]">
+            <div className="flex items-center space-x-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-[#84662B]">
               <Camera className="w-4 h-4 text-[#D4A853]" />
               <span className="font-semibold">Engagement Memories In Frames</span>
             </div>
-            <span className="text-[11px] font-serif uppercase tracking-wider text-royal-brown/65">
-              4 Moments
+            <span className="text-[11px] sm:text-xs font-serif uppercase tracking-wider text-royal-brown/70 bg-cream-50 px-3 py-1 rounded-full border border-[#D4A853]/40">
+              4 Moments • Click to Zoom
             </span>
           </div>
 
-          {/* Asymmetrical Editorial Collage Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-6">
-
-            {/* Photo 1: Wide Hero Heritage Archway (Large Featured Spread) */}
-            {photos[0] && (
+          {/* Balanced 4-Card Luxury Photo Grid (2 cols on mobile, 4 cols on desktop) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+            {photos.map((photo, index) => (
               <motion.div
-                whileHover={{ y: -5 }}
+                key={photo.id || index}
+                whileHover={{ y: -6 }}
                 transition={{ duration: 0.35 }}
-                onClick={() => setActivePhoto(photos[0])}
-                className="lg:col-span-7 group relative cursor-pointer rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden"
+                onClick={() => setActivePhoto(photo)}
+                className="group relative cursor-pointer rounded-2xl sm:rounded-3xl p-1.5 sm:p-2 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden"
               >
-                <CornerFlourish className="absolute top-2 left-2 w-8 h-8 opacity-75 z-20 pointer-events-none" position="top-left" color="#D4A853" />
-                <CornerFlourish className="absolute bottom-2 right-2 w-8 h-8 opacity-75 z-20 pointer-events-none" position="bottom-right" color="#D4A853" />
+                <CornerFlourish className="absolute top-1.5 left-1.5 w-6 h-6 sm:w-7 sm:h-7 opacity-75 z-20 pointer-events-none" position="top-left" color="#D4A853" />
+                <CornerFlourish className="absolute bottom-1.5 right-1.5 w-6 h-6 sm:w-7 sm:h-7 opacity-75 z-20 pointer-events-none" position="bottom-right" color="#D4A853" />
 
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-black/10">
+                {/* Aspect Ratio 3:4 displays full portrait photographs without awkward cropping */}
+                <div className="relative aspect-[3/4] w-full rounded-xl sm:rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-[#F5EFE0]">
                   <img
-                    src={photos[0].image}
-                    alt={photos[0].title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+                    src={photo.image}
+                    alt={photo.title}
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover object-top sm:object-center transition-transform duration-700 ease-out group-hover:scale-106"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
+                  
+                  {/* Subtle dark gradient overlay for crystal clear text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-75 group-hover:opacity-60 transition-opacity duration-300" />
 
-                  {/* Hover View Badge */}
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20">
+                  {/* Top-Right Quick Zoom Badge */}
+                  <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+                    <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20 shadow-sm">
                       <Eye className="w-3 h-3 text-[#D4A853]" />
                       <span>View</span>
                     </span>
                   </div>
 
                   {/* Caption & Title */}
-                  <div className="absolute bottom-3.5 left-4 right-4 z-10 text-white">
-                    <h4 className="font-playfair text-lg sm:text-xl font-semibold drop-shadow-md">
-                      {photos[0].title}
-                    </h4>
-                    <p className="text-xs font-cormorant italic text-white/85 mt-0.5 line-clamp-1">
-                      {photos[0].caption}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Photo 2: The Ring Proposal Ceremony (Portrait orientation) */}
-            {photos[1] && (
-              <motion.div
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.35 }}
-                onClick={() => setActivePhoto(photos[1])}
-                className="lg:col-span-5 group relative cursor-pointer rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden"
-              >
-                <div className="relative aspect-[4/3] sm:aspect-[4/3] lg:aspect-auto lg:h-full rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-black/10 min-h-[240px]">
-                  <img
-                    src={photos[1].image}
-                    alt={photos[1].title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
-
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20">
-                      <Eye className="w-3 h-3 text-[#D4A853]" />
-                      <span>View</span>
+                  <div className="absolute bottom-2.5 sm:bottom-3.5 left-2.5 sm:left-3.5 right-2.5 sm:right-3.5 z-10 text-white">
+                    <span className="text-[10px] font-serif uppercase tracking-widest text-[#D4A853] font-semibold block mb-0.5">
+                      Moment 0{index + 1}
                     </span>
-                  </div>
-
-                  <div className="absolute bottom-3.5 left-4 right-4 z-10 text-white">
-                    <h4 className="font-playfair text-lg sm:text-xl font-semibold drop-shadow-md">
-                      {photos[1].title}
+                    <h4 className="font-playfair text-sm sm:text-base font-semibold drop-shadow-md leading-tight line-clamp-1">
+                      {photo.title}
                     </h4>
-                    <p className="text-xs font-cormorant italic text-white/85 mt-0.5 line-clamp-1">
-                      {photos[1].caption}
+                    <p className="text-[11px] sm:text-xs font-cormorant italic text-white/90 mt-0.5 line-clamp-1">
+                      {photo.caption}
                     </p>
                   </div>
                 </div>
               </motion.div>
-            )}
-
-            {/* Photo 3: Under the Canopy of Lights */}
-            {photos[2] && (
-              <motion.div
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.35 }}
-                onClick={() => setActivePhoto(photos[2])}
-                className="lg:col-span-6 group relative cursor-pointer rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden"
-              >
-                <div className="relative aspect-[16/10] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-black/10">
-                  <img
-                    src={photos[2].image}
-                    alt={photos[2].title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
-
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20">
-                      <Eye className="w-3 h-3 text-[#D4A853]" />
-                      <span>View</span>
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-3.5 left-4 right-4 z-10 text-white">
-                    <h4 className="font-playfair text-lg sm:text-xl font-semibold drop-shadow-md">
-                      {photos[2].title}
-                    </h4>
-                    <p className="text-xs font-cormorant italic text-white/85 mt-0.5 line-clamp-1">
-                      {photos[2].caption}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {/* Photo 4: Petals Shower Candid Joy */}
-            {photos[3] && (
-              <motion.div
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.35 }}
-                onClick={() => setActivePhoto(photos[3])}
-                className="lg:col-span-6 group relative cursor-pointer rounded-3xl p-2 sm:p-2.5 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden"
-              >
-                <div className="relative aspect-[16/10] sm:aspect-[16/10] rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-black/10">
-                  <img
-                    src={photos[3].image}
-                    alt={photos[3].title}
-                    loading="lazy"
-                    className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20 opacity-70 group-hover:opacity-50 transition-opacity duration-300" />
-
-                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-                    <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20">
-                      <Eye className="w-3 h-3 text-[#D4A853]" />
-                      <span>View</span>
-                    </span>
-                  </div>
-
-                  <div className="absolute bottom-3.5 left-4 right-4 z-10 text-white">
-                    <h4 className="font-playfair text-lg sm:text-xl font-semibold drop-shadow-md">
-                      {photos[3].title}
-                    </h4>
-                    <p className="text-xs font-cormorant italic text-white/85 mt-0.5 line-clamp-1">
-                      {photos[3].caption}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
+            ))}
           </div>
         </motion.div>
 
         {/* ========================================================================= */}
-        {/* 3. ENGAGEMENT VIDEO CLIP (Prominently Placed Below the Photos)             */}
+        {/* 3. ENGAGEMENT VIDEO CLIP (Widescreen Cinema Presentation)                  */}
         {/* ========================================================================= */}
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.85, delay: 0.3 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-4xl lg:max-w-5xl mx-auto"
         >
           <div className="flex items-center justify-between mb-4 px-1">
-            <div className="flex items-center space-x-2 text-xs font-serif uppercase tracking-widest text-[#84662B]">
+            <div className="flex items-center space-x-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-[#84662B]">
               <Film className="w-4 h-4 text-[#D4A853]" />
               <span className="font-semibold">Featured Engagement Film</span>
             </div>
-            <div className="inline-flex items-center space-x-1 text-xs font-mono text-[#84662B] bg-cream-50 px-2.5 py-0.5 rounded-full border border-[#D4A853]/40">
-              <Clock className="w-3 h-3 text-[#D4A853]" />
+            <div className="inline-flex items-center space-x-1.5 text-xs font-mono text-[#84662B] bg-cream-50 px-3 py-1 rounded-full border border-[#D4A853]/40 shadow-xs">
+              <Clock className="w-3.5 h-3.5 text-[#D4A853]" />
               <span>{video.duration}</span>
             </div>
           </div>
 
-          {/* Prominent Video Card */}
-          <motion.div
-            whileHover={{ y: -6 }}
-            transition={{ duration: 0.35 }}
-            onClick={() => setSelectedVideo(video)}
-            className="group relative cursor-pointer rounded-3xl p-3 sm:p-4 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border-2 border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden"
-          >
-            {/* Corner Ornaments */}
+          {/* Prominent Cinema Sized Video Card */}
+          <div className="group relative rounded-3xl p-2.5 sm:p-4 bg-gradient-to-b from-[#FFFDF9] via-[#FFF9EF] to-[#F8F1E3] border-2 border-[#D4A853]/60 shadow-royal hover:shadow-gold-glow transition-all duration-500 overflow-hidden">
             <CornerFlourish className="absolute top-2 left-2 w-9 h-9 opacity-75 z-20 pointer-events-none" position="top-left" color="#D4A853" />
             <CornerFlourish className="absolute top-2 right-2 w-9 h-9 opacity-75 z-20 pointer-events-none" position="top-right" color="#D4A853" />
             <CornerFlourish className="absolute bottom-2 left-2 w-9 h-9 opacity-75 z-20 pointer-events-none" position="bottom-left" color="#D4A853" />
             <CornerFlourish className="absolute bottom-2 right-2 w-9 h-9 opacity-75 z-20 pointer-events-none" position="bottom-right" color="#D4A853" />
 
-            {/* Video Thumbnail Frame */}
-            <div className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-black/20 shadow-inner">
-              <img
-                src={video.thumbnail}
-                alt={video.title}
-                loading="lazy"
-                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
+            {/* Video Frame (True 16:9 widescreen, native 848x478 aspect ratio) */}
+            <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden border border-[#D4A853]/40 bg-black shadow-inner">
+              {isPlayingInline ? (
+                <video
+                  ref={inlineVideoRef}
+                  src={video.videoUrl}
+                  poster={video.thumbnail}
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="metadata"
+                  className="w-full h-full object-contain bg-black"
+                >
+                  Your browser does not support HTML5 video playback.
+                </video>
+              ) : (
+                <div
+                  onClick={() => setIsPlayingInline(true)}
+                  className="w-full h-full cursor-pointer relative group/thumb"
+                >
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    loading="eager"
+                    decoding="async"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover/thumb:scale-103"
+                  />
 
-              {/* Cinematic Dark Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/30 group-hover:via-black/20 transition-all duration-500" />
+                  {/* Cinematic Dark Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30 group-hover/thumb:via-black/25 transition-all duration-500" />
 
-              {/* Top Tag Pill */}
-              <div className="absolute top-4 left-4 z-10">
-                <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-xs text-[11px] font-serif uppercase tracking-widest text-burgundy font-bold shadow-xs border border-[#D4A853]/50">
-                  {video.tag || "OFFICIAL REEL"}
-                </span>
-              </div>
+                  {/* Top Tag Pill */}
+                  <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
+                    <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-[11px] font-serif uppercase tracking-widest text-burgundy font-bold shadow-xs border border-[#D4A853]/50">
+                      {video.tag || "OFFICIAL FILM"}
+                    </span>
+                  </div>
 
-              {/* Large Centered Play Button */}
-              <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/45 backdrop-blur-md border-2 border-[#D4A853] flex items-center justify-center text-[#D4A853] shadow-gold-glow group-hover:scale-110 group-hover:bg-[#D4A853] group-hover:text-white transition-all duration-300">
-                  <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+                  {/* Top-Right Cinema Expand Button */}
+                  <div className="absolute top-3 sm:top-4 right-3 sm:right-4 z-10">
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideo(video);
+                      }}
+                      className="px-3 py-1 rounded-full bg-black/60 hover:bg-[#D4A853] backdrop-blur-xs text-[11px] font-serif uppercase tracking-wider text-white border border-white/20 transition-colors shadow-sm flex items-center space-x-1.5"
+                      title="Open in Cinema Mode"
+                    >
+                      <Maximize2 className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Cinema Theater</span>
+                    </button>
+                  </div>
+
+                  {/* Large Centered Golden Play Button */}
+                  <div className="absolute inset-0 flex items-center justify-center z-10">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-black/50 backdrop-blur-md border-2 border-[#D4A853] flex items-center justify-center text-[#D4A853] shadow-gold-glow group-hover/thumb:scale-110 group-hover/thumb:bg-[#D4A853] group-hover/thumb:text-white transition-all duration-300">
+                      <Play className="w-7 h-7 sm:w-8 sm:h-8 fill-current ml-1" />
+                    </div>
+                  </div>
+
+                  {/* Bottom Video Information */}
+                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 z-10 text-white flex items-end justify-between">
+                    <div>
+                      <h3 className="font-playfair text-lg sm:text-2xl md:text-3xl font-semibold leading-tight drop-shadow-md">
+                        {video.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm font-cormorant italic text-white/90 mt-1 line-clamp-1">
+                        {video.subtitle}
+                      </p>
+                    </div>
+                    <div className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xs text-xs font-serif text-white/90 border border-white/20 shrink-0">
+                      <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" />
+                      <span>Click to Play</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              {/* Bottom Video Information */}
-              <div className="absolute bottom-4 left-4 right-4 z-10 text-white flex items-end justify-between">
-                <div>
-                  <h3 className="font-playfair text-xl sm:text-2xl md:text-3xl font-semibold leading-tight drop-shadow-md">
-                    {video.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm font-cormorant italic text-white/90 mt-1 line-clamp-1">
-                    {video.subtitle}
-                  </p>
-                </div>
-                <div className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xs text-xs font-serif text-white/90 border border-white/20 shrink-0">
-                  <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" />
-                  <span>Tap to Watch</span>
-                </div>
-              </div>
+              )}
             </div>
-          </motion.div>
+          </div>
         </motion.div>
 
       </div>
 
       {/* ========================================================================= */}
-      {/* VIDEO LIGHTBOX / MODAL                                                    */}
+      {/* VIDEO CINEMA THEATER MODAL                                                */}
       {/* ========================================================================= */}
       <AnimatePresence>
         {selectedVideo && (
@@ -414,7 +380,7 @@ export const EngagementClips = ({ data }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={handleCloseVideoModal}
-            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
             role="dialog"
             aria-modal="true"
             aria-label={selectedVideo.title}
@@ -425,84 +391,54 @@ export const EngagementClips = ({ data }) => {
               exit={{ scale: 0.92, opacity: 0, y: 20 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-xl w-full bg-[#1A1412] rounded-3xl border-2 border-[#D4A853]/60 shadow-2xl p-4 sm:p-5 overflow-hidden text-center"
+              className="relative max-w-4xl lg:max-w-5xl w-full bg-[#1A1412] rounded-3xl border-2 border-[#D4A853]/60 shadow-2xl p-3 sm:p-5 overflow-hidden text-center"
             >
               {/* Close Button */}
               <button
                 onClick={handleCloseVideoModal}
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/60 border border-[#D4A853]/60 text-white/90 hover:text-white hover:bg-[#D4A853] flex items-center justify-center transition-colors duration-200"
-                aria-label="Close video player"
+                className="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full bg-black/70 border border-[#D4A853]/60 text-white/90 hover:text-white hover:bg-[#D4A853] flex items-center justify-center transition-colors duration-200"
+                aria-label="Close cinema player"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Video Player or Interactive Placeholder */}
-              <div className="relative rounded-2xl overflow-hidden bg-black aspect-[16/9] max-h-[70vh] mx-auto border border-[#D4A853]/30 shadow-inner flex items-center justify-center">
-                {selectedVideo.videoUrl ? (
-                  <video
-                    ref={videoRef}
-                    src={selectedVideo.videoUrl}
-                    poster={selectedVideo.thumbnail}
-                    controls
-                    autoPlay
-                    playsInline
-                    className="w-full h-full object-contain"
-                  >
-                    Your browser does not support HTML5 video playback.
-                  </video>
-                ) : (
-                  // Elegant Placeholder when video file has not been uploaded yet
-                  <div className="relative w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                    <img
-                      src={selectedVideo.thumbnail}
-                      alt={selectedVideo.title}
-                      className="absolute inset-0 w-full h-full object-cover opacity-35 filter blur-xs"
-                    />
-                    <div className="relative z-10 flex flex-col items-center max-w-sm">
-                      <div className="w-14 h-14 rounded-full bg-[#D4A853]/20 border border-[#D4A853] flex items-center justify-center text-[#D4A853] mb-3 shadow-gold-glow animate-pulse">
-                        <Film className="w-7 h-7" />
-                      </div>
-                      <h4 className="font-playfair text-xl text-[#FFFDF9] font-medium mb-1">
-                        {selectedVideo.title}
-                      </h4>
-                      <p className="text-xs font-cormorant italic text-[#D4A853] mb-3">
-                        {selectedVideo.subtitle}
-                      </p>
-                      <div className="p-3.5 rounded-xl bg-black/75 border border-[#D4A853]/40 text-white/85 text-xs leading-relaxed">
-                        <p className="font-serif uppercase tracking-wider text-[10px] text-[#D4A853] font-semibold mb-1">
-                          Video Ready To Play
-                        </p>
-                        Place your video file (e.g. <span className="text-[#D4A853] font-mono">engagement.mp4</span>) in the <span className="font-mono text-white">public/videos/</span> directory and set <span className="text-[#D4A853] font-mono">videoUrl</span> in <span className="font-mono text-white">weddingData.js</span>.
-                      </div>
-                    </div>
-                  </div>
-                )}
+              {/* Large 16:9 Cinema Player */}
+              <div className="relative rounded-2xl overflow-hidden bg-black aspect-[16/9] w-full max-h-[75vh] mx-auto border border-[#D4A853]/30 shadow-inner flex items-center justify-center">
+                <video
+                  ref={videoRef}
+                  src={selectedVideo.videoUrl}
+                  poster={selectedVideo.thumbnail}
+                  controls
+                  autoPlay
+                  playsInline
+                  preload="auto"
+                  className="w-full h-full object-contain bg-black"
+                >
+                  Your browser does not support HTML5 video playback.
+                </video>
               </div>
 
-              {/* Footer Details */}
-              <div className="pt-4 pb-1 text-left px-1 flex items-center justify-between">
+              {/* Cinema Player Footer */}
+              <div className="pt-3.5 pb-1 text-left px-1 flex items-center justify-between text-white">
                 <div>
-                  <h3 className="font-playfair text-lg text-white font-semibold">
+                  <h3 className="font-playfair text-lg sm:text-xl font-semibold">
                     {selectedVideo.title}
                   </h3>
                   <p className="text-xs font-cormorant italic text-[#D4A853]">
                     {selectedVideo.subtitle}
                   </p>
                 </div>
-                <div className="text-right">
-                  <span className="text-[11px] font-serif uppercase tracking-wider text-white/60">
-                    Duration: {selectedVideo.duration}
-                  </span>
-                </div>
+                <span className="text-[11px] font-serif uppercase tracking-wider text-white/70">
+                  Duration: {selectedVideo.duration}
+                </span>
               </div>
-
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
 
       {/* ========================================================================= */}
-      {/* PHOTO LIGHTBOX / MODAL                                                    */}
+      {/* PHOTO LIGHTBOX MODAL WITH FULL CONTROLS                                    */}
       {/* ========================================================================= */}
       <AnimatePresence>
         {activePhoto && (
@@ -512,7 +448,7 @@ export const EngagementClips = ({ data }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={handleClosePhotoModal}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
             role="dialog"
             aria-modal="true"
             aria-label={activePhoto.title}
@@ -523,16 +459,36 @@ export const EngagementClips = ({ data }) => {
               exit={{ scale: 0.92, opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-3xl w-full bg-[#1A1412] rounded-3xl border border-[#D4A853]/60 shadow-2xl p-3 sm:p-4 overflow-hidden text-center"
+              className="relative max-w-4xl lg:max-w-5xl w-full bg-[#1A1412] rounded-3xl border border-[#D4A853]/60 shadow-2xl p-3 sm:p-4 overflow-hidden text-center"
             >
+              {/* Close Button */}
               <button
                 onClick={handleClosePhotoModal}
-                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/60 border border-[#D4A853]/60 text-white/90 hover:text-white hover:bg-[#D4A853] flex items-center justify-center transition-colors duration-200"
+                className="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full bg-black/70 border border-[#D4A853]/60 text-white/90 hover:text-white hover:bg-[#D4A853] flex items-center justify-center transition-colors duration-200"
                 aria-label="Close photo preview"
               >
                 <X className="w-5 h-5" />
               </button>
 
+              {/* Previous Photo Button */}
+              <button
+                onClick={handlePrevPhoto}
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/60 hover:bg-[#D4A853] text-white border border-white/20 transition-colors"
+                aria-label="Previous photo"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+
+              {/* Next Photo Button */}
+              <button
+                onClick={handleNextPhoto}
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/60 hover:bg-[#D4A853] text-white border border-white/20 transition-colors"
+                aria-label="Next photo"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Full Image Container */}
               <div className="rounded-2xl overflow-hidden bg-black max-h-[75vh] flex items-center justify-center border border-[#D4A853]/30">
                 <img
                   src={activePhoto.image}
@@ -541,18 +497,21 @@ export const EngagementClips = ({ data }) => {
                 />
               </div>
 
-              <div className="pt-3.5 pb-1 px-2 text-left flex items-center justify-between">
+              {/* Lightbox Footer */}
+              <div className="pt-3 pb-1 px-2 text-left flex items-center justify-between text-white">
                 <div>
-                  <h4 className="font-playfair text-lg text-white font-semibold">
+                  <h4 className="font-playfair text-base sm:text-lg font-semibold">
                     {activePhoto.title}
                   </h4>
                   <p className="text-xs font-cormorant italic text-[#D4A853]">
                     {activePhoto.caption}
                   </p>
                 </div>
-                <span className="text-[11px] font-serif uppercase tracking-widest text-[#D4A853]/70">
-                  Patidar Engagement
-                </span>
+                <div className="text-right">
+                  <span className="text-[11px] font-serif uppercase tracking-widest text-[#D4A853]">
+                    {photos.findIndex((p) => p.id === activePhoto.id) + 1} of {photos.length}
+                  </span>
+                </div>
               </div>
             </motion.div>
           </motion.div>
