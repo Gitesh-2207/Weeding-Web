@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CornerFlourish, FloralGarland } from './common/DecorativeElements';
-import { Calendar, Clock, Sparkles, Shirt, Heart, Music2, Sun, Flame } from 'lucide-react';
+import { Calendar, Clock, Sparkles, Shirt, Heart, Music2, Sun, Flame, Crown } from 'lucide-react';
 
 // Custom Event Illustrations in traditional Indian artistic style
 const GaneshPujanIllustration = () => (
@@ -70,6 +70,57 @@ const SangeetIllustration = () => (
     <circle cx="30" cy="78" r="2.5" fill="#F59E0B" />
     <circle cx="94" cy="68" r="2" fill="#F59E0B" />
     <circle cx="62" cy="22" r="2" fill="#D97706" />
+  </svg>
+);
+
+const BaraatIllustration = () => (
+  <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 sm:w-20 sm:h-20" aria-hidden="true">
+    <circle cx="60" cy="60" r="52" fill="#FFEDD5" fillOpacity="0.45" stroke="#EA580C" strokeWidth="1" strokeDasharray="3 3" />
+    <circle cx="60" cy="60" r="44" stroke="#D4A853" strokeWidth="0.75" />
+    {/* Decorative Procession Royal Horse with Kalgi */}
+    <g transform="translate(6, 4)">
+      <path
+        d="M45 74 C42 62, 46 48, 52 40 C55 36, 62 34, 68 36 C74 38, 77 44, 73 50 C71 53, 67 55, 62 56 C57 60, 56 68, 56 74 Z"
+        fill="#CA8A04"
+      />
+      <path
+        d="M68 36 C74 37, 78 40, 76 45 C74 48, 70 47, 68 44 Z"
+        fill="#A16207"
+      />
+      {/* Royal Kalgi & Plume on Crown */}
+      <path
+        d="M58 35 C58 24, 64 20, 62 16 C60 22, 55 26, 56 34 Z"
+        fill="#DC2626"
+      />
+      <circle cx="58" cy="34" r="2" fill="#FBBF24" />
+      {/* Ceremonial Jhul / Saddle Cloth */}
+      <path
+        d="M36 74 C36 68, 56 66, 64 74 L62 82 C52 84, 42 84, 38 82 Z"
+        fill="#DC2626"
+        stroke="#FBBF24"
+        strokeWidth="1.5"
+      />
+      {/* Pearl Bridle */}
+      <path
+        d="M54 44 Q60 50 66 43"
+        stroke="#FFFBEB"
+        strokeWidth="1.5"
+        strokeDasharray="2 2"
+        fill="none"
+      />
+    </g>
+    {/* Celebratory Traditional Dhol Beats on Left Side */}
+    <g transform="translate(18, 58) rotate(-20)">
+      <ellipse cx="20" cy="20" rx="10" ry="6" fill="#9A3412" />
+      <ellipse cx="12" cy="20" rx="3" ry="5.5" fill="#78350F" stroke="#FDE68A" strokeWidth="1" />
+      <ellipse cx="28" cy="20" rx="3" ry="5.5" fill="#78350F" stroke="#FDE68A" strokeWidth="1" />
+      <path d="M14 16 L20 20 L26 16 M14 24 L20 20 L26 24" stroke="#FDE68A" strokeWidth="0.75" />
+    </g>
+    {/* Festive Sparkles & Petals */}
+    <path d="M88 28 L90 34 L96 36 L90 38 L88 44 L86 38 L80 36 L86 34 Z" fill="#F59E0B" />
+    <circle cx="28" cy="38" r="3" fill="#EA580C" />
+    <circle cx="92" cy="72" r="3" fill="#E11D48" />
+    <circle cx="34" cy="88" r="2.5" fill="#FBBF24" />
   </svg>
 );
 
@@ -157,12 +208,36 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
     },
     {
       number: "04",
+      badge: "THE ROYAL PROCESSION",
+      title: "Baarat Aagaman",
+      tagline: "The Groom Arrives, The Celebration Begins!",
+      description: "With dhol beats, joyful dancing, and hearts full of excitement, the groom arrives with his beloved family and friends to begin this beautiful wedding celebration.",
+      date: "25 November 2026",
+      time: "9:00 AM onwards",
+      dressCode: "Festive Silk & Traditional Safas",
+      venue: "Chowk Mohalla to Vivah Sthal, Sundrel, Dhar, MP",
+      themeBorder: "border-[#F97316]/60 hover:border-[#EA580C]",
+      themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF8EB] to-[#FFEDD5]",
+      accentColor: "text-[#C2410C]",
+      markerBg: "bg-gradient-to-br from-[#FFEDD5] to-[#FED7AA] text-[#C2410C]",
+      markerIcon: Crown,
+      illustration: <BaraatIllustration />,
+      isGrandFinale: false,
+      details: [
+        "A grand welcome filled with love and happiness.",
+        "Traditional dhol beats and lively baraat dancing.",
+        "A warm welcome for the groom and his family.",
+        "The beginning of our most-awaited wedding moments.",
+      ],
+    },
+    {
+      number: "05",
       badge: "THE SACRED UNION",
       title: "Wedding Ceremony",
       tagline: "The Day We Become One",
       description: "With the blessings of our families and the love of everyone dear to us, we invite you to witness our sacred union and celebrate the beginning of our forever.",
       date: "25 November 2026",
-      time: "9:00 AM onwards • Baraat & Vivah",
+      time: "Following Baarat • Vivah Sanskar",
       dressCode: "Royal Ethnic & Traditional Silk",
       venue: "Sundrel, Dhar, Madhya Pradesh",
       themeBorder: "border-2 border-[#D4A853] hover:border-[#9B7832]",
@@ -204,7 +279,7 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
           </h2>
 
           <p className="mt-3.5 text-base sm:text-xl font-cormorant italic text-royal-brown/90 tracking-wide max-w-xl mx-auto">
-            Four beautiful moments, countless precious memories.
+            Five beautiful moments, countless precious memories.
           </p>
 
           <FloralGarland className="mt-5 max-w-sm mx-auto" />
@@ -372,9 +447,23 @@ const TimelineCard = ({ event, isLeft }) => {
       </div>
 
       {/* Event Description */}
-      <p className="text-xs sm:text-sm md:text-base font-cormorant italic text-royal-brown/95 leading-relaxed mb-6 pt-2 border-t border-[#D4A853]/25">
+      <p className="text-xs sm:text-sm md:text-base font-cormorant italic text-royal-brown/95 leading-relaxed mb-4 pt-2 border-t border-[#D4A853]/25">
         "{event.description}"
       </p>
+
+      {/* Additional Details (if provided) */}
+      {event.details && event.details.length > 0 && (
+        <div className="mb-5 pt-3 border-t border-[#D4A853]/20">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-serif text-royal-brown/90">
+            {event.details.map((detail, idx) => (
+              <li key={idx} className="flex items-start space-x-1.5">
+                <span className="text-[#D4A853] text-xs leading-none mt-0.5">✦</span>
+                <span className="leading-snug">{detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Event Meta Badges: Date, Time & Dress Code */}
       <div className="pt-4 border-t border-[#D4A853]/30 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-serif">
