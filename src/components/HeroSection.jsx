@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { RoyalMandala, FloralGarland, HangingToran } from './common/DecorativeElements';
+import { ScrollExploreIndicator } from './common/ScrollExploreIndicator';
 import { Calendar, MapPin } from 'lucide-react';
 
 export const HeroSection = ({ data, t, lang }) => {
@@ -8,10 +9,15 @@ export const HeroSection = ({ data, t, lang }) => {
   const archY = useTransform(scrollY, [0, 600], [0, 80]);
   const toranY = useTransform(scrollY, [0, 400], [0, -35]);
 
+  // Smooth scroll-driven fade out for the scroll explore indicator
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 130], [1, 0]);
+  const scrollIndicatorY = useTransform(scrollY, [0, 130], [0, 16]);
+  const scrollIndicatorPointerEvents = useTransform(scrollY, (y) => (y > 90 ? 'none' : 'auto'));
+
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-between pt-16 sm:pt-20 pb-12 px-4 sm:px-6 overflow-hidden bg-paper-pattern"
+      className="relative min-h-screen flex flex-col items-center justify-between pt-16 sm:pt-20 pb-10 sm:pb-12 px-4 sm:px-6 overflow-hidden bg-paper-pattern"
     >
       {/* Decorative Traditional Toran Hanging from Top with subtle scroll parallax */}
       <motion.div style={{ y: toranY }} className="absolute top-2 left-0 right-0 z-10 hidden sm:block pointer-events-none">
@@ -127,7 +133,7 @@ export const HeroSection = ({ data, t, lang }) => {
             </div>
             {/* Elegant Name Badge Tag */}
             <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-cream-50/95 border border-gold/70 text-[10px] sm:text-[11px] font-serif uppercase tracking-widest text-burgundy font-semibold shadow-sm whitespace-nowrap">
-              Khushbu &amp; Abhay
+              Abhay &amp; Khushbu
             </div>
           </div>
         </motion.div>
@@ -157,29 +163,23 @@ export const HeroSection = ({ data, t, lang }) => {
         </motion.div>
       </div>
 
-      {/* Elegant Scroll Down Indicator */}
+      {/* Enhanced "Scroll to Explore the Celebration" Section */}
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 0.8 }}
-        className="z-10 flex flex-col items-center cursor-pointer mt-6"
+        style={{
+          opacity: scrollIndicatorOpacity,
+          y: scrollIndicatorY,
+          pointerEvents: scrollIndicatorPointerEvents,
+        }}
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        className="z-10 mt-6 sm:mt-8 mb-1 flex flex-col items-center"
       >
-        <a
-          href="#countdown"
-          className="group flex flex-col items-center text-royal-brown/70 hover:text-burgundy transition-colors"
-          aria-label={t.hero.scrollHint}
-        >
-          <span className="text-[10px] sm:text-xs font-serif tracking-[0.25em] uppercase mb-1.5 font-medium">
-            {t.hero.scrollHint}
-          </span>
-          <div className="w-6 h-10 rounded-full border border-gold/60 flex items-start justify-center p-1.5 bg-cream-50/70 shadow-sm">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-              className="w-1.5 h-2 rounded-full bg-burgundy"
-            />
-          </div>
-        </a>
+        <ScrollExploreIndicator
+          t={t}
+          lang={lang}
+          targetId="countdown"
+        />
       </motion.div>
     </section>
   );

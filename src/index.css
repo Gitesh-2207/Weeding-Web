@@ -95,3 +95,67 @@
 .arch-frame {
   border-radius: 200px 200px 8px 8px;
 }
+
+
+/* ==========================================================================
+   Royal Scroll Indicator Animations
+   ========================================================================== */
+
+/* Subtle breathing & gentle vertical movement for the scroll prompt text */
+@keyframes royalScrollTextFloat {
+  0%, 100% {
+    opacity: 0.82;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(2.5px);
+  }
+}
+
+/* Graceful descending dot along the vertical line with subtle opacity transition */
+@keyframes royalScrollDotMove {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.88;
+  }
+  100% {
+    transform: translate(-50%, var(--scroll-travel-distance, 30px));
+    opacity: 0;
+  }
+}
+
+.scroll-text-float {
+  animation: royalScrollTextFloat 3.8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.scroll-dot-move {
+  --scroll-travel-distance: 28px;
+  animation: royalScrollDotMove 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform, opacity;
+}
+
+@media (min-width: 640px) {
+  .scroll-dot-move {
+    --scroll-travel-distance: 36px;
+  }
+}
+
+/* Accessibility: Respect prefers-reduced-motion settings */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-text-float,
+  .scroll-dot-move {
+    animation: none !important;
+  }
+  .scroll-dot-move {
+    transform: translate(-50%, 14px) !important;
+    opacity: 0.85 !important;
+  }
+}
