@@ -8,7 +8,6 @@ import { LanguageToggle } from './components/LanguageToggle';
 import { WelcomeLanding } from './components/WelcomeLanding';
 import { HeroSection } from './components/HeroSection';
 import { Countdown } from './components/Countdown';
-import { InvitationCard } from './components/InvitationCard';
 import { FamilyInvitation } from './components/FamilyInvitation';
 import { EngagementClips } from './components/EngagementClips';
 import { WeddingEvents } from './components/WeddingEvents';
@@ -89,12 +88,6 @@ export default function App() {
           data={weddingData}
           t={t}
           lang={lang}
-        />
-
-        {/* Royal Printed Invitation Card */}
-        <InvitationCard
-          data={weddingData}
-          t={t}
         />
 
         {/* Two Families, One Celebration - Family Invitation */}

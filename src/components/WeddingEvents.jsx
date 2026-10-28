@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CornerFlourish, FloralGarland } from './common/DecorativeElements';
-import { Calendar, Clock, Sparkles, Shirt, Heart, Music2, Sun, Flame, Crown } from 'lucide-react';
+import { Calendar, Clock, Sparkles, Heart, Music2, Sun, Flame, Crown } from 'lucide-react';
 
 // Custom Event Illustrations in traditional Indian artistic style
 const GaneshPujanIllustration = () => (
@@ -158,7 +158,6 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
       badge: "SHUBH AARAMBH",
       title: "Ganesh Pujan",
       tagline: "A Sacred Beginning",
-      description: "With the blessings of Lord Ganesha, we begin this beautiful celebration with prayers, positivity, and happiness.",
       date: "24 November 2026",
       time: "9:00 AM onwards",
       venue: "Chowk Mohalla, Sundrel, Dhar, MP",
@@ -175,10 +174,8 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
       badge: "GULABI RANG • SUNEHRI SANG",
       title: "Haldi Ceremony",
       tagline: "A Little Haldi, A Lot of Happiness!",
-      description: "Surrounded by sunshine, laughter, and the warmth of our loved ones, let's paint this day in shades of yellow.",
       date: "24 November 2026",
       time: "2:00 PM onwards",
-      dressCode: "Yellow & Traditional",
       venue: "Chowk Mohalla, Sundrel, Dhar, MP",
       themeBorder: "border-[#F59E0B]/60 hover:border-[#F59E0B]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFFBEB] to-[#FEF9C3]",
@@ -193,10 +190,8 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
       badge: "SWAR • SUR • SUROOR",
       title: "Sangeet Night",
       tagline: "Let's Dance Into Forever!",
-      description: "An evening of music, magical moments, endless dancing, and unforgettable memories.",
       date: "24 November 2026",
       time: "8:00 PM onwards",
-      dressCode: "Festive Glamour & Jewel Tones",
       venue: "Chowk Mohalla, Sundrel, Dhar, MP",
       themeBorder: "border-[#F472B6]/60 hover:border-[#F472B6]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF7ED] to-[#FFE4E6]",
@@ -211,10 +206,8 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
       badge: "THE ROYAL PROCESSION",
       title: "Baarat Aagaman",
       tagline: "The Groom Arrives, The Celebration Begins!",
-      description: "With dhol beats, joyful dancing, and hearts full of excitement, the groom arrives with his beloved family and friends to begin this beautiful wedding celebration.",
       date: "25 November 2026",
       time: "9:00 AM onwards",
-      dressCode: "Festive Silk & Traditional Safas",
       venue: "Chowk Mohalla to Vivah Sthal, Sundrel, Dhar, MP",
       themeBorder: "border-[#F97316]/60 hover:border-[#EA580C]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF8EB] to-[#FFEDD5]",
@@ -223,22 +216,14 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
       markerIcon: Crown,
       illustration: <BaraatIllustration />,
       isGrandFinale: false,
-      details: [
-        "A grand welcome filled with love and happiness.",
-        "Traditional dhol beats and lively baraat dancing.",
-        "A warm welcome for the groom and his family.",
-        "The beginning of our most-awaited wedding moments.",
-      ],
     },
     {
       number: "05",
       badge: "THE SACRED UNION",
       title: "Wedding Ceremony",
       tagline: "The Day We Become One",
-      description: "With the blessings of our families and the love of everyone dear to us, we invite you to witness our sacred union and celebrate the beginning of our forever.",
       date: "25 November 2026",
       time: "Following Baarat • Vivah Sanskar",
-      dressCode: "Royal Ethnic & Traditional Silk",
       venue: "Sundrel, Dhar, Madhya Pradesh",
       themeBorder: "border-2 border-[#D4A853] hover:border-[#9B7832]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF5ED] to-[#FFE8E8]",
@@ -364,20 +349,6 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
           </div>
         </div>
 
-        {/* 6. Final Timeline Decoration */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-20 sm:mt-28 text-center max-w-3xl mx-auto px-4"
-        >
-          <div className="h-[1px] w-36 sm:w-56 bg-gradient-to-r from-transparent via-[#D4A853] to-transparent mx-auto mb-6" />
-
-          <p className="font-playfair text-2xl sm:text-4xl md:text-5xl font-semibold text-burgundy tracking-wide leading-tight sm:leading-snug drop-shadow-xs">
-            Two Families. One Beautiful Beginning. Forever Together.
-          </p>
-        </motion.div>
 
       </div>
     </section>
@@ -438,26 +409,8 @@ const TimelineCard = ({ event, isLeft }) => {
         </div>
       </div>
 
-      {/* Event Description */}
-      <p className="text-xs sm:text-sm md:text-base font-cormorant italic text-royal-brown/95 leading-relaxed mb-4 pt-2 border-t border-[#D4A853]/25">
-        "{event.description}"
-      </p>
 
-      {/* Additional Details (if provided) */}
-      {event.details && event.details.length > 0 && (
-        <div className="mb-5 pt-3 border-t border-[#D4A853]/20">
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-serif text-royal-brown/90">
-            {event.details.map((detail, idx) => (
-              <li key={idx} className="flex items-start space-x-1.5">
-                <span className="text-[#D4A853] text-xs leading-none mt-0.5">✦</span>
-                <span className="leading-snug">{detail}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {/* Event Meta Badges: Date, Time & Dress Code */}
+      {/* Event Meta Badges: Date & Time */}
       <div className="pt-4 border-t border-[#D4A853]/30 flex flex-wrap items-center gap-2.5 sm:gap-3 text-xs font-serif">
         {/* Date Badge */}
         <div className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-cream-50/90 border border-[#D4A853]/40 text-royal-brown font-medium shadow-xs">
@@ -473,13 +426,6 @@ const TimelineCard = ({ event, isLeft }) => {
           </div>
         )}
 
-        {/* Dress Code Badge (where available) */}
-        {event.dressCode && (
-          <div className="inline-flex items-center space-x-1.5 px-3.5 py-1.5 rounded-full bg-[#FFFBEB] border border-[#F59E0B]/50 text-[#B45309] font-medium shadow-xs">
-            <Shirt className="w-3.5 h-3.5 text-[#F59E0B] shrink-0" />
-            <span className="font-semibold">{event.dressCode}</span>
-          </div>
-        )}
       </div>
     </motion.div>
   );

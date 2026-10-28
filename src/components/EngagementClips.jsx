@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, X, Film, Clock, Sparkles, Camera, Eye, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
-import { CornerFlourish, FloralGarland } from './common/DecorativeElements';
+import { CornerFlourish } from './common/DecorativeElements';
 
 // Stable default fallbacks outside component to optimize memoization and prevent re-evaluations
 const DEFAULT_PHOTOS = [
@@ -10,20 +10,6 @@ const DEFAULT_PHOTOS = [
     title: "The Palace Twilight",
     caption: "Hand in hand beneath the royal arches",
     image: "/images/engagement-photo-4.jpeg",
-    aspect: "portrait",
-  },
-  {
-    id: "photo-2",
-    title: "The Beautiful Yes",
-    caption: "The ring ceremony & an eternal promise",
-    image: "/images/engagement-photo-1.jpeg",
-    aspect: "portrait",
-  },
-  {
-    id: "photo-3",
-    title: "Under The Canopy of Lights",
-    caption: "Laughter, music & twilight celebration",
-    image: "/images/engagement-photo-2.jpeg",
     aspect: "portrait",
   },
   {
@@ -135,58 +121,6 @@ export const EngagementClips = ({ data }) => {
       <div className="max-w-6xl mx-auto relative z-10">
 
         {/* ========================================================================= */}
-        {/* 1. ENGAGEMENT HEADING & ROMANTIC STORYTELLING TEXT                        */}
-        {/* ========================================================================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-2xl mx-auto mb-12 sm:mb-16"
-        >
-          {/* Top Label */}
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cream-50 border border-[#D4A853]/50 shadow-xs mb-4">
-            <Film className="w-3.5 h-3.5 text-[#D4A853]" />
-            <span className="text-xs sm:text-sm font-serif uppercase tracking-[0.25em] sm:tracking-[0.28em] text-[#84662B] font-semibold">
-              BEFORE THE WEDDING BELLS…
-            </span>
-          </div>
-
-          {/* Delicate Golden Divider */}
-          <div className="flex items-center justify-center space-x-3 mb-6">
-            <div className="h-[1px] w-12 sm:w-20 bg-gradient-to-r from-transparent to-[#D4A853]" />
-            <span className="text-xs text-burgundy">♦</span>
-            <span className="text-xs text-[#D4A853]">❧</span>
-            <span className="text-xs text-burgundy">♦</span>
-            <div className="h-[1px] w-12 sm:w-20 bg-gradient-to-l from-transparent to-[#D4A853]" />
-          </div>
-
-          {/* Main Storytelling Poetry */}
-          <div className="space-y-2.5 sm:space-y-3 font-playfair text-2xl sm:text-3xl md:text-4xl text-burgundy font-medium leading-tight sm:leading-snug">
-            <p className="text-royal-brown/90">There was a moment.</p>
-            <p className="text-royal-brown/90">There was a promise.</p>
-            <div className="flex items-center justify-center gap-2 pt-1">
-              <span className="text-royal-brown/95">There was a beautiful</span>
-              <span className="font-playfair italic font-bold text-3xl sm:text-4xl md:text-5xl text-[#D4A853] drop-shadow-sm tracking-wide inline-block transform hover:scale-105 transition-transform duration-300">
-                YES.
-              </span>
-            </div>
-          </div>
-
-          {/* Emotional Subtext with Animated Heart */}
-          <div className="mt-6 pt-5 border-t border-[#D4A853]/30">
-            <p className="font-cormorant italic text-lg sm:text-2xl text-royal-brown/90 leading-relaxed">
-              And just like that,<br className="sm:hidden" /> our forever began.{' '}
-              <span className="inline-block text-burgundy animate-pulse text-2xl font-serif">
-                ♡
-              </span>
-            </p>
-          </div>
-
-          <FloralGarland className="mt-6 max-w-xs mx-auto opacity-75" />
-        </motion.div>
-
-        {/* ========================================================================= */}
         {/* 2. ENGAGEMENT PHOTOS GALLERY (Properly Sized & Optimized Portrait Frames) */}
         {/* ========================================================================= */}
         <motion.div
@@ -202,12 +136,12 @@ export const EngagementClips = ({ data }) => {
               <span className="font-semibold">Engagement Memories In Frames</span>
             </div>
             <span className="text-[11px] sm:text-xs font-serif uppercase tracking-wider text-royal-brown/70 bg-cream-50 px-3 py-1 rounded-full border border-[#D4A853]/40">
-              4 Moments • Click to Zoom
+              {photos.length} Moments • Click to Zoom
             </span>
           </div>
 
           {/* Balanced 4-Card Luxury Photo Grid (2 cols on mobile, 4 cols on desktop) */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
+          <div className="grid grid-cols-2 max-w-xl sm:max-w-2xl mx-auto gap-3 sm:gap-6">
             {photos.map((photo, index) => (
               <motion.div
                 key={photo.id || index}

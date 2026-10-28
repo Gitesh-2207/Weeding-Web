@@ -21,8 +21,8 @@ export const weddingData = {
       fullName: "Abhay Patidar",
       family: "Patidar Family",
       parents: "Patidar Family",
-      city: "Mandleshwar, Khargone, Madhya Pradesh, India",
-      shortCity: "Mandleshwar (M.P.)",
+      city: "Kasravad, Khargone, Madhya Pradesh, India",
+      shortCity: "Kasrawad (M.P.)",
       image: "/images/demo-groom.jpeg",
     },
     bride: {
@@ -36,8 +36,8 @@ export const weddingData = {
       image: "/images/demo-bride.png",
     },
     combinedName: "Khushbu Patidar & Abhay Patidar",
-    shortCombinedName: "Khushbu & Abhay",
-    monogram: "K & A",
+    shortCombinedName: "Abhay & Khushbu ",
+    monogram: "A & K",
     hashtag: "#KhushbuWedsAbhay",
   },
   date: {
@@ -52,7 +52,6 @@ export const weddingData = {
     daysRange: "24 - 25 November 2026",
   },
   engagement: {
-    label: "BEFORE THE WEDDING BELLS…",
     photos: [
       {
         id: "photo-1",
@@ -60,20 +59,6 @@ export const weddingData = {
         caption: "Hand in hand beneath the royal arches",
         image: "/images/engagement-photo-4.jpeg",
         aspect: "wide",
-      },
-      {
-        id: "photo-2",
-        title: "The Beautiful Yes",
-        caption: "The ring ceremony & an eternal promise",
-        image: "/images/engagement-photo-1.jpeg",
-        aspect: "portrait",
-      },
-      {
-        id: "photo-3",
-        title: "Under The Canopy of Lights",
-        caption: "Laughter, music & twilight celebration",
-        image: "/images/engagement-photo-2.jpeg",
-        aspect: "portrait",
       },
       {
         id: "photo-4",
@@ -280,46 +265,25 @@ export const weddingData = {
   gallery: [
     {
       id: 1,
-      title: "Forever Begins Here",
-      category: "Romantic Portrait",
-      caption: "Khushbu & Abhay sharing a tender, timeless moment beneath the gentle breeze.",
-      image: "/images/couple-hero.jpeg",
-    },
-    {
-      id: 2,
       title: "A Sacred Promise",
       category: "Bridal Henna & Love",
       caption: "Bridal mehndi bearing their initials 'AK', resting with devotion upon the heart.",
       image: "/images/couple-hands-heart.jpeg",
     },
     {
-      id: 3,
+      id: 2,
       title: "The Golden Rings",
       category: "Engagement Rituals",
       caption: "The sparkling rings symbolizing eternity, trust, and lifelong companionship.",
       image: "/images/engagement-rings.jpeg",
     },
     {
-      id: 4,
+      id: 3,
       title: "Better Together",
       category: "Engagement Stage",
       caption: "A joyful celebration surrounded by roses, floral garlands, and boundless blessings.",
       image: "/images/couple-stage.jpeg",
     },
-    {
-      id: 5,
-      title: "Candid Laughter & Smiles",
-      category: "Candid Love",
-      caption: "Spontaneous laughter, shared glances, and sweet promises for tomorrow.",
-      image: "/images/couple-candid.jpeg",
-    },
-    {
-      id: 6,
-      title: "The Beautiful YES",
-      category: "Ring Ceremony",
-      caption: "The auspicious ring ceremony marking the beginning of our royal forever.",
-      image: "/images/engagement-photo-1.jpeg",
-    }
   ],
   hospitality: [
     {
