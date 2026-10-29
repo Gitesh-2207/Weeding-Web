@@ -280,24 +280,39 @@ export const WelcomeLanding = ({ data, onOpen }) => {
         ))}
       </div>
 
-      {/* Central Interactive Content: Only Logo + "Tap to Enter" */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-md w-full px-4 py-8">
+      {/* Central Interactive Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center text-center max-w-md w-full px-4 py-6">
         
+        {/* Auspicious Lord Ganesha Blessing (Directly above the wedding logo) */}
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mb-5 sm:mb-6 flex flex-col items-center justify-center select-none"
+        >
+          <img
+            src="/images/ganesha-blessing.png"
+            alt="॥ श्री गणेशाय नमः ॥"
+            className="h-20 sm:h-24 md:h-26 w-auto object-contain mx-auto mix-blend-multiply drop-shadow-xs"
+            loading="eager"
+          />
+        </motion.div>
+
         {/* 1. Wedding Logo in the center with subtle glowing effect */}
         <motion.div
           initial={{ opacity: 0, scale: 0.92, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative flex items-center justify-center mb-6 sm:mb-8"
+          transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="relative flex items-center justify-center mb-5 sm:mb-7"
         >
-          <WeddingLogo monogram={coupleMonogram} className="w-48 h-48 sm:w-60 sm:h-60" />
+          <WeddingLogo monogram={coupleMonogram} className="w-44 h-44 sm:w-56 sm:h-56" />
         </motion.div>
 
         {/* 2. Text "Tap to Enter" below the logo with gentle animation */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
+          transition={{ duration: 0.8, delay: 0.45, ease: 'easeOut' }}
           className="flex flex-col items-center justify-center"
         >
           <div className="flex items-center space-x-2 text-gold-dark animate-tap-pulse">
@@ -309,7 +324,7 @@ export const WelcomeLanding = ({ data, onOpen }) => {
           </div>
 
           {/* Delicate golden accent line */}
-          <div className="mt-2.5 h-[1px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
+          <div className="mt-2 h-[1px] w-20 sm:w-28 bg-gradient-to-r from-transparent via-gold to-transparent opacity-60" />
         </motion.div>
 
       </div>
