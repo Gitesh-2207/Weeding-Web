@@ -290,12 +290,67 @@ export const WelcomeLanding = ({ data, onOpen }) => {
           transition={{ duration: 0.8, delay: 0.15 }}
           className="mb-5 sm:mb-6 flex flex-col items-center justify-center select-none"
         >
-          <img
-            src="/images/ganesha-blessing.png"
-            alt="॥ श्री गणेशाय नमः ॥"
-            className="h-20 sm:h-24 md:h-26 w-auto object-contain mx-auto mix-blend-multiply drop-shadow-xs"
-            loading="eager"
-          />
+          {/* Circular Medallion with Soft Golden Radial Halo */}
+          <div className="relative flex items-center justify-center">
+            <div
+              className="absolute -inset-3.5 sm:-inset-4 rounded-full bg-[radial-gradient(circle,rgba(212,175,55,0.45)_0%,rgba(197,161,90,0.2)_50%,transparent_75%)] blur-md pointer-events-none"
+              aria-hidden="true"
+            />
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white shadow-sm flex items-center justify-center border border-gold/30">
+              <svg
+                viewBox="0 0 100 100"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-8 h-8 sm:w-9 sm:h-9 text-gold-dark"
+                aria-hidden="true"
+              >
+                {/* Top 4-point star tilak / chhatra */}
+                <path
+                  d="M50 14 C50 19, 51 22, 53 23 C51 24, 50 27, 50 32 C50 27, 49 24, 47 23 C49 22, 50 19, 50 14 Z"
+                  fill="#9B7832"
+                />
+                <path
+                  d="M41 23 C46 23, 49 22, 50 20 C51 22, 54 23, 59 23 C54 23, 51 24, 50 26 C49 24, 46 23, 41 23 Z"
+                  fill="#9B7832"
+                />
+                <circle cx="50" cy="23" r="1.3" fill="#9B7832" />
+
+                {/* Graceful Ganesha ear, face contour and curling trunk */}
+                <path
+                  d="M48 35 C40 35, 33 42, 33 53 C33 65, 43 76, 54 78 C62 79, 70 73, 70 65 C70 59, 64 55, 58 57 C53 59, 53 66, 58 66 C61 66, 63 63, 62 61"
+                  stroke="#9B7832"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                {/* Right crown and forehead curve */}
+                <path
+                  d="M49 36 C56 35, 64 40, 65 47 C66 51, 63 55, 58 55"
+                  stroke="#9B7832"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  opacity="0.9"
+                />
+
+                {/* Tilak / Bindi */}
+                <circle cx="50" cy="45" r="2" fill="#9B7832" />
+
+                {/* Right Tusk */}
+                <path
+                  d="M42 53 L36 55"
+                  stroke="#9B7832"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Sacred Sanskrit Mantra with increased font size */}
+          <p className="font-devanagari text-xl sm:text-2xl md:text-3xl tracking-[0.22em] sm:tracking-[0.26em] text-[#9B7832] font-semibold drop-shadow-sm select-none mt-2.5 sm:mt-3">
+            ॥ श्री गणेशाय नमः ॥
+          </p>
         </motion.div>
 
         {/* 1. Wedding Logo in the center with subtle glowing effect */}
