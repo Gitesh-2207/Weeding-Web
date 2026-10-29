@@ -148,10 +148,77 @@
   }
 }
 
+/* ==========================================================================
+   Music Player Equalizer & Welcome Screen Logo Animations
+   ========================================================================== */
+
+/* Animated music equalizer bars */
+@keyframes musicBarOscillate1 {
+  0%, 100% { height: 4px; }
+  50% { height: 14px; }
+}
+@keyframes musicBarOscillate2 {
+  0%, 100% { height: 13px; }
+  50% { height: 5px; }
+}
+@keyframes musicBarOscillate3 {
+  0%, 100% { height: 6px; }
+  50% { height: 15px; }
+}
+
+.animate-music-bar-1 {
+  animation: musicBarOscillate1 1.1s ease-in-out infinite;
+}
+.animate-music-bar-2 {
+  animation: musicBarOscillate2 0.9s ease-in-out infinite;
+}
+.animate-music-bar-3 {
+  animation: musicBarOscillate3 1.25s ease-in-out infinite;
+}
+
+/* Subtle breathing glow effect for wedding logo */
+@keyframes royalLogoGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 14px rgba(197, 161, 90, 0.35)) drop-shadow(0 0 30px rgba(197, 161, 90, 0.15));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 24px rgba(197, 161, 90, 0.6)) drop-shadow(0 0 45px rgba(197, 161, 90, 0.3));
+    transform: scale(1.015);
+  }
+}
+
+.animate-logo-glow {
+  animation: royalLogoGlow 4.5s ease-in-out infinite;
+  will-change: filter, transform;
+}
+
+/* Gentle breathing pulse for Tap to Enter prompt */
+@keyframes tapToEnterPulse {
+  0%, 100% {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+}
+
+.animate-tap-pulse {
+  animation: tapToEnterPulse 2.8s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
 /* Accessibility: Respect prefers-reduced-motion settings */
 @media (prefers-reduced-motion: reduce) {
   .scroll-text-float,
-  .scroll-dot-move {
+  .scroll-dot-move,
+  .animate-music-bar-1,
+  .animate-music-bar-2,
+  .animate-music-bar-3,
+  .animate-logo-glow,
+  .animate-tap-pulse {
     animation: none !important;
   }
   .scroll-dot-move {

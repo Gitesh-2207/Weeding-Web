@@ -13,7 +13,9 @@ import { EngagementClips } from './components/EngagementClips';
 import { WeddingEvents } from './components/WeddingEvents';
 import { WeddingGallery } from './components/WeddingGallery';
 import { VenueSection } from './components/VenueSection';
+import { WelcomeCeremony } from './components/WelcomeCeremony';
 import { Footer } from './components/Footer';
+import { FloatingMusicControl } from './components/common/FloatingMusicControl';
 import { Sparkles } from 'lucide-react';
 
 export default function App() {
@@ -21,7 +23,7 @@ export default function App() {
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
   const t = translations[lang] || translations.en;
 
-  // Lock body scroll while the initial envelope cover is closed
+  // Lock body scroll while the initial welcome cover is active
   useEffect(() => {
     if (!isEnvelopeOpen) {
       document.body.style.overflow = 'hidden';
@@ -39,7 +41,7 @@ export default function App() {
       {/* Royal Scroll Progress Indicator */}
       <ScrollProgressBar />
 
-      {/* Royal Welcome & Landing Screen */}
+      {/* Royal Welcome Screen: "Tap to Enter" minimal overlay */}
       <AnimatePresence mode="wait">
         {!isEnvelopeOpen && (
           <WelcomeLanding
@@ -47,6 +49,11 @@ export default function App() {
             onOpen={() => setIsEnvelopeOpen(true)}
           />
         )}
+      </AnimatePresence>
+
+      {/* Floating Background Piano Music Control (visible only after entering) */}
+      <AnimatePresence>
+        {isEnvelopeOpen && <FloatingMusicControl />}
       </AnimatePresence>
 
       {/* Floating Petals Animation */}
@@ -75,7 +82,12 @@ export default function App() {
       )}
 
       {/* Single Page Seamless Content Flow */}
-      <main className="relative flex flex-col">
+      <motion.main
+        initial={{ opacity: 0, filter: 'blur(4px)' }}
+        animate={isEnvelopeOpen ? { opacity: 1, filter: 'blur(0px)' } : { opacity: 0, filter: 'blur(4px)' }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        className={`relative flex flex-col ${!isEnvelopeOpen ? 'pointer-events-none select-none invisible h-0 overflow-hidden' : ''}`}
+      >
         {/* Hero Section */}
         <HeroSection
           data={weddingData}
@@ -120,12 +132,17 @@ export default function App() {
           lang={lang}
         />
 
+        {/* Welcome Ceremony Section directly below Venue/Map */}
+        <WelcomeCeremony
+          lang={lang}
+        />
+
         {/* Wedding Footer */}
         <Footer
           data={weddingData}
           t={t}
         />
-      </main>
+      </motion.main>
     </div>
   );
 }
