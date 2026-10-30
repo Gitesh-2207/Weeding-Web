@@ -1,5 +1,5 @@
 import React from 'react';
-import { RoyalMandala, FloralGarland } from './common/DecorativeElements';
+import { RoyalMandala } from './common/DecorativeElements';
 import { ArrowUp } from 'lucide-react';
 
 export const Footer = ({ data, t }) => {
@@ -12,36 +12,15 @@ export const Footer = ({ data, t }) => {
       <div className="max-w-4xl mx-auto relative z-10">
         {/* Top Mandala */}
         <div className="mb-2">
-          <RoyalMandala size={58} className="text-gold" />
+          <RoyalMandala size={52} className="text-gold" />
         </div>
 
-        <p className="text-xs font-serif uppercase tracking-[0.3em] text-burgundy font-semibold mb-2">
-          {t.footer.madeWithLove}
-        </p>
-
-        {/* Closing Sentiment */}
-        <h3 className="text-3xl sm:text-5xl font-script text-burgundy leading-tight my-2">
-          "{t.footer.quote}"
-        </h3>
-
-        <p className="text-sm sm:text-base font-cormorant italic text-royal-brown/90 mt-2 max-w-lg mx-auto">
-          {t.footer.waiting}
-        </p>
-
-        <FloralGarland className="my-3 max-w-md mx-auto" />
-
-        {/* Couple & Family Signature */}
-        <div className="space-y-1 mb-4">
-          <p className="text-2xl sm:text-3xl font-playfair font-semibold text-royal-brown">
-            {data.couple.combinedName}
-          </p>
-          <p className="text-xs sm:text-sm font-serif tracking-widest uppercase text-gold-dark font-medium">
-            {data.date.displayDate} • {data.venue.fullLocation}
-          </p>
-          <p className="text-xs font-cormorant italic text-royal-brown/80 pt-2">
+        {/* Family Signature */}
+        <div className="space-y-1.5 my-3">
+          <p className="text-xl sm:text-2xl md:text-3xl font-cormorant italic text-gold-dark font-medium leading-relaxed">
             {t.footer.withLove}
           </p>
-          <p className="text-sm font-serif uppercase tracking-[0.18em] text-burgundy font-semibold">
+          <p className="text-sm sm:text-base md:text-lg font-serif uppercase tracking-[0.2em] text-burgundy font-bold">
             {t.footer.families}
           </p>
         </div>

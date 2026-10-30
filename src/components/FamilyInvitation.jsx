@@ -290,22 +290,12 @@ export const FamilyInvitation = ({ data }) => {
             transition={{ duration: 0.8, delay: 0.45 }}
             className="mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-[#D4A853]/30"
           >
-            <p className="font-script text-3xl sm:text-4xl text-gold-dark italic select-none mb-3">
+            <p className="font-script text-3xl sm:text-4xl text-gold-dark italic select-none mb-2">
               With Love,
             </p>
 
-            <div className="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 px-6 py-3 rounded-full bg-cream-50/80 border border-[#D4A853]/40 shadow-xs max-w-lg mx-auto">
-              <span className="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] font-semibold text-[#84662B]">
-                {brideFamilyName}
-              </span>
-              <span className="text-[#D4A853] font-script text-xl italic">&amp;</span>
-              <span className="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.2em] font-semibold text-[#84662B]">
-                {groomFamilyName}
-              </span>
-            </div>
-
-            <p className="mt-4 text-[11px] sm:text-xs font-serif uppercase tracking-[0.25em] text-royal-brown/65">
-              Patidar Pariwar • Sundrel, Dhar (M.P.)
+            <p className="text-xs sm:text-sm font-serif uppercase tracking-[0.25em] text-royal-brown/75 font-semibold">
+              Patidar (Mukati) Pariwar • Sundrel, Dhar (M.P.)
             </p>
           </motion.div>
         </motion.div>

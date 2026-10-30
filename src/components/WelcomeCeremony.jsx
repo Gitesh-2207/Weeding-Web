@@ -131,18 +131,19 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {ceremonyDetails.map((item, index) => (
                 <div
                   key={index}
-                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
+                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col items-center text-center"
                 >
                   {/* Category Heading */}
-                  <div className="flex items-center space-x-2.5 shrink-0 sm:max-w-[48%]">
+                  <div className="flex items-center justify-center space-x-2 mb-1">
                     <span className="text-gold text-xs sm:text-sm shrink-0">✦</span>
                     <h3 className="font-playfair font-bold text-base sm:text-lg md:text-xl text-burgundy tracking-wide">
-                      {isHindi ? item.categoryHi : item.category}:
+                      {isHindi ? item.categoryHi : item.category}
                     </h3>
+                    <span className="text-gold text-xs sm:text-sm shrink-0">✦</span>
                   </div>
 
                   {/* Respective Names */}
-                  <div className="pl-5 sm:pl-0 sm:text-right flex-1">
+                  <div className="max-w-2xl mx-auto">
                     <p className="font-serif text-base sm:text-lg md:text-xl text-royal-brown font-medium leading-relaxed">
                       {isHindi ? item.namesHi : item.names}
                     </p>
@@ -188,18 +189,19 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {awaitingPresenceDetails.map((item, index) => (
                 <div
                   key={index}
-                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
+                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col items-center text-center"
                 >
                   {/* Category Heading */}
-                  <div className="flex items-center space-x-2.5 shrink-0 sm:max-w-[48%]">
+                  <div className="flex items-center justify-center space-x-2 mb-1">
                     <span className="text-gold text-xs sm:text-sm shrink-0">✦</span>
                     <h3 className="font-playfair font-bold text-base sm:text-lg md:text-xl text-burgundy tracking-wide">
-                      {isHindi ? item.categoryHi : item.category}:
+                      {isHindi ? item.categoryHi : item.category}
                     </h3>
+                    <span className="text-gold text-xs sm:text-sm shrink-0">✦</span>
                   </div>
 
                   {/* Respective Names */}
-                  <div className="pl-5 sm:pl-0 sm:text-right flex-1">
+                  <div className="max-w-2xl mx-auto">
                     <p className="font-serif text-base sm:text-lg md:text-xl text-royal-brown font-medium leading-relaxed">
                       {isHindi ? item.namesHi : item.names}
                     </p>
@@ -245,18 +247,19 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {hostDetails.map((item, index) => (
                 <div
                   key={index}
-                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
+                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col items-center text-center"
                 >
-                  {/* Host Name (Left) */}
-                  <div className="flex items-center space-x-2.5 shrink-0 sm:max-w-[48%]">
+                  {/* Host Name (Heading) */}
+                  <div className="flex items-center justify-center space-x-2 mb-1">
                     <span className="text-gold text-xs sm:text-sm shrink-0">✦</span>
                     <h3 className="font-playfair font-bold text-base sm:text-lg md:text-xl text-burgundy tracking-wide">
-                      {isHindi ? item.categoryHi : item.category}:
+                      {isHindi ? item.categoryHi : item.category}
                     </h3>
+                    <span className="text-gold text-xs sm:text-sm shrink-0">✦</span>
                   </div>
 
-                  {/* Co-Host / Spouse Name (Right) */}
-                  <div className="pl-5 sm:pl-0 sm:text-right flex-1">
+                  {/* Co-Host / Spouse Name */}
+                  <div className="max-w-2xl mx-auto">
                     <p className="font-serif text-base sm:text-lg md:text-xl text-royal-brown font-medium leading-relaxed">
                       {isHindi ? item.namesHi : item.names}
                     </p>

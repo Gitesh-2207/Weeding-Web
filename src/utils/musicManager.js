@@ -1,16 +1,76 @@
 // Singleton background music manager for persistent, seamless audio playback
-// across website exploration, component re-renders, and route changes.
+// across website exploration, component re-renders, and tab visibility changes.
 
 class MusicManager {
   constructor() {
     this.audio = null;
     this.audioSrc = '/music/wedding-piano.mp3';
-    this.targetVolume = 0.25; // 25% background volume (within 20-30% requirement)
+    this.targetVolume = 0.25; // 25% background volume (comfortable ambient piano)
     this.isPlaying = false;
     this.fadeInterval = null;
     this.subscribers = new Set();
     this.hasInitialized = false;
     this.hasFailed = false;
+    this.hasUserInitiated = false; // Only allow audio once visitor has clicked or tapped
+    this.wasAutoPaused = false; // Tracks if music was paused due to tab switch or minimize
+
+    if (typeof window !== 'undefined') {
+      this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
+      this.handlePageUnload = this.handlePageUnload.bind(this);
+      this.setupVisibilityListeners();
+    }
+  }
+
+  setupVisibilityListeners() {
+    if (typeof document !== 'undefined') {
+      document.addEventListener('visibilitychange', this.handleVisibilityChange);
+    }
+    if (typeof window !== 'undefined') {
+      window.addEventListener('pagehide', this.handlePageUnload);
+      window.addEventListener('beforeunload', this.handlePageUnload);
+    }
+  }
+
+  handleVisibilityChange() {
+    if (!this.audio || !this.hasUserInitiated) return;
+
+    // When the visitor switches tab or minimizes the browser
+    if (document.hidden || document.visibilityState === 'hidden') {
+      if (this.isPlaying || !this.audio.paused) {
+        this.wasAutoPaused = true;
+        if (this.fadeInterval) {
+          clearInterval(this.fadeInterval);
+          this.fadeInterval = null;
+        }
+        this.audio.pause();
+      }
+    } else if (document.visibilityState === 'visible') {
+      // When the visitor returns to the wedding website tab
+      if (this.wasAutoPaused) {
+        this.wasAutoPaused = false;
+        if (this.audio.paused) {
+          this.audio.volume = this.targetVolume;
+          const playPromise = this.audio.play();
+          if (playPromise !== undefined) {
+            playPromise.catch((err) => {
+              // Ignore abort errors from rapid tab switches
+              console.warn('Audio auto-resume on visibility notice:', err);
+            });
+          }
+        }
+      }
+    }
+  }
+
+  handlePageUnload() {
+    // When the visitor closes the website tab or browser
+    if (this.audio) {
+      if (this.fadeInterval) {
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+      }
+      this.audio.pause();
+    }
   }
 
   init() {
@@ -19,7 +79,7 @@ class MusicManager {
 
     try {
       this.audio = new Audio(this.audioSrc);
-      this.audio.loop = true;
+      this.audio.loop = true; // Music plays continuously while site is open
       this.audio.preload = 'auto';
       this.audio.volume = 0;
 
@@ -70,10 +130,18 @@ class MusicManager {
     });
   }
 
-  // Smoothly starts playback from low volume (0.01) up to targetVolume (0.25)
+  // Smoothly starts playback from low volume up to targetVolume (complying with user gesture)
   startWithFadeIn(durationMs = 2400) {
     this.init();
     if (!this.audio) return;
+
+    this.hasUserInitiated = true;
+    this.wasAutoPaused = false;
+
+    // If already playing at normal volume, prevent duplicate playback or restart
+    if (this.isPlaying && !this.audio.paused && this.audio.volume >= this.targetVolume) {
+      return;
+    }
 
     if (this.fadeInterval) {
       clearInterval(this.fadeInterval);
@@ -127,15 +195,20 @@ class MusicManager {
     this.init();
     if (!this.audio) return;
 
+    this.hasUserInitiated = true;
+
     if (this.fadeInterval) {
       clearInterval(this.fadeInterval);
       this.fadeInterval = null;
     }
 
     if (this.isPlaying) {
+      // Manual pause: do not auto-resume on tab switch
+      this.wasAutoPaused = false;
       this.audio.pause();
     } else {
-      // Resume from paused position with steady comfortable background volume
+      // Manual resume: resume from paused position
+      this.wasAutoPaused = false;
       this.audio.volume = this.targetVolume;
       const playPromise = this.audio.play();
       if (playPromise !== undefined) {
@@ -152,6 +225,7 @@ class MusicManager {
         clearInterval(this.fadeInterval);
         this.fadeInterval = null;
       }
+      this.wasAutoPaused = false;
       this.audio.pause();
     }
   }
@@ -165,4 +239,3 @@ class MusicManager {
 }
 
 export const musicManager = new MusicManager();
-
