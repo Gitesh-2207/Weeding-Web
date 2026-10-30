@@ -13,10 +13,10 @@ export const VenueSection = ({ data, t, lang }) => {
     "https://www.google.com/maps/search/?api=1&query=Sundrel+Dhar+Madhya+Pradesh+India";
 
   return (
-    <section id="venue" className="py-20 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3] overflow-hidden">
+    <section id="venue" className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3] overflow-hidden">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6">
           <div className="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-cream-50 border border-gold/40 shadow-sm mb-3">
             <Navigation className="w-3.5 h-3.5 text-gold-dark" />
             <span className="text-xs font-serif tracking-[0.25em] uppercase text-burgundy font-semibold">
@@ -41,7 +41,7 @@ export const VenueSection = ({ data, t, lang }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-3 sm:p-6"
+          className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-3 sm:p-5"
         >
           <CornerFlourish className="absolute top-3 left-3 w-10 h-10 pointer-events-none z-10" position="top-left" />
           <CornerFlourish className="absolute top-3 right-3 w-10 h-10 pointer-events-none z-10" position="top-right" />

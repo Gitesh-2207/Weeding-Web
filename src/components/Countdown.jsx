@@ -15,13 +15,13 @@ export const Countdown = ({ data, t, lang }) => {
   ];
 
   return (
-    <section id="countdown" className="py-20 px-3 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3] overflow-hidden">
+    <section id="countdown" className="py-8 sm:py-10 px-3 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3] overflow-hidden">
       {/* Background radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gold/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-5xl mx-auto text-center relative z-10">
         {/* Section Heading */}
-        <div className="mb-10 sm:mb-12">
+        <div className="mb-5 sm:mb-6">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cream-50/90 border border-gold/50 shadow-sm mb-3.5">
             <Clock className="w-3.5 h-3.5 text-gold-dark" />
             <span className="text-[11px] sm:text-xs font-serif tracking-[0.25em] uppercase text-burgundy font-semibold">
@@ -37,7 +37,7 @@ export const Countdown = ({ data, t, lang }) => {
             {data.date.displayDateWithWeekday || data.date.displayDate}
           </p>
 
-          <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-4" />
+          <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-2.5" />
         </div>
 
         {/* Expired / Auspicious Day Status */}
@@ -79,7 +79,7 @@ export const Countdown = ({ data, t, lang }) => {
             {/* Shimmering Outer Border Box */}
             <div className="relative p-1 rounded-3xl bg-gradient-to-r from-gold/30 via-gold to-gold/30 shadow-royal-lg">
               {/* Inner Luxury Panel */}
-              <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-r from-[#FFFDF9] via-[#FFF9EF] to-[#FFFDF9] py-6 px-3 sm:py-8 sm:px-8 border border-gold/40">
+              <div className="relative overflow-hidden rounded-[22px] bg-gradient-to-r from-[#FFFDF9] via-[#FFF9EF] to-[#FFFDF9] py-4 px-3 sm:py-5 sm:px-6 border border-gold/40">
                 {/* Diagonal Light Sweep Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full animate-[shimmer_5s_infinite_ease-in-out] pointer-events-none" />
 
@@ -141,7 +141,7 @@ export const Countdown = ({ data, t, lang }) => {
                 </div>
 
                 {/* Bottom Auspicious Sub-caption */}
-                <div className="mt-5 pt-4 border-t border-gold/20 flex items-center justify-center space-x-2 text-[11px] sm:text-xs font-serif text-royal-brown/70 tracking-widest uppercase">
+                <div className="mt-4 pt-3 border-t border-gold/20 flex items-center justify-center space-x-2 text-[11px] sm:text-xs font-serif text-royal-brown/70 tracking-widest uppercase">
                   <span>✨</span>
                   <span>{lang === 'hi' ? 'शुभ विवाह की मंगल प्रतीक्षा' : 'Until We Celebrate The Sacred Vows'}</span>
                   <span>✨</span>

@@ -17,7 +17,7 @@ export const HeroSection = ({ data, t, lang }) => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-between pt-16 sm:pt-20 pb-10 sm:pb-12 px-4 sm:px-6 overflow-hidden bg-paper-pattern"
+      className="relative min-h-screen flex flex-col items-center justify-between pt-14 sm:pt-16 pb-4 sm:pb-6 px-4 sm:px-6 overflow-hidden bg-paper-pattern"
     >
       {/* Decorative Traditional Toran Hanging from Top with subtle scroll parallax */}
       <motion.div style={{ y: toranY }} className="absolute top-2 left-0 right-0 z-10 hidden sm:block pointer-events-none">
@@ -173,7 +173,7 @@ export const HeroSection = ({ data, t, lang }) => {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="z-10 mt-6 sm:mt-8 mb-1 flex flex-col items-center"
+        className="z-10 mt-4 sm:mt-5 mb-0 flex flex-col items-center"
       >
         <ScrollExploreIndicator
           t={t}

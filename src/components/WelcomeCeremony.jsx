@@ -60,7 +60,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
     {
       category: "Sisters (Bahan)",
       categoryHi: "बहन (Bahan)",
-      names: "Himanshi, Lina, Disha (Mukati Family)",
+      names: "Himanshi, Leena, Prisha (Mukati Family)",
       namesHi: "हिमांषी, लीना, दिशा (मुकाती परिवार)",
     },
   ];
@@ -76,13 +76,13 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
     {
       category: "Mrs. Mamta Bai",
       categoryHi: "श्रीमती ममता बाई",
-      names: "Rajesh Ji",
+      names: "Mr. Rajesh Ji",
       namesHi: "राजेश जी",
     },
     {
       category: "Mrs. Alka Bai",
       categoryHi: "श्रीमती अलका बाई",
-      names: "Mukesh Ji",
+      names: "Mr. Mukesh Ji",
       namesHi: "मुकेश जी",
     },
   ];
@@ -92,21 +92,21 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
   return (
     <section
       id="welcome-ceremony"
-      className="py-20 sm:py-24 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3] overflow-hidden"
+      className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3] overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto space-y-16 sm:space-y-20">
-        
+      <div className="max-w-4xl mx-auto space-y-6 sm:space-y-8">
+
         {/* =========================================================================
             PART 1: WELCOME CEREMONY
            ========================================================================= */}
         <div>
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-5">
+            <FloralGarland className="mb-3 sm:mb-4" />
+
             <h2 className="text-3xl sm:text-5xl font-playfair font-semibold text-royal-brown tracking-wide">
               {isHindi ? 'स्वागत समारोह' : 'Welcome Ceremony'}
             </h2>
-
-            <FloralGarland className="mt-4" />
           </div>
 
           {/* Welcome Ceremony Card */}
@@ -115,7 +115,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-6 sm:p-10 md:p-12 hover:shadow-gold-glow transition-shadow duration-700"
+            className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-4 sm:p-6 md:p-8 hover:shadow-gold-glow transition-shadow duration-700"
           >
             {/* Ornate Corner Flourishes */}
             <CornerFlourish className="absolute top-3 left-3 w-8 h-8 sm:w-10 sm:h-10 pointer-events-none z-10" position="top-left" />
@@ -131,7 +131,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {ceremonyDetails.map((item, index) => (
                 <div
                   key={index}
-                  className="py-4.5 sm:py-5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
+                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
                 >
                   {/* Category Heading */}
                   <div className="flex items-center space-x-2.5 shrink-0 sm:max-w-[48%]">
@@ -158,12 +158,12 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
            ========================================================================= */}
         <div>
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-5">
+            <FloralGarland className="mb-3 sm:mb-4" />
+
             <h2 className="text-3xl sm:text-5xl font-playfair font-semibold text-royal-brown tracking-wide">
               {isHindi ? 'दर्शनाभिलाषी' : 'Awaiting Your Presence'}
             </h2>
-
-            <FloralGarland className="mt-4" />
           </div>
 
           {/* Awaiting Your Presence Card */}
@@ -172,7 +172,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-6 sm:p-10 md:p-12 hover:shadow-gold-glow transition-shadow duration-700"
+            className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-4 sm:p-6 md:p-8 hover:shadow-gold-glow transition-shadow duration-700"
           >
             {/* Ornate Corner Flourishes */}
             <CornerFlourish className="absolute top-3 left-3 w-8 h-8 sm:w-10 sm:h-10 pointer-events-none z-10" position="top-left" />
@@ -188,7 +188,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {awaitingPresenceDetails.map((item, index) => (
                 <div
                   key={index}
-                  className="py-4.5 sm:py-5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
+                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
                 >
                   {/* Category Heading */}
                   <div className="flex items-center space-x-2.5 shrink-0 sm:max-w-[48%]">
@@ -215,12 +215,12 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
            ========================================================================= */}
         <div>
           {/* Section Header */}
-          <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+          <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-5">
+            <FloralGarland className="mb-3 sm:mb-4" />
+
             <h2 className="text-3xl sm:text-5xl font-playfair font-semibold text-royal-brown tracking-wide">
               {isHindi ? 'विनीत' : 'Invited By Our Hosts'}
             </h2>
-
-            <FloralGarland className="mt-4" />
           </div>
 
           {/* Invited By Our Hosts Card */}
@@ -229,7 +229,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-            className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-6 sm:p-10 md:p-12 hover:shadow-gold-glow transition-shadow duration-700"
+            className="relative rounded-3xl bg-cream-card border-2 border-gold/50 shadow-royal-lg overflow-hidden p-4 sm:p-6 md:p-8 hover:shadow-gold-glow transition-shadow duration-700"
           >
             {/* Ornate Corner Flourishes */}
             <CornerFlourish className="absolute top-3 left-3 w-8 h-8 sm:w-10 sm:h-10 pointer-events-none z-10" position="top-left" />
@@ -245,7 +245,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {hostDetails.map((item, index) => (
                 <div
                   key={index}
-                  className="py-4.5 sm:py-5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
+                  className="py-3 sm:py-3.5 first:pt-1 last:pb-1 flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-6"
                 >
                   {/* Host Name (Left) */}
                   <div className="flex items-center space-x-2.5 shrink-0 sm:max-w-[48%]">

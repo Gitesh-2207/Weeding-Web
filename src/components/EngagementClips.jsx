@@ -112,7 +112,7 @@ export const EngagementClips = ({ data }) => {
   return (
     <section
       id="engagement"
-      className="py-20 sm:py-28 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden"
+      className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden"
     >
       {/* Ambient Warm Golden Glows in Background */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" />
@@ -128,7 +128,7 @@ export const EngagementClips = ({ data }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.85, delay: 0.2 }}
-          className="mb-14 sm:mb-20"
+          className="mb-6 sm:mb-8"
         >
           <div className="flex items-center justify-between mb-5 px-1">
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-[#84662B]">

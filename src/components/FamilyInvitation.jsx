@@ -81,7 +81,7 @@ export const FamilyInvitation = ({ data }) => {
   return (
     <section
       id="family-invitation"
-      className="py-20 sm:py-28 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden"
+      className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden"
     >
       {/* Background Soft Golden Ambiance Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" />
@@ -92,7 +92,7 @@ export const FamilyInvitation = ({ data }) => {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-          className="relative p-6 sm:p-12 md:p-14 rounded-3xl bg-cream-card border-2 border-[#D4A853]/60 shadow-royal-lg text-center overflow-hidden hover:shadow-gold-glow transition-shadow duration-700"
+          className="relative p-5 sm:p-8 md:p-10 rounded-3xl bg-cream-card border-2 border-[#D4A853]/60 shadow-royal-lg text-center overflow-hidden hover:shadow-gold-glow transition-shadow duration-700"
         >
           {/* Inner Dashed Royal Border */}
           <div className="absolute inset-3 sm:inset-5 md:inset-6 border border-[#D4A853]/35 border-dashed rounded-2xl pointer-events-none" />
@@ -125,7 +125,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
-            className="flex flex-col items-center justify-center mb-4 sm:mb-6"
+            className="flex flex-col items-center justify-center mb-2 sm:mb-3"
           >
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-cream-50/90 border border-[#D4A853]/50 shadow-sm flex items-center justify-center mb-2">
               <LotusMotif className="w-8 h-8 text-[#D4A853]" color="#D4A853" />
@@ -138,7 +138,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.15 }}
-            className="mb-4 sm:mb-6"
+            className="mb-2 sm:mb-3"
           >
             <p className="text-xs sm:text-sm font-serif tracking-[0.28em] sm:tracking-[0.32em] uppercase text-[#D4A853] font-semibold">
               WITH THE BLESSINGS OF OUR ELDERS
@@ -160,7 +160,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.85, delay: 0.25 }}
-            className="my-4 sm:my-6 px-2"
+            className="my-2 sm:my-3 px-2"
           >
             <div className="flex items-center justify-center gap-3 sm:gap-4">
               <span className="hidden md:inline-block text-[#D4A853]/60 text-lg">✦</span>
@@ -177,7 +177,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.85, delay: 0.3 }}
-            className="my-8 sm:my-10 max-w-2xl mx-auto"
+            className="my-4 sm:my-6 max-w-2xl mx-auto"
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 items-center relative">
               {/* Center Decorative Interlocking Knot (Visible on Tablet/Desktop) */}
@@ -265,7 +265,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.35 }}
-            className="my-6 sm:my-8 max-w-xl mx-auto px-2"
+            className="my-3 sm:my-4 max-w-xl mx-auto px-2"
           >
             <p className="text-sm sm:text-base md:text-lg font-cormorant italic text-royal-brown/95 leading-relaxed tracking-wide">
               With immense joy and the blessings of our elders,<br className="hidden sm:inline" />
@@ -280,7 +280,7 @@ export const FamilyInvitation = ({ data }) => {
           </motion.div>
 
           {/* Delicate Center Floral Garland Divider */}
-          <FloralGarland className="my-6 sm:my-8 max-w-xs mx-auto opacity-75" />
+          <FloralGarland className="my-3 sm:my-4 max-w-xs mx-auto opacity-75" />
 
           {/* 5. Family Names Section */}
           <motion.div
@@ -288,7 +288,7 @@ export const FamilyInvitation = ({ data }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.45 }}
-            className="mt-6 sm:mt-8 pt-6 sm:pt-7 border-t border-[#D4A853]/30"
+            className="mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-[#D4A853]/30"
           >
             <p className="font-script text-3xl sm:text-4xl text-gold-dark italic select-none mb-3">
               With Love,

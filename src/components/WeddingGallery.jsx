@@ -29,10 +29,10 @@ export const WeddingGallery = ({ data, t }) => {
   };
 
   return (
-    <section id="gallery" className="py-24 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3]">
+    <section id="gallery" className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFF9EF] to-[#F8F1E3]">
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
           <div className="inline-flex items-center space-x-2 px-4 py-1 rounded-full bg-cream-50 border border-gold/40 shadow-sm mb-3">
             <Camera className="w-3.5 h-3.5 text-gold-dark" />
             <span className="text-xs font-serif tracking-[0.25em] uppercase text-burgundy font-semibold">
@@ -52,7 +52,7 @@ export const WeddingGallery = ({ data, t }) => {
         </div>
 
         {/* Gallery Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {data.gallery.map((item, index) => (
             <motion.div
               key={item.id}

@@ -236,7 +236,7 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
   ];
 
   return (
-    <section id="events" className="py-24 sm:py-32 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden">
+    <section id="events" className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden">
       {/* Background Soft Ambiance Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[#D4A853]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[#F59E0B]/10 rounded-full blur-3xl pointer-events-none" />
@@ -249,7 +249,7 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-center max-w-3xl mx-auto mb-20 sm:mb-28"
+          className="text-center max-w-3xl mx-auto mb-8 sm:mb-10"
         >
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cream-50 border border-[#D4A853]/50 shadow-sm mb-3.5">
             <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" />
@@ -281,7 +281,7 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
           <div className="absolute left-6 sm:left-8 top-6 bottom-6 w-[2px] bg-gradient-to-b from-transparent via-[#D4A853] to-transparent opacity-80 lg:hidden" />
 
           {/* Chronological Event Cards List */}
-          <div className="space-y-12 sm:space-y-16 lg:space-y-24">
+          <div className="space-y-5 sm:space-y-6 lg:space-y-8">
             {timelineEvents.map((event, index) => {
               const isEven = index % 2 === 1; // Alternates left/right on desktop
               const MarkerIconComponent = event.markerIcon;
@@ -364,7 +364,7 @@ const TimelineCard = ({ event, isLeft }) => {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -5, transition: { duration: 0.25 } }}
-      className={`relative w-full rounded-3xl p-6 sm:p-8 md:p-9 border shadow-royal hover:shadow-gold-glow transition-all duration-300 text-left overflow-hidden ${
+      className={`relative w-full rounded-3xl p-5 sm:p-6 md:p-7 border shadow-royal hover:shadow-gold-glow transition-all duration-300 text-left overflow-hidden ${
         event.themeBg
       } ${event.themeBorder} ${
         event.isGrandFinale ? 'shadow-royal-lg ring-1 ring-[#D4A853]/60' : ''
