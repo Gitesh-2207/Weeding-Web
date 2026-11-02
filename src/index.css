@@ -48,28 +48,6 @@
   -webkit-text-fill-color: transparent;
 }
 
-.gold-border-gradient {
-  border-image: linear-gradient(to right, #84662B, #C5A15A, #F4DE9C, #C5A15A, #84662B) 1;
-}
-
-.gold-metallic-box {
-  background: linear-gradient(135deg, #C5A15A 0%, #E2CA91 50%, #9B7832 100%);
-}
-
-/* Elegant Ornamental Card Border */
-.ornate-border {
-  border: 1px solid rgba(197, 161, 90, 0.4);
-  position: relative;
-}
-
-.ornate-border::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px dashed rgba(197, 161, 90, 0.35);
-  pointer-events: none;
-}
-
 /* Floating Petals Container */
 .petals-container {
   position: fixed;
@@ -79,73 +57,46 @@
   z-index: 40;
 }
 
-/* Shimmer animation effect */
-.shimmer-badge {
-  background: linear-gradient(90deg, rgba(197,161,90,0.1) 0%, rgba(197,161,90,0.3) 50%, rgba(197,161,90,0.1) 100%);
-  background-size: 200% 100%;
-  animation: shimmerMove 4s infinite linear;
-}
-
-@keyframes shimmerMove {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* Floral Arch Frame Outline */
-.arch-frame {
-  border-radius: 200px 200px 8px 8px;
-}
-
-
 /* ==========================================================================
    Royal Scroll Indicator Animations
    ========================================================================== */
 
-/* Subtle breathing & gentle vertical movement for the scroll prompt text */
-@keyframes royalScrollTextFloat {
-  0%, 100% {
-    opacity: 0.82;
-    transform: translateY(0);
-  }
-  50% {
-    opacity: 1;
-    transform: translateY(2.5px);
-  }
-}
-
-/* Graceful descending dot along the vertical line with subtle opacity transition */
-@keyframes royalScrollDotMove {
+/* Mouse wheel movement inside scroll pill */
+@keyframes scrollMouseWheelMove {
   0% {
-    transform: translate(-50%, 0);
-    opacity: 0;
-  }
-  20% {
+    transform: translateY(0);
     opacity: 1;
   }
-  70% {
-    opacity: 0.88;
+  60% {
+    transform: translateY(8px);
+    opacity: 0.8;
   }
   100% {
-    transform: translate(-50%, var(--scroll-travel-distance, 30px));
+    transform: translateY(12px);
     opacity: 0;
   }
 }
 
-.scroll-text-float {
-  animation: royalScrollTextFloat 3.8s ease-in-out infinite;
+.scroll-mouse-wheel {
+  animation: scrollMouseWheelMove 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   will-change: transform, opacity;
 }
 
-.scroll-dot-move {
-  --scroll-travel-distance: 28px;
-  animation: royalScrollDotMove 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-  will-change: transform, opacity;
-}
-
-@media (min-width: 640px) {
-  .scroll-dot-move {
-    --scroll-travel-distance: 36px;
+/* Gently bouncing chevrons indicating downward exploration */
+@keyframes scrollChevronGentlyBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.8;
   }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+.scroll-chevron-bounce {
+  animation: scrollChevronGentlyBounce 2s ease-in-out infinite;
+  will-change: transform, opacity;
 }
 
 /* ==========================================================================
@@ -212,8 +163,8 @@
 
 /* Accessibility: Respect prefers-reduced-motion settings */
 @media (prefers-reduced-motion: reduce) {
-  .scroll-text-float,
-  .scroll-dot-move,
+  .scroll-mouse-wheel,
+  .scroll-chevron-bounce,
   .animate-music-bar-1,
   .animate-music-bar-2,
   .animate-music-bar-3,
@@ -221,8 +172,8 @@
   .animate-tap-pulse {
     animation: none !important;
   }
-  .scroll-dot-move {
-    transform: translate(-50%, 14px) !important;
-    opacity: 0.85 !important;
+  .scroll-mouse-wheel {
+    transform: translateY(3px) !important;
+    opacity: 0.9 !important;
   }
 }

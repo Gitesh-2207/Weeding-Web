@@ -51,10 +51,8 @@ export default function App() {
         )}
       </AnimatePresence>
 
-      {/* Floating Background Piano Music Control (visible only after entering) */}
-      <AnimatePresence>
-        {isEnvelopeOpen && <FloatingMusicControl />}
-      </AnimatePresence>
+      {/* Floating Background Piano Music Control */}
+      <FloatingMusicControl />
 
       {/* Floating Petals Animation */}
       <PetalsOverlay count={16} />
@@ -83,8 +81,8 @@ export default function App() {
 
       {/* Single Page Seamless Content Flow */}
       <motion.main
-        initial={{ opacity: 0, filter: 'blur(4px)' }}
-        animate={isEnvelopeOpen ? { opacity: 1, filter: 'blur(0px)' } : { opacity: 0, filter: 'blur(4px)' }}
+        initial={{ opacity: 0 }}
+        animate={isEnvelopeOpen ? { opacity: 1 } : { opacity: 0 }}
         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className={`relative flex flex-col ${!isEnvelopeOpen ? 'pointer-events-none select-none invisible h-0 overflow-hidden' : ''}`}
       >
@@ -139,7 +137,6 @@ export default function App() {
 
         {/* Wedding Footer */}
         <Footer
-          data={weddingData}
           t={t}
         />
       </motion.main>

@@ -1,18 +1,18 @@
 import React from 'react';
+import { ChevronDown } from 'lucide-react';
 
 /**
  * ScrollExploreIndicator
- * A refined, royal wedding scroll indicator with subtle breathing text animation,
- * a delicate vertical gold hairline track, and an animated burgundy bead moving smoothly downwards.
+ * An elegant, animated royal wedding scroll-down indicator on the left side.
  * 
  * Features:
- * - Pure transform & opacity hardware-accelerated animations
- * - Responsive sizing and motion travel distance
- * - Clickable smooth navigation via scrollIntoView({ behavior: 'smooth' })
- * - Full accessibility with keyboard navigation & prefers-reduced-motion support
+ * - Warm orange-and-cream palette with primary accent color #E8A84E
+ * - Minimal mouse-scroll icon, small label "SCROLL TO EXPLORE", and double chevrons
+ * - Subtle gentle bounce animation indicating downward exploration
+ * - Click smoothly scrolls to the next section (Countdown / targetId)
+ * - Accessible with keyboard controls and prefers-reduced-motion support
  */
 export const ScrollExploreIndicator = ({
-  t,
   lang = 'en',
   targetId = 'countdown',
   className = '',
@@ -20,76 +20,63 @@ export const ScrollExploreIndicator = ({
   const handleScrollToNext = (e) => {
     if (e) {
       e.preventDefault();
+      e.stopPropagation();
     }
     const nextSection = document.getElementById(targetId);
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
     }
   };
 
-  const labelText = t?.hero?.scrollHint || 'Scroll to explore the celebration';
+  const labelText = lang === 'hi' ? 'स्क्रॉल करें' : 'SCROLL TO EXPLORE';
 
   return (
-    <a
-      href={`#${targetId}`}
+    <button
+      type="button"
       onClick={handleScrollToNext}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           handleScrollToNext(e);
         }
       }}
-      role="button"
-      tabIndex={0}
-      aria-label={labelText}
-      className={`group flex flex-col items-center justify-center cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F1E3] rounded-2xl px-4 py-2 transition-transform duration-300 ${className}`}
+      aria-label={lang === 'hi' ? 'मांगलिक उत्सव देखने के लिए नीचे स्क्रॉल करें' : 'Scroll to explore celebration'}
+      title={lang === 'hi' ? 'नीचे स्क्रॉल करें' : 'Scroll down to explore'}
+      className={`group flex flex-col items-center justify-center cursor-pointer select-none outline-none focus-visible:ring-2 focus-visible:ring-[#E8A84E]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#F8F1E3] rounded-full px-2 py-2.5 transition-all duration-300 ${className}`}
     >
-      {/* Scroll Prompt Text with subtle breathing animation */}
-      <div className="flex items-center space-x-2 sm:space-x-3 mb-2.5">
-        <span
-          className="hidden sm:inline-block w-4 h-[1px] bg-gradient-to-r from-transparent to-gold/50 transition-opacity duration-300 group-hover:to-burgundy/60"
-          aria-hidden="true"
-        />
-        <span
-          className={`scroll-text-float ${lang === 'hi' ? 'font-devanagari' : 'font-cormorant'} text-[10px] sm:text-xs font-semibold tracking-[0.26em] sm:tracking-[0.3em] uppercase text-royal-brown/80 group-hover:text-burgundy transition-colors duration-300 whitespace-nowrap`}
-        >
-          {labelText}
-        </span>
-        <span
-          className="hidden sm:inline-block w-4 h-[1px] bg-gradient-to-l from-transparent to-gold/50 transition-opacity duration-300 group-hover:to-burgundy/60"
-          aria-hidden="true"
-        />
+      {/* Minimal Mouse-Scroll Icon */}
+      <div
+        className="relative w-5 h-8 sm:w-5.5 sm:h-8.5 rounded-full border-[1.5px] border-[#E8A84E] bg-[#FFF9EF]/90 shadow-[0_2px_8px_rgba(232,168,78,0.22)] flex items-start justify-center p-1 group-hover:border-[#C58832] group-hover:shadow-[0_2px_14px_rgba(232,168,78,0.4)] transition-all duration-300"
+        aria-hidden="true"
+      >
+        {/* Animated descending wheel dot in primary accent #E8A84E */}
+        <span className="w-1 h-2 rounded-full bg-[#E8A84E] scroll-mouse-wheel" />
       </div>
 
-      {/* Animated Scroll Indicator: Fine vertical hairline track & descending royal dot */}
-      <div className="relative flex flex-col items-center h-11 sm:h-13 w-6">
-        {/* Top miniature ornamental anchor node */}
-        <div
-          className="w-1.5 h-1.5 rounded-full bg-gold/80 border border-gold-light/60 mb-0.5 group-hover:bg-burgundy/80 transition-colors duration-300 flex-shrink-0"
-          aria-hidden="true"
-        />
+      {/* Vertical Hairline Divider */}
+      <div
+        className="w-[1.5px] h-3 sm:h-4 bg-gradient-to-b from-[#E8A84E]/80 via-[#E8A84E]/40 to-transparent my-1 transition-opacity duration-300 group-hover:from-[#E8A84E]"
+        aria-hidden="true"
+      />
 
-        {/* Vertical guide track container */}
-        <div className="relative flex-1 w-full flex items-center justify-center overflow-visible">
-          {/* Subtle gold gradient track line */}
-          <div
-            className="w-[1.5px] h-full bg-gradient-to-b from-gold/75 via-gold/35 to-transparent transition-opacity duration-300 group-hover:from-gold group-hover:via-gold/50"
-            aria-hidden="true"
-          />
+      {/* Small Luxury Label: "SCROLL TO EXPLORE" */}
+      <span
+        className={`text-[8px] sm:text-[9px] md:text-[10px] font-serif uppercase tracking-[0.24em] font-medium text-[#E8A84E] group-hover:text-[#C58832] transition-colors duration-300 whitespace-nowrap [writing-mode:vertical-lr] rotate-180 py-1.5 select-none ${
+          lang === 'hi' ? 'font-devanagari tracking-[0.18em]' : 'font-cormorant'
+        }`}
+      >
+        {labelText}
+      </span>
 
-          {/* Animated descending dot with opacity transition */}
-          <div
-            className="scroll-dot-move absolute top-0 left-1/2 w-2 h-2 rounded-full bg-burgundy border border-gold/70 shadow-[0_0_6px_rgba(197,161,90,0.45)] group-hover:border-gold-shimmer group-hover:shadow-[0_0_8px_rgba(111,41,39,0.35)] transition-shadow duration-300 pointer-events-none"
-            aria-hidden="true"
-          />
-        </div>
-
-        {/* Bottom subtle terminal indicator */}
-        <div
-          className="w-1.5 h-1.5 rotate-45 border-r border-b border-gold/45 mt-0.5 group-hover:border-burgundy/70 transition-colors duration-300 flex-shrink-0"
-          aria-hidden="true"
-        />
+      {/* Animated Gently Bouncing Chevrons */}
+      <div
+        className="flex flex-col items-center -space-y-1.5 mt-0.5 text-[#E8A84E] scroll-chevron-bounce"
+        aria-hidden="true"
+      >
+        <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E8A84E] transition-transform duration-300 group-hover:scale-110" />
+        <ChevronDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#E8A84E]/60 -mt-2 transition-transform duration-300 group-hover:scale-110" />
       </div>
-    </a>
+    </button>
   );
 };
-

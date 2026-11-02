@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, X, Film, Clock, Sparkles, Camera, Eye, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import { CornerFlourish } from './common/DecorativeElements';
@@ -306,6 +307,7 @@ export const EngagementClips = ({ data }) => {
       {/* ========================================================================= */}
       {/* VIDEO CINEMA THEATER MODAL                                                */}
       {/* ========================================================================= */}
+      {typeof document !== 'undefined' && createPortal(
       <AnimatePresence>
         {selectedVideo && (
           <motion.div
@@ -314,7 +316,7 @@ export const EngagementClips = ({ data }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={handleCloseVideoModal}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
+            className="fixed inset-0 z-[9999] bg-black/40 backdrop-blur-md flex items-center justify-center p-3 sm:p-6"
             role="dialog"
             aria-modal="true"
             aria-label={selectedVideo.title}
@@ -325,7 +327,7 @@ export const EngagementClips = ({ data }) => {
               exit={{ scale: 0.92, opacity: 0, y: 20 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl lg:max-w-5xl w-full bg-[#1A1412] rounded-3xl border-2 border-[#D4A853]/60 shadow-2xl p-3 sm:p-5 overflow-hidden text-center"
+              className="relative max-w-4xl lg:max-w-5xl w-full bg-black/40 backdrop-blur-xl rounded-3xl border border-[#D4A853]/60 shadow-2xl p-3 sm:p-5 overflow-hidden text-center"
             >
               {/* Close Button */}
               <button
@@ -337,7 +339,7 @@ export const EngagementClips = ({ data }) => {
               </button>
 
               {/* Large 16:9 Cinema Player */}
-              <div className="relative rounded-2xl overflow-hidden bg-black aspect-[16/9] w-full max-h-[75vh] mx-auto border border-[#D4A853]/30 shadow-inner flex items-center justify-center">
+              <div className="relative rounded-2xl overflow-hidden bg-transparent aspect-[16/9] w-full max-h-[75vh] mx-auto border border-[#D4A853]/30 shadow-inner flex items-center justify-center">
                 <video
                   ref={videoRef}
                   src={selectedVideo.videoUrl}
@@ -369,11 +371,14 @@ export const EngagementClips = ({ data }) => {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
 
       {/* ========================================================================= */}
       {/* PHOTO LIGHTBOX MODAL WITH FULL CONTROLS                                    */}
       {/* ========================================================================= */}
+      {typeof document !== 'undefined' && createPortal(
       <AnimatePresence>
         {activePhoto && (
           <motion.div
@@ -382,7 +387,7 @@ export const EngagementClips = ({ data }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={handleClosePhotoModal}
-            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
+            className="fixed inset-0 z-[9999] bg-black/40 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 select-none"
             role="dialog"
             aria-modal="true"
             aria-label={activePhoto.title}
@@ -393,7 +398,7 @@ export const EngagementClips = ({ data }) => {
               exit={{ scale: 0.92, opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-4xl lg:max-w-5xl w-full bg-[#1A1412] rounded-3xl border border-[#D4A853]/60 shadow-2xl p-3 sm:p-4 overflow-hidden text-center"
+              className="relative max-w-4xl lg:max-w-5xl w-full bg-black/40 backdrop-blur-xl rounded-3xl border border-[#D4A853]/60 shadow-2xl p-3 sm:p-4 overflow-hidden text-center"
             >
               {/* Close Button */}
               <button
@@ -423,7 +428,7 @@ export const EngagementClips = ({ data }) => {
               </button>
 
               {/* Full Image Container */}
-              <div className="rounded-2xl overflow-hidden bg-black max-h-[75vh] flex items-center justify-center border border-[#D4A853]/30">
+              <div className="rounded-2xl overflow-hidden bg-transparent max-h-[75vh] flex items-center justify-center border border-[#D4A853]/30">
                 <img
                   src={activePhoto.image}
                   alt={activePhoto.title}
@@ -450,7 +455,9 @@ export const EngagementClips = ({ data }) => {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
 
     </section>
   );

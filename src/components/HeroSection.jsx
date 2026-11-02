@@ -9,10 +9,10 @@ export const HeroSection = ({ data, t, lang }) => {
   const archY = useTransform(scrollY, [0, 600], [0, 80]);
   const toranY = useTransform(scrollY, [0, 400], [0, -35]);
 
-  // Smooth scroll-driven fade out for the scroll explore indicator
-  const scrollIndicatorOpacity = useTransform(scrollY, [0, 130], [1, 0]);
-  const scrollIndicatorY = useTransform(scrollY, [0, 130], [0, 16]);
-  const scrollIndicatorPointerEvents = useTransform(scrollY, (y) => (y > 90 ? 'none' : 'auto'));
+  // Smooth scroll-driven fade out for the left-side scroll indicator
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 160], [1, 0]);
+  const scrollIndicatorY = useTransform(scrollY, [0, 160], [0, 18]);
+  const scrollIndicatorPointerEvents = useTransform(scrollY, (y) => (y > 120 ? 'none' : 'auto'));
 
   return (
     <section
@@ -163,20 +163,19 @@ export const HeroSection = ({ data, t, lang }) => {
         </motion.div>
       </div>
 
-      {/* Enhanced "Scroll to Explore the Celebration" Section */}
+      {/* Animated Scroll-Down Indicator on Left Side */}
       <motion.div
         style={{
           opacity: scrollIndicatorOpacity,
           y: scrollIndicatorY,
           pointerEvents: scrollIndicatorPointerEvents,
         }}
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="z-10 mt-4 sm:mt-5 mb-0 flex flex-col items-center"
+        initial={{ opacity: 0, x: -16 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.9, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute left-3 sm:left-6 md:left-8 lg:left-12 bottom-16 sm:bottom-20 md:bottom-24 z-20 flex flex-col items-center"
       >
         <ScrollExploreIndicator
-          t={t}
           lang={lang}
           targetId="countdown"
         />

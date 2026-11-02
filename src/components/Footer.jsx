@@ -2,7 +2,7 @@ import React from 'react';
 import { RoyalMandala } from './common/DecorativeElements';
 import { ArrowUp } from 'lucide-react';
 
-export const Footer = ({ data, t }) => {
+export const Footer = ({ t }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };

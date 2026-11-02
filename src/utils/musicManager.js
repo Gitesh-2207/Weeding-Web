@@ -5,19 +5,27 @@ class MusicManager {
   constructor() {
     this.audio = null;
     this.audioSrc = '/music/wedding-piano.mp3';
-    this.targetVolume = 0.25; // 25% background volume (comfortable ambient piano)
+    this.targetVolume = 0.45; // 45% volume (comfortable, clear ambient piano)
     this.isPlaying = false;
+    this.manualPause = false; // Set to true when user explicitly turns music off
+    this.wasAutoPaused = false; // Tracks if music was paused due to tab switch or minimize
     this.fadeInterval = null;
     this.subscribers = new Set();
-    this.hasInitialized = false;
-    this.hasFailed = false;
-    this.hasUserInitiated = false; // Only allow audio once visitor has clicked or tapped
-    this.wasAutoPaused = false; // Tracks if music was paused due to tab switch or minimize
 
     if (typeof window !== 'undefined') {
       this.handleVisibilityChange = this.handleVisibilityChange.bind(this);
       this.handlePageUnload = this.handlePageUnload.bind(this);
       this.setupVisibilityListeners();
+    }
+  }
+
+  getResolvedSrc() {
+    try {
+      const base = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) || '/';
+      const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
+      return `${cleanBase}/music/wedding-piano.mp3`;
+    } catch {
+      return this.audioSrc;
     }
   }
 
@@ -32,11 +40,11 @@ class MusicManager {
   }
 
   handleVisibilityChange() {
-    if (!this.audio || !this.hasUserInitiated) return;
+    if (!this.audio) return;
 
     // When the visitor switches tab or minimizes the browser
     if (document.hidden || document.visibilityState === 'hidden') {
-      if (this.isPlaying || !this.audio.paused) {
+      if (!this.audio.paused && !this.manualPause) {
         this.wasAutoPaused = true;
         if (this.fadeInterval) {
           clearInterval(this.fadeInterval);
@@ -46,24 +54,18 @@ class MusicManager {
       }
     } else if (document.visibilityState === 'visible') {
       // When the visitor returns to the wedding website tab
-      if (this.wasAutoPaused) {
+      // ONLY resume if it was auto-paused and user hasn't explicitly turned it off
+      if (this.wasAutoPaused && !this.manualPause) {
         this.wasAutoPaused = false;
         if (this.audio.paused) {
           this.audio.volume = this.targetVolume;
-          const playPromise = this.audio.play();
-          if (playPromise !== undefined) {
-            playPromise.catch((err) => {
-              // Ignore abort errors from rapid tab switches
-              console.warn('Audio auto-resume on visibility notice:', err);
-            });
-          }
+          this.audio.play().catch(() => {});
         }
       }
     }
   }
 
   handlePageUnload() {
-    // When the visitor closes the website tab or browser
     if (this.audio) {
       if (this.fadeInterval) {
         clearInterval(this.fadeInterval);
@@ -74,17 +76,21 @@ class MusicManager {
   }
 
   init() {
-    if (this.hasInitialized || typeof window === 'undefined') return;
-    this.hasInitialized = true;
+    if (this.audio || typeof window === 'undefined') return;
 
     try {
-      this.audio = new Audio(this.audioSrc);
-      this.audio.loop = true; // Music plays continuously while site is open
+      this.audio = new Audio(this.getResolvedSrc());
+      this.audio.loop = true; // Loops continuously while website is open
       this.audio.preload = 'auto';
-      this.audio.volume = 0;
+      this.audio.volume = this.targetVolume;
 
-      // Reflect actual browser playback events
+      // Sync state with native HTML5 audio events
       this.audio.addEventListener('play', () => {
+        this.isPlaying = true;
+        this.notify();
+      });
+
+      this.audio.addEventListener('playing', () => {
         this.isPlaying = true;
         this.notify();
       });
@@ -94,15 +100,166 @@ class MusicManager {
         this.notify();
       });
 
+      this.audio.addEventListener('ended', () => {
+        if (!this.manualPause && this.audio) {
+          this.audio.currentTime = 0;
+          this.audio.play().catch(() => {});
+        } else {
+          this.isPlaying = false;
+          this.notify();
+        }
+      });
+
       this.audio.addEventListener('error', (e) => {
-        console.warn('Wedding audio notice: Could not load audio from', this.audioSrc, e);
-        this.hasFailed = true;
-        this.isPlaying = false;
-        this.notify();
+        console.warn('Wedding audio notice: Could not load audio from', this.audio?.src, e);
       });
     } catch (err) {
       console.warn('Audio initialization notice:', err);
-      this.hasFailed = true;
+    }
+  }
+
+  fadeVolumeTo(targetVol, durationMs = 1800) {
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
+    if (!this.audio) return;
+
+    const steps = 18;
+    const stepTime = Math.max(20, Math.round(durationMs / steps));
+    const startVol = this.audio.volume;
+    const diff = targetVol - startVol;
+    let currentStep = 0;
+
+    this.fadeInterval = setInterval(() => {
+      currentStep++;
+      if (!this.audio || this.manualPause || this.audio.paused) {
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+        return;
+      }
+
+      this.audio.volume = Math.min(1, Math.max(0, startVol + (diff * (currentStep / steps))));
+
+      if (currentStep >= steps) {
+        this.audio.volume = targetVol;
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+      }
+    }, stepTime);
+  }
+
+  startWithFadeIn(durationMs = 2400) {
+    this.init();
+    if (!this.audio) return;
+
+    // Respect user's explicit decision if they manually turned music off
+    if (this.manualPause) return;
+
+    // If already playing at normal volume, do not restart
+    if (!this.audio.paused && this.isPlaying && this.audio.volume >= this.targetVolume) {
+      return;
+    }
+
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
+
+    try {
+      this.audio.volume = 0.05;
+      const playPromise = this.audio.play();
+      this.isPlaying = true;
+      this.notify();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            if (this.manualPause && this.audio) {
+              this.audio.pause();
+              this.isPlaying = false;
+              this.notify();
+              return;
+            }
+            this.fadeVolumeTo(this.targetVolume, durationMs);
+          })
+          .catch((err) => {
+            console.warn('Fade-in playback notice:', err);
+            if (this.audio) {
+              this.isPlaying = !this.audio.paused;
+              this.notify();
+            }
+          });
+      }
+    } catch (err) {
+      console.warn('Audio play error:', err);
+    }
+  }
+
+  // Toggles music ON / OFF directly as per the user's need
+  togglePlayPause() {
+    this.init();
+    if (!this.audio) return;
+
+    if (this.fadeInterval) {
+      clearInterval(this.fadeInterval);
+      this.fadeInterval = null;
+    }
+
+    // Is the audio currently playing?
+    const isCurrentlyPlaying = !this.audio.paused;
+
+    if (isCurrentlyPlaying) {
+      // 1. User wants music OFF -> Pause immediately
+      this.manualPause = true;
+      this.wasAutoPaused = false;
+      this.audio.pause();
+      this.isPlaying = false;
+      this.notify();
+    } else {
+      // 2. User wants music ON -> Resume playing immediately
+      this.manualPause = false;
+      this.wasAutoPaused = false;
+      this.audio.volume = this.targetVolume;
+
+      const playPromise = this.audio.play();
+      this.isPlaying = true;
+      this.notify();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            if (this.manualPause && this.audio) {
+              this.audio.pause();
+              this.isPlaying = false;
+              this.notify();
+              return;
+            }
+            this.isPlaying = true;
+            this.notify();
+          })
+          .catch((err) => {
+            console.warn('Audio play error:', err);
+            if (this.audio) {
+              this.isPlaying = !this.audio.paused;
+              this.notify();
+            }
+          });
+      }
+    }
+  }
+
+  pause() {
+    if (this.audio) {
+      if (this.fadeInterval) {
+        clearInterval(this.fadeInterval);
+        this.fadeInterval = null;
+      }
+      this.manualPause = true;
+      this.wasAutoPaused = false;
+      this.audio.pause();
+      this.isPlaying = false;
+      this.notify();
     }
   }
 
@@ -111,7 +268,7 @@ class MusicManager {
     // Immediately emit current state
     callback({
       isPlaying: this.isPlaying,
-      hasFailed: this.hasFailed,
+      hasFailed: false,
     });
     return () => this.subscribers.delete(callback);
   }
@@ -119,7 +276,7 @@ class MusicManager {
   notify() {
     const state = {
       isPlaying: this.isPlaying,
-      hasFailed: this.hasFailed,
+      hasFailed: false,
     };
     this.subscribers.forEach((cb) => {
       try {
@@ -130,110 +287,10 @@ class MusicManager {
     });
   }
 
-  // Smoothly starts playback from low volume up to targetVolume (complying with user gesture)
-  startWithFadeIn(durationMs = 2400) {
-    this.init();
-    if (!this.audio) return;
-
-    this.hasUserInitiated = true;
-    this.wasAutoPaused = false;
-
-    // If already playing at normal volume, prevent duplicate playback or restart
-    if (this.isPlaying && !this.audio.paused && this.audio.volume >= this.targetVolume) {
-      return;
-    }
-
-    if (this.fadeInterval) {
-      clearInterval(this.fadeInterval);
-      this.fadeInterval = null;
-    }
-
-    try {
-      this.audio.volume = 0.01;
-      const playPromise = this.audio.play();
-
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            this.isPlaying = true;
-            this.notify();
-
-            // Smooth volume ramp-up
-            const stepMs = 50;
-            const totalSteps = Math.max(1, Math.round(durationMs / stepMs));
-            const volumeStep = (this.targetVolume - 0.01) / totalSteps;
-            let step = 0;
-
-            this.fadeInterval = setInterval(() => {
-              step++;
-              if (!this.audio) {
-                if (this.fadeInterval) clearInterval(this.fadeInterval);
-                return;
-              }
-
-              const nextVol = Math.min(this.targetVolume, 0.01 + step * volumeStep);
-              this.audio.volume = nextVol;
-
-              if (step >= totalSteps || this.audio.volume >= this.targetVolume) {
-                this.audio.volume = this.targetVolume;
-                clearInterval(this.fadeInterval);
-                this.fadeInterval = null;
-              }
-            }, stepMs);
-          })
-          .catch((err) => {
-            console.warn('Autoplay prevented or playback error:', err);
-          });
-      }
-    } catch (err) {
-      console.warn('Audio play error:', err);
-    }
-  }
-
-  // Toggles pause / resume preserving exact position
-  togglePlayPause() {
-    this.init();
-    if (!this.audio) return;
-
-    this.hasUserInitiated = true;
-
-    if (this.fadeInterval) {
-      clearInterval(this.fadeInterval);
-      this.fadeInterval = null;
-    }
-
-    if (this.isPlaying) {
-      // Manual pause: do not auto-resume on tab switch
-      this.wasAutoPaused = false;
-      this.audio.pause();
-    } else {
-      // Manual resume: resume from paused position
-      this.wasAutoPaused = false;
-      this.audio.volume = this.targetVolume;
-      const playPromise = this.audio.play();
-      if (playPromise !== undefined) {
-        playPromise.catch((err) => {
-          console.warn('Audio resume error:', err);
-        });
-      }
-    }
-  }
-
-  pause() {
-    if (this.audio && this.isPlaying) {
-      if (this.fadeInterval) {
-        clearInterval(this.fadeInterval);
-        this.fadeInterval = null;
-      }
-      this.wasAutoPaused = false;
-      this.audio.pause();
-    }
-  }
-
   getState() {
     return {
       isPlaying: this.isPlaying,
-      hasFailed: this.hasFailed,
+      hasFailed: false,
     };
   }
 }
