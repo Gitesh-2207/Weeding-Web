@@ -237,13 +237,13 @@ export const WelcomeCeremony = ({ lang = 'en', t }) => {
             <div className="relative z-10 max-w-2xl mx-auto px-2 py-2 sm:py-3 space-y-3 sm:space-y-4">
               <p className="font-playfair italic text-base sm:text-xl md:text-2xl text-burgundy font-medium leading-relaxed drop-shadow-xs">
                 {t?.balManuhaar?.poemLine1 || (isHindi
-                  ? "“आपका इंतज़ार है SMS की तरह, मेरी बुआ की शादी में आना Ringtone की तरह।"
-                  : "“Aapka Intajaar Hai SMS Ki Tarah, Meri Buaa Ki Shhadi Me Aana Ringtone Ki Tarah.")}
+                  ? "“आपका इंतज़ार है SMS की तरह, मेरी मौसी की शादी में आना Ringtone की तरह।"
+                  : "“Aapka Intajaar Hai SMS Ki Tarah, Meri Mosi Ki Shadi Me Aana Ringtone Ki Tarah.")}
               </p>
               <p className="font-playfair italic text-base sm:text-xl md:text-2xl text-burgundy font-medium leading-relaxed drop-shadow-xs">
                 {t?.balManuhaar?.poemLine2 || (isHindi
                   ? "आशीर्वाद देना Balance की तरह, शादी में बिजी रहना Network की तरह।”"
-                  : "Aashirwad Dena Balance Ki Tarah, Shhadi Me Busy Rahna Network Ki Tarah.”")}
+                  : "Aashirwad Dena Balance Ki Tarah, Shadi Me Busy Rahna Network Ki Tarah.”")}
               </p>
 
               {/* Decorative Divider */}

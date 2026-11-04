@@ -157,8 +157,8 @@ export const translations = {
     balManuhaar: {
       title: "Bal Manuhaar",
       tagline: "A Sweet Request From Little Steps",
-      poemLine1: "“Aapka Intajaar Hai SMS Ki Tarah, Meri Buaa Ki Shhadi Me Aana Ringtone Ki Tarah.",
-      poemLine2: "Aashirwad Dena Balance Ki Tarah, Shhadi Me Busy Rahna Network Ki Tarah.”",
+      poemLine1: "“Aapka Intajaar Hai SMS Ki Tarah, Meri Mosi Ki Shadi Me Aana Ringtone Ki Tarah.",
+      poemLine2: "Aashirwad Dena Balance Ki Tarah, Shadi Me Busy Rahna Network Ki Tarah.”",
       signatureLabel: "— With Love & Innocence —",
       name: "Bhavya",
     },
@@ -375,7 +375,7 @@ export const translations = {
     balManuhaar: {
       title: "बाल मनुहार",
       tagline: "नन्हे कदमों से स्नेह भरा निमंत्रण",
-      poemLine1: "“आपका इंतज़ार है SMS की तरह, मेरी बुआ की शादी में आना Ringtone की तरह।",
+      poemLine1: "“आपका इंतज़ार है SMS की तरह, मेरी मौसी की शादी में आना Ringtone की तरह।",
       poemLine2: "आशीर्वाद देना Balance की तरह, शादी में बिजी रहना Network की तरह।”",
       signatureLabel: "— बाल मनुहार —",
       name: "भव्य",
