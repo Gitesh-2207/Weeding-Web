@@ -8,10 +8,10 @@ export const Countdown = ({ data, t, lang }) => {
   const { days, hours, minutes, seconds, isExpired, isToday } = useCountdown(data.date.weddingDate);
 
   const units = [
-    { label: t.countdown.days, shortLabel: lang === 'hi' ? 'दिन' : 'DAYS', value: days },
-    { label: t.countdown.hours, shortLabel: lang === 'hi' ? 'घंटे' : 'HOURS', value: hours },
-    { label: t.countdown.minutes, shortLabel: lang === 'hi' ? 'मिनट' : 'MINUTES', value: minutes },
-    { label: t.countdown.seconds, shortLabel: lang === 'hi' ? 'सेकंड' : 'SECONDS', value: seconds, isLive: true },
+    { label: t.countdown.days, shortLabel: t.countdown.daysShort || (lang === 'hi' ? 'दिन' : 'DAYS'), value: days },
+    { label: t.countdown.hours, shortLabel: t.countdown.hoursShort || (lang === 'hi' ? 'घंटे' : 'HOURS'), value: hours },
+    { label: t.countdown.minutes, shortLabel: t.countdown.minutesShort || (lang === 'hi' ? 'मिनट' : 'MINUTES'), value: minutes },
+    { label: t.countdown.seconds, shortLabel: t.countdown.secondsShort || (lang === 'hi' ? 'सेकंड' : 'SECONDS'), value: seconds, isLive: true },
   ];
 
   return (
@@ -34,7 +34,7 @@ export const Countdown = ({ data, t, lang }) => {
           </h2>
 
           <p className="mt-2 text-xs sm:text-sm md:text-base font-serif text-gold-dark font-medium tracking-[0.2em] uppercase">
-            {data.date.displayDateWithWeekday || data.date.displayDate}
+            {lang === 'hi' ? (data.date.displayDateWithWeekdayHi || data.date.displayDateHi) : (data.date.displayDateWithWeekday || data.date.displayDate)}
           </p>
 
           <div className="h-[1px] w-32 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mt-2.5" />

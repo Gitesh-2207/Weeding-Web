@@ -162,7 +162,7 @@ export const WeddingLogo = ({ monogram = "A & K", className = "w-52 h-52 sm:w-64
   </div>
 );
 
-export const WelcomeLanding = ({ data, onOpen }) => {
+export const WelcomeLanding = ({ data, onOpen, t, lang }) => {
   const [isEntering, setIsEntering] = useState(false);
 
   const coupleMonogram = data?.couple?.monogram || "A & K";
@@ -235,7 +235,7 @@ export const WelcomeLanding = ({ data, onOpen }) => {
       exit={{ opacity: 0, scale: 1.06, filter: 'blur(8px)' }}
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       className="fixed inset-0 z-50 flex items-center justify-center min-h-[100dvh] h-screen w-full bg-gradient-to-b from-[#FAF5EC] via-[#FFFDF9] to-[#F5EFE0] overflow-hidden select-none cursor-pointer p-4 focus:outline-none"
-      aria-label="Welcome screen. Tap anywhere to enter our wedding invitation website."
+      aria-label={t?.cover?.tapToEnterAria || "Welcome screen. Tap anywhere to enter our wedding invitation website."}
     >
       {/* Delicate Radial Golden Glow at Center */}
       <div
@@ -372,8 +372,8 @@ export const WelcomeLanding = ({ data, onOpen }) => {
         >
           <div className="flex items-center space-x-2 text-gold-dark animate-tap-pulse">
             <span className="text-[10px] sm:text-xs text-gold opacity-75">✦</span>
-            <span className="font-serif text-xs sm:text-sm md:text-base uppercase tracking-[0.32em] text-burgundy font-semibold drop-shadow-sm">
-              Tap to Enter
+            <span className={`text-xs sm:text-sm md:text-base text-burgundy font-semibold drop-shadow-sm ${lang === 'hi' ? 'font-devanagari tracking-[0.14em]' : 'font-serif uppercase tracking-[0.32em]'}`}>
+              {t?.cover?.tapToEnter || 'Tap to Enter'}
             </span>
             <span className="text-[10px] sm:text-xs text-gold opacity-75">✦</span>
           </div>

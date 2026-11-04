@@ -13,7 +13,7 @@ const resolveImage = (path) => {
   return `${cleanBase}${cleanPath}`;
 };
 
-export const WeddingGallery = ({ data, t }) => {
+export const WeddingGallery = ({ data, t, lang }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(null);
   const galleryLength = data?.gallery?.length || 0;
 
@@ -115,17 +115,17 @@ export const WeddingGallery = ({ data, t }) => {
                   aria-label={`View photo: ${item.title}`}
                 >
                   <Eye className="w-3 h-3 text-gold-light" />
-                  <span>View</span>
+                  <span>{t?.gallery?.view || "View"}</span>
                 </button>
               </div>
 
               {/* Title and Category */}
               <div className="absolute inset-0 p-4 sm:p-5 flex flex-col justify-end text-[#FFF9EF] z-10 pointer-events-none">
                 <span className="text-[10px] font-serif uppercase tracking-[0.2em] text-gold-light font-semibold mb-0.5">
-                  {item.category}
+                  {lang === 'hi' ? (item.categoryHi || item.category) : item.category}
                 </span>
                 <h4 className="text-lg sm:text-xl font-playfair font-semibold text-white tracking-wide">
-                  {item.title}
+                  {lang === 'hi' ? (item.titleHi || item.title) : item.title}
                 </h4>
 
                 <div className="mt-2.5 flex items-center space-x-1.5 text-xs text-gold-light">
@@ -163,11 +163,11 @@ export const WeddingGallery = ({ data, t }) => {
                 >
                   <div className="flex items-center space-x-2 text-white/85">
                     <span className="text-xs sm:text-sm font-serif tracking-[0.2em] uppercase text-[#E8A84E] font-medium">
-                      {data.gallery[selectedImageIndex].category}
+                      {lang === 'hi' ? (data.gallery[selectedImageIndex].categoryHi || data.gallery[selectedImageIndex].category) : data.gallery[selectedImageIndex].category}
                     </span>
                     <span className="text-white/40">•</span>
                     <span className="text-xs sm:text-sm font-serif text-white/70">
-                      {selectedImageIndex + 1} of {data.gallery.length}
+                      {selectedImageIndex + 1} {t?.gallery?.of || "of"} {data.gallery.length}
                     </span>
                   </div>
 
@@ -191,7 +191,7 @@ export const WeddingGallery = ({ data, t }) => {
                     type="button"
                     onClick={prevImage}
                     className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3 rounded-full bg-black/70 hover:bg-[#E8A84E] text-white hover:text-royal-brown transition-all duration-200 border border-[#E8A84E]/50 shadow-lg cursor-pointer flex items-center justify-center"
-                    aria-label="Previous image"
+                    aria-label={t?.gallery?.prevImage || "Previous image"}
                   >
                     <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
@@ -214,7 +214,7 @@ export const WeddingGallery = ({ data, t }) => {
                     type="button"
                     onClick={nextImage}
                     className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3 rounded-full bg-black/70 hover:bg-[#E8A84E] text-white hover:text-royal-brown transition-all duration-200 border border-[#E8A84E]/50 shadow-lg cursor-pointer flex items-center justify-center"
-                    aria-label="Next image"
+                    aria-label={t?.gallery?.nextImage || "Next image"}
                   >
                     <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
@@ -226,7 +226,7 @@ export const WeddingGallery = ({ data, t }) => {
                   onClick={(e) => e.stopPropagation()}
                 >
                   <h3 className="text-lg sm:text-2xl font-playfair font-semibold text-white tracking-wide">
-                    {data.gallery[selectedImageIndex].title}
+                    {lang === 'hi' ? (data.gallery[selectedImageIndex].titleHi || data.gallery[selectedImageIndex].title) : data.gallery[selectedImageIndex].title}
                   </h3>
                 </div>
               </motion.div>

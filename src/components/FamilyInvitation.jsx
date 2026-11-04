@@ -61,22 +61,35 @@ const LotusMotif = ({ className = "w-10 h-10", color = "#D4A853" }) => (
   </svg>
 );
 
-export const FamilyInvitation = ({ data }) => {
+export const FamilyInvitation = ({ data, t, lang }) => {
   // --------------------------------------------------------------------------
   // EDITABLE DETAILS: Replace images, names, and family titles as needed
   // --------------------------------------------------------------------------
-  const brideName = data?.couple?.bride?.fullName || "Khushbu Patidar";
-  const groomName = data?.couple?.groom?.fullName || "Abhay Patidar";
-  const brideFamilyName = data?.couple?.bride?.family || "The Patidar Family";
-  const groomFamilyName = data?.couple?.groom?.family || "The Patidar Family";
+  const isHi = lang === 'hi';
+  const brideName = isHi
+    ? (data?.couple?.bride?.fullNameHi || data?.couple?.bride?.fullName || "खुशबू पाटीदार")
+    : (data?.couple?.bride?.fullName || "Khushbu Patidar");
+  const groomName = isHi
+    ? (data?.couple?.groom?.fullNameHi || data?.couple?.groom?.fullName || "अभय पाटीदार")
+    : (data?.couple?.groom?.fullName || "Abhay Patidar");
+  const brideFamilyName = isHi
+    ? (data?.couple?.bride?.familyHi || data?.couple?.bride?.family || "पाटीदार परिवार")
+    : (data?.couple?.bride?.family || "The Patidar Family");
+  const groomFamilyName = isHi
+    ? (data?.couple?.groom?.familyHi || data?.couple?.groom?.family || "पाटीदार परिवार")
+    : (data?.couple?.groom?.family || "The Patidar Family");
 
   // Actual/Demo image paths
   const brideImage = data?.couple?.bride?.image || "/images/demo-bride.png";
   const groomImage = data?.couple?.groom?.image || "/images/demo-groom.jpeg";
 
   // City / Location
-  const brideCity = data?.couple?.bride?.shortCity || "Sundrel (M.P.)";
-  const groomCity = data?.couple?.groom?.shortCity || "Mandleshwar (M.P.)";
+  const brideCity = isHi
+    ? (data?.couple?.bride?.shortCityHi || "सुंदरैल (म.प्र.)")
+    : (data?.couple?.bride?.shortCity || "Sundrel (M.P.)");
+  const groomCity = isHi
+    ? (data?.couple?.groom?.shortCityHi || "कसरावद (म.प्र.)")
+    : (data?.couple?.groom?.shortCity || "Kasrawad (M.P.)");
 
   return (
     <section
@@ -141,7 +154,7 @@ export const FamilyInvitation = ({ data }) => {
             className="mb-2 sm:mb-3"
           >
             <p className="text-xs sm:text-sm font-serif tracking-[0.28em] sm:tracking-[0.32em] uppercase text-[#D4A853] font-semibold">
-              WITH THE BLESSINGS OF OUR ELDERS
+              {t?.familyInvitation?.blessingsLabel || "WITH THE BLESSINGS OF OUR ELDERS"}
             </p>
 
             {/* Ornamental Divider beneath label */}
@@ -165,7 +178,7 @@ export const FamilyInvitation = ({ data }) => {
             <div className="flex items-center justify-center gap-3 sm:gap-4">
               <span className="hidden md:inline-block text-[#D4A853]/60 text-lg">✦</span>
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-playfair font-semibold text-burgundy tracking-wide leading-tight drop-shadow-sm">
-                Two Families, One Celebration
+                {t?.familyInvitation?.mainTitle || "Two Families, One Celebration"}
               </h2>
               <span className="hidden md:inline-block text-[#D4A853]/60 text-lg">✦</span>
             </div>
@@ -203,7 +216,7 @@ export const FamilyInvitation = ({ data }) => {
 
                   {/* Corner Accent in frame */}
                   <div className="absolute top-3 left-3 text-[10px] font-serif uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/90 text-burgundy shadow-xs border border-[#D4A853]/50">
-                    The Bride
+                    {t?.familyInvitation?.theBride || "The Bride"}
                   </div>
                 </div>
 
@@ -213,7 +226,7 @@ export const FamilyInvitation = ({ data }) => {
                     {brideName}
                   </h3>
                   <p className="mt-1 text-xs sm:text-sm font-cormorant italic text-royal-brown/85">
-                    Daughter of {brideFamilyName}
+                    {isHi ? `${t?.familyInvitation?.daughterOf || 'सुपुत्री:'} ${brideFamilyName}` : `Daughter of ${brideFamilyName}`}
                   </p>
                   <p className="mt-0.5 text-[11px] font-serif uppercase tracking-wider text-[#84662B]">
                     {brideCity}
@@ -239,7 +252,7 @@ export const FamilyInvitation = ({ data }) => {
 
                   {/* Corner Accent in frame */}
                   <div className="absolute top-3 right-3 text-[10px] font-serif uppercase tracking-widest px-2.5 py-0.5 rounded-full bg-white/90 text-burgundy shadow-xs border border-[#D4A853]/50">
-                    The Groom
+                    {t?.familyInvitation?.theGroom || "The Groom"}
                   </div>
                 </div>
 
@@ -249,7 +262,7 @@ export const FamilyInvitation = ({ data }) => {
                     {groomName}
                   </h3>
                   <p className="mt-1 text-xs sm:text-sm font-cormorant italic text-royal-brown/85">
-                    Son of {groomFamilyName}
+                    {isHi ? `${t?.familyInvitation?.sonOf || 'सुपुत्र:'} ${groomFamilyName}` : `Son of ${groomFamilyName}`}
                   </p>
                   <p className="mt-0.5 text-[11px] font-serif uppercase tracking-wider text-[#84662B]">
                     {groomCity}
@@ -268,14 +281,11 @@ export const FamilyInvitation = ({ data }) => {
             className="my-3 sm:my-4 max-w-xl mx-auto px-2"
           >
             <p className="text-sm sm:text-base md:text-lg font-cormorant italic text-royal-brown/95 leading-relaxed tracking-wide">
-              With immense joy and the blessings of our elders,<br className="hidden sm:inline" />
-              our families invite you to be a part of<br className="hidden sm:inline" />
-              this beautiful union.
+              {t?.familyInvitation?.invitePara1}
             </p>
 
             <p className="mt-4 sm:mt-5 text-sm sm:text-base md:text-lg font-cormorant italic text-royal-brown/95 leading-relaxed tracking-wide">
-              Your presence will make our celebration<br className="hidden sm:inline" />
-              even more special and memorable.
+              {t?.familyInvitation?.invitePara2}
             </p>
           </motion.div>
 
@@ -291,11 +301,11 @@ export const FamilyInvitation = ({ data }) => {
             className="mt-4 sm:mt-5 pt-4 sm:pt-5 border-t border-[#D4A853]/30"
           >
             <p className="font-script text-3xl sm:text-4xl text-gold-dark italic select-none mb-2">
-              With Love,
+              {t?.familyInvitation?.withLove || 'With Love,'}
             </p>
 
             <p className="text-xs sm:text-sm font-serif uppercase tracking-[0.25em] text-royal-brown/75 font-semibold">
-              Patidar (Mukati) Pariwar • Sundrel, Dhar (M.P.)
+              {t?.familyInvitation?.familySignature || 'Patidar (Mukati) Pariwar • Sundrel, Dhar (M.P.)'}
             </p>
           </motion.div>
         </motion.div>

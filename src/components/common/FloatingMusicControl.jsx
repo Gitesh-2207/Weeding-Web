@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Volume2, VolumeX } from 'lucide-react';
 import { useBackgroundMusic } from '../../hooks/useBackgroundMusic';
 
-export const FloatingMusicControl = () => {
+export const FloatingMusicControl = ({ t, lang: _lang }) => {
   const { isPlaying, togglePlayPause } = useBackgroundMusic();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -28,7 +28,7 @@ export const FloatingMusicControl = () => {
                 isPlaying ? 'bg-gold animate-pulse' : 'bg-gray-400'
               }`}
             />
-            {isPlaying ? 'Music: On' : 'Music: Off'}
+            {isPlaying ? (t?.music?.tooltipOn || 'Music: On') : (t?.music?.tooltipOff || 'Music: Off')}
           </motion.div>
         )}
       </AnimatePresence>
@@ -43,8 +43,8 @@ export const FloatingMusicControl = () => {
           togglePlayPause();
         }}
         aria-pressed={isPlaying}
-        aria-label={isPlaying ? 'Turn background music off' : 'Turn background music on'}
-        title={isPlaying ? 'Music is ON (Click to turn off)' : 'Music is OFF (Click to turn on)'}
+        aria-label={isPlaying ? (t?.music?.ariaOn || 'Turn background music off') : (t?.music?.ariaOff || 'Turn background music on')}
+        title={isPlaying ? (t?.music?.titleOn || 'Music is ON (Click to turn off)') : (t?.music?.titleOff || 'Music is OFF (Click to turn on)')}
         className={`relative group flex items-center justify-center w-12 h-12 sm:w-13 sm:h-13 rounded-full bg-[#FFF9EF]/95 border shadow-royal backdrop-blur-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold/60 cursor-pointer ${
           isPlaying
             ? 'border-gold/80 hover:shadow-gold-glow text-burgundy'

@@ -4,8 +4,8 @@
 class MusicManager {
   constructor() {
     this.audio = null;
-    this.audioSrc = '/music/wedding-piano.mp3';
-    this.targetVolume = 0.45; // 45% volume (comfortable, clear ambient piano)
+    this.currentSourceIndex = 0;
+    this.targetVolume = 0.45; // 45% volume (comfortable, clear ambient music)
     this.isPlaying = false;
     this.manualPause = false; // Set to true when user explicitly turns music off
     this.wasAutoPaused = false; // Tracks if music was paused due to tab switch or minimize
@@ -19,13 +19,21 @@ class MusicManager {
     }
   }
 
-  getResolvedSrc() {
+  getSources() {
     try {
       const base = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.BASE_URL) || '/';
       const cleanBase = base.endsWith('/') ? base.slice(0, -1) : base;
-      return `${cleanBase}/music/wedding-piano.mp3`;
+      return [
+        `${cleanBase}/music/wedding-piano.m4a`,
+        `${cleanBase}/music/wedding-piano.mp3`,
+        `${cleanBase}/music/wedding-piano.aac`,
+      ];
     } catch {
-      return this.audioSrc;
+      return [
+        '/music/wedding-piano.m4a',
+        '/music/wedding-piano.mp3',
+        '/music/wedding-piano.aac',
+      ];
     }
   }
 
@@ -75,14 +83,40 @@ class MusicManager {
     }
   }
 
+  tryNextSource() {
+    const sources = this.getSources();
+    if (this.currentSourceIndex + 1 < sources.length) {
+      this.currentSourceIndex++;
+      const nextSrc = sources[this.currentSourceIndex];
+      console.warn('Switching to alternative audio source:', nextSrc);
+      if (this.audio) {
+        const wasPlaying = this.isPlaying && !this.manualPause;
+        this.audio.src = nextSrc;
+        this.audio.load();
+        if (wasPlaying) {
+          const p = this.audio.play();
+          if (p !== undefined) {
+            p.catch((err) => console.warn('Next source play catch:', err));
+          }
+        }
+      }
+      return true;
+    }
+    return false;
+  }
+
   init() {
     if (this.audio || typeof window === 'undefined') return;
 
     try {
-      this.audio = new Audio(this.getResolvedSrc());
+      const sources = this.getSources();
+      this.currentSourceIndex = 0;
+
+      this.audio = new Audio();
       this.audio.loop = true; // Loops continuously while website is open
       this.audio.preload = 'auto';
       this.audio.volume = this.targetVolume;
+      this.audio.src = sources[this.currentSourceIndex];
 
       // Sync state with native HTML5 audio events
       this.audio.addEventListener('play', () => {
@@ -111,7 +145,12 @@ class MusicManager {
       });
 
       this.audio.addEventListener('error', (e) => {
-        console.warn('Wedding audio notice: Could not load audio from', this.audio?.src, e);
+        console.warn('Wedding audio source notice for', this.audio?.src, e);
+        const switched = this.tryNextSource();
+        if (!switched) {
+          this.isPlaying = false;
+          this.notify();
+        }
       });
     } catch (err) {
       console.warn('Audio initialization notice:', err);
@@ -169,8 +208,6 @@ class MusicManager {
     try {
       this.audio.volume = 0.05;
       const playPromise = this.audio.play();
-      this.isPlaying = true;
-      this.notify();
 
       if (playPromise !== undefined) {
         playPromise
@@ -181,11 +218,14 @@ class MusicManager {
               this.notify();
               return;
             }
+            this.isPlaying = true;
+            this.notify();
             this.fadeVolumeTo(this.targetVolume, durationMs);
           })
           .catch((err) => {
             console.warn('Fade-in playback notice:', err);
-            if (this.audio) {
+            const switched = this.tryNextSource();
+            if (!switched && this.audio) {
               this.isPlaying = !this.audio.paused;
               this.notify();
             }
@@ -193,6 +233,7 @@ class MusicManager {
       }
     } catch (err) {
       console.warn('Audio play error:', err);
+      this.tryNextSource();
     }
   }
 
@@ -223,9 +264,6 @@ class MusicManager {
       this.audio.volume = this.targetVolume;
 
       const playPromise = this.audio.play();
-      this.isPlaying = true;
-      this.notify();
-
       if (playPromise !== undefined) {
         playPromise
           .then(() => {
@@ -240,7 +278,8 @@ class MusicManager {
           })
           .catch((err) => {
             console.warn('Audio play error:', err);
-            if (this.audio) {
+            const switched = this.tryNextSource();
+            if (!switched && this.audio) {
               this.isPlaying = !this.audio.paused;
               this.notify();
             }

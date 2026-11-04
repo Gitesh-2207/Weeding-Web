@@ -54,10 +54,10 @@ export const VenueSection = ({ data, t, lang }) => {
               </div>
               <div>
                 <h3 className="font-playfair font-semibold text-royal-brown text-lg sm:text-xl">
-                  {lang === 'hi' ? 'ग्राम सुंदरैल (धार), मध्य प्रदेश' : 'Sundrel, Dhar, Madhya Pradesh'}
+                  {t?.venue?.locationName || (lang === 'hi' ? 'ग्राम सुंदरैल (धार), मध्य प्रदेश' : 'Sundrel, Dhar, Madhya Pradesh')}
                 </h3>
                 <p className="text-xs sm:text-sm font-serif text-royal-brown/75">
-                  {lang === 'hi' ? 'मध्य प्रदेश, भारत • पिनकोड: 454552' : 'Madhya Pradesh, India • PIN: 454552'}
+                  {t?.venue?.locationDetails || (lang === 'hi' ? 'मध्य प्रदेश, भारत • पिनकोड: ४५४५५२' : 'Madhya Pradesh, India • PIN: 454552')}
                 </p>
               </div>
             </div>
@@ -77,7 +77,7 @@ export const VenueSection = ({ data, t, lang }) => {
           {/* Interactive Google Map iframe */}
           <div className="relative w-full h-[420px] sm:h-[520px] rounded-2xl overflow-hidden border border-gold/40 shadow-inner">
             <iframe
-              title="Sundrel Village Map Location"
+              title={t?.venue?.iframeTitle || "Sundrel Village Map Location"}
               src={mapEmbedUrl}
               className="w-full h-full border-0"
               allowFullScreen=""

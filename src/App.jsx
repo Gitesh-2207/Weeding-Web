@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { weddingData } from './data/weddingData';
 import { translations } from './data/translations';
@@ -18,10 +18,37 @@ import { Footer } from './components/Footer';
 import { FloatingMusicControl } from './components/common/FloatingMusicControl';
 import { Sparkles } from 'lucide-react';
 
+const STORAGE_LANG_KEY = 'wedding_invitation_lang';
+
 export default function App() {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const saved = localStorage.getItem(STORAGE_LANG_KEY);
+        if (saved === 'hi' || saved === 'en') return saved;
+      } catch {
+        // Ignore localStorage read errors
+      }
+    }
+    return 'en';
+  });
+
   const [isEnvelopeOpen, setIsEnvelopeOpen] = useState(false);
   const t = translations[lang] || translations.en;
+
+  // Persist language selection & sync html lang attribute
+  const handleSetLang = useCallback((newLang) => {
+    setLang(newLang);
+    try {
+      localStorage.setItem(STORAGE_LANG_KEY, newLang);
+    } catch {
+      // Ignore localStorage write errors
+    }
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
 
   // Lock body scroll while the initial welcome cover is active
   useEffect(() => {
@@ -47,19 +74,21 @@ export default function App() {
           <WelcomeLanding
             data={weddingData}
             onOpen={() => setIsEnvelopeOpen(true)}
+            t={t}
+            lang={lang}
           />
         )}
       </AnimatePresence>
 
       {/* Floating Background Piano Music Control */}
-      <FloatingMusicControl />
+      <FloatingMusicControl t={t} lang={lang} />
 
       {/* Floating Petals Animation */}
       <PetalsOverlay count={16} />
 
       {/* Floating Language Switcher */}
       <div className="fixed top-4 right-4 z-40">
-        <LanguageToggle lang={lang} setLang={setLang} />
+        <LanguageToggle lang={lang} setLang={handleSetLang} />
       </div>
 
       {/* Re-open Welcome Screen Floating Button */}
@@ -70,11 +99,11 @@ export default function App() {
           transition={{ delay: 0.8 }}
           onClick={() => setIsEnvelopeOpen(false)}
           className="fixed bottom-5 left-5 z-40 flex items-center space-x-2 px-3.5 py-2 rounded-full bg-[#FFF9EF]/95 border border-gold/70 shadow-royal hover:shadow-gold-glow backdrop-blur-md text-burgundy hover:text-gold-dark text-xs font-serif uppercase tracking-wider transition-all duration-300 group"
-          aria-label="View Welcome Screen"
+          aria-label={t.cover.reopenAria}
         >
           <Sparkles className="w-3.5 h-3.5 text-gold-dark group-hover:scale-110 transition-transform" />
           <span className="font-medium hidden sm:inline">
-            {lang === 'hi' ? 'स्वागत पृष्ठ' : 'Welcome Screen'}
+            {t.cover.reopenBtn}
           </span>
         </motion.button>
       )}
@@ -103,11 +132,15 @@ export default function App() {
         {/* Two Families, One Celebration - Family Invitation */}
         <FamilyInvitation
           data={weddingData}
+          t={t}
+          lang={lang}
         />
 
         {/* Engagement Memories & Video Clips */}
         <EngagementClips
           data={weddingData}
+          t={t}
+          lang={lang}
         />
 
         {/* Four Chapters Celebrations */}
@@ -121,6 +154,7 @@ export default function App() {
         <WeddingGallery
           data={weddingData}
           t={t}
+          lang={lang}
         />
 
         {/* Destination Venue Information */}
@@ -133,11 +167,13 @@ export default function App() {
         {/* Welcome Ceremony Section directly below Venue/Map */}
         <WelcomeCeremony
           lang={lang}
+          t={t}
         />
 
         {/* Wedding Footer */}
         <Footer
           t={t}
+          lang={lang}
         />
       </motion.main>
     </div>

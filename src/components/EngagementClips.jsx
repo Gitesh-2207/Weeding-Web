@@ -32,7 +32,7 @@ const DEFAULT_VIDEO = {
   videoUrl: "/engclip.mp4",
 };
 
-export const EngagementClips = ({ data }) => {
+export const EngagementClips = ({ data, t, lang }) => {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [activePhoto, setActivePhoto] = useState(null);
   const [isPlayingInline, setIsPlayingInline] = useState(false);
@@ -134,10 +134,10 @@ export const EngagementClips = ({ data }) => {
           <div className="flex items-center justify-between mb-5 px-1">
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-[#84662B]">
               <Camera className="w-4 h-4 text-[#D4A853]" />
-              <span className="font-semibold">Engagement Memories In Frames</span>
+              <span className="font-semibold">{t?.engagement?.memoriesHeading || "Engagement Memories In Frames"}</span>
             </div>
             <span className="text-[11px] sm:text-xs font-serif uppercase tracking-wider text-royal-brown/70 bg-cream-50 px-3 py-1 rounded-full border border-[#D4A853]/40">
-              {photos.length} Moments • Click to Zoom
+              {photos.length} {t?.engagement?.momentsZoom || "Moments • Click to Zoom"}
             </span>
           </div>
 
@@ -171,20 +171,20 @@ export const EngagementClips = ({ data }) => {
                   <div className="absolute top-2.5 right-2.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
                     <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-xs text-[11px] text-white/95 font-serif border border-white/20 shadow-sm">
                       <Eye className="w-3 h-3 text-[#D4A853]" />
-                      <span>View</span>
+                      <span>{t?.engagement?.view || "View"}</span>
                     </span>
                   </div>
 
                   {/* Caption & Title */}
                   <div className="absolute bottom-2.5 sm:bottom-3.5 left-2.5 sm:left-3.5 right-2.5 sm:right-3.5 z-10 text-white">
                     <span className="text-[10px] font-serif uppercase tracking-widest text-[#D4A853] font-semibold block mb-0.5">
-                      Moment 0{index + 1}
+                      {t?.engagement?.moment || "Moment"} 0{index + 1}
                     </span>
                     <h4 className="font-playfair text-sm sm:text-base font-semibold drop-shadow-md leading-tight line-clamp-1">
-                      {photo.title}
+                      {lang === 'hi' ? (photo.titleHi || photo.title) : photo.title}
                     </h4>
                     <p className="text-[11px] sm:text-xs font-cormorant italic text-white/90 mt-0.5 line-clamp-1">
-                      {photo.caption}
+                      {lang === 'hi' ? (photo.captionHi || photo.caption) : photo.caption}
                     </p>
                   </div>
                 </div>
@@ -206,7 +206,7 @@ export const EngagementClips = ({ data }) => {
           <div className="flex items-center justify-between mb-4 px-1">
             <div className="flex items-center space-x-2 text-xs sm:text-sm font-serif uppercase tracking-widest text-[#84662B]">
               <Film className="w-4 h-4 text-[#D4A853]" />
-              <span className="font-semibold">Featured Engagement Film</span>
+              <span className="font-semibold">{t?.engagement?.featuredFilm || "Featured Engagement Film"}</span>
             </div>
             <div className="inline-flex items-center space-x-1.5 text-xs font-mono text-[#84662B] bg-cream-50 px-3 py-1 rounded-full border border-[#D4A853]/40 shadow-xs">
               <Clock className="w-3.5 h-3.5 text-[#D4A853]" />
@@ -255,7 +255,7 @@ export const EngagementClips = ({ data }) => {
                   {/* Top Tag Pill */}
                   <div className="absolute top-3 sm:top-4 left-3 sm:left-4 z-10">
                     <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-[11px] font-serif uppercase tracking-widest text-burgundy font-bold shadow-xs border border-[#D4A853]/50">
-                      {video.tag || "OFFICIAL FILM"}
+                      {lang === 'hi' ? (video.tagHi || t?.engagement?.officialFilmTag || 'सगाई चलचित्र') : (video.tag || t?.engagement?.officialFilmTag || 'OFFICIAL FILM')}
                     </span>
                   </div>
 
@@ -267,10 +267,10 @@ export const EngagementClips = ({ data }) => {
                         setSelectedVideo(video);
                       }}
                       className="px-3 py-1 rounded-full bg-black/60 hover:bg-[#D4A853] backdrop-blur-xs text-[11px] font-serif uppercase tracking-wider text-white border border-white/20 transition-colors shadow-sm flex items-center space-x-1.5"
-                      title="Open in Cinema Mode"
+                      title={t?.engagement?.cinemaModeTitle || "Open in Cinema Mode"}
                     >
                       <Maximize2 className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">Cinema Theater</span>
+                      <span className="hidden sm:inline">{t?.engagement?.cinemaMode || "Cinema Theater"}</span>
                     </button>
                   </div>
 
@@ -285,15 +285,15 @@ export const EngagementClips = ({ data }) => {
                   <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 z-10 text-white flex items-end justify-between">
                     <div>
                       <h3 className="font-playfair text-lg sm:text-2xl md:text-3xl font-semibold leading-tight drop-shadow-md">
-                        {video.title}
+                        {lang === 'hi' ? (video.titleHi || video.title) : video.title}
                       </h3>
                       <p className="text-xs sm:text-sm font-cormorant italic text-white/90 mt-1 line-clamp-1">
-                        {video.subtitle}
+                        {lang === 'hi' ? (video.subtitleHi || video.subtitle) : video.subtitle}
                       </p>
                     </div>
                     <div className="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-white/20 backdrop-blur-xs text-xs font-serif text-white/90 border border-white/20 shrink-0">
                       <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" />
-                      <span>Click to Play</span>
+                      <span>{t?.engagement?.clickToPlay || "Click to Play"}</span>
                     </div>
                   </div>
                 </div>
@@ -333,7 +333,7 @@ export const EngagementClips = ({ data }) => {
               <button
                 onClick={handleCloseVideoModal}
                 className="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full bg-black/70 border border-[#D4A853]/60 text-white/90 hover:text-white hover:bg-[#D4A853] flex items-center justify-center transition-colors duration-200"
-                aria-label="Close cinema player"
+                aria-label={t?.engagement?.closeCinema || t?.common?.close || "Close cinema player"}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -358,14 +358,14 @@ export const EngagementClips = ({ data }) => {
               <div className="pt-3.5 pb-1 text-left px-1 flex items-center justify-between text-white">
                 <div>
                   <h3 className="font-playfair text-lg sm:text-xl font-semibold">
-                    {selectedVideo.title}
+                    {lang === 'hi' ? (selectedVideo.titleHi || selectedVideo.title) : selectedVideo.title}
                   </h3>
                   <p className="text-xs font-cormorant italic text-[#D4A853]">
-                    {selectedVideo.subtitle}
+                    {lang === 'hi' ? (selectedVideo.subtitleHi || selectedVideo.subtitle) : selectedVideo.subtitle}
                   </p>
                 </div>
                 <span className="text-[11px] font-serif uppercase tracking-wider text-white/70">
-                  Duration: {selectedVideo.duration}
+                  {(t?.engagement?.duration || "Duration:")} {selectedVideo.duration}
                 </span>
               </div>
             </motion.div>
@@ -404,7 +404,7 @@ export const EngagementClips = ({ data }) => {
               <button
                 onClick={handleClosePhotoModal}
                 className="absolute top-3.5 right-3.5 z-20 w-9 h-9 rounded-full bg-black/70 border border-[#D4A853]/60 text-white/90 hover:text-white hover:bg-[#D4A853] flex items-center justify-center transition-colors duration-200"
-                aria-label="Close photo preview"
+                aria-label={t?.engagement?.closePreviewAria || t?.common?.close || "Close photo preview"}
               >
                 <X className="w-5 h-5" />
               </button>
@@ -413,7 +413,7 @@ export const EngagementClips = ({ data }) => {
               <button
                 onClick={handlePrevPhoto}
                 className="absolute left-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/60 hover:bg-[#D4A853] text-white border border-white/20 transition-colors"
-                aria-label="Previous photo"
+                aria-label={t?.engagement?.prevPhotoAria || "Previous photo"}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
@@ -422,7 +422,7 @@ export const EngagementClips = ({ data }) => {
               <button
                 onClick={handleNextPhoto}
                 className="absolute right-3 top-1/2 -translate-y-1/2 z-20 p-2.5 rounded-full bg-black/60 hover:bg-[#D4A853] text-white border border-white/20 transition-colors"
-                aria-label="Next photo"
+                aria-label={t?.engagement?.nextPhotoAria || "Next photo"}
               >
                 <ChevronRight className="w-5 h-5" />
               </button>
@@ -440,15 +440,15 @@ export const EngagementClips = ({ data }) => {
               <div className="pt-3 pb-1 px-2 text-left flex items-center justify-between text-white">
                 <div>
                   <h4 className="font-playfair text-base sm:text-lg font-semibold">
-                    {activePhoto.title}
+                    {lang === 'hi' ? (activePhoto.titleHi || activePhoto.title) : activePhoto.title}
                   </h4>
                   <p className="text-xs font-cormorant italic text-[#D4A853]">
-                    {activePhoto.caption}
+                    {lang === 'hi' ? (activePhoto.captionHi || activePhoto.caption) : activePhoto.caption}
                   </p>
                 </div>
                 <div className="text-right">
                   <span className="text-[11px] font-serif uppercase tracking-widest text-[#D4A853]">
-                    {photos.findIndex((p) => p.id === activePhoto.id) + 1} of {photos.length}
+                    {photos.findIndex((p) => p.id === activePhoto.id) + 1} {(t?.engagement?.of || "of")} {photos.length}
                   </span>
                 </div>
               </div>

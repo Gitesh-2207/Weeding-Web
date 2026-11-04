@@ -78,7 +78,7 @@ export const HeroSection = ({ data, t, lang }) => {
           transition={{ delay: 0.2, duration: 0.8 }}
           className="text-xs sm:text-sm font-serif tracking-[0.3em] uppercase text-royal-brown/80 mb-3"
         >
-          {lang === 'hi' ? 'शुभ परिणय संस्कार' : 'THE WEDDING OF'}
+          {t.hero.theWeddingOf}
         </motion.p>
 
         {/* Central Couple Names */}
@@ -89,19 +89,19 @@ export const HeroSection = ({ data, t, lang }) => {
           className="my-3 sm:my-5"
         >
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-script text-burgundy tracking-wide filter drop-shadow-sm leading-tight">
-            {data.couple.bride.fullName}
+            {lang === 'hi' ? (data.couple.bride.fullNameHi || data.couple.bride.fullName) : data.couple.bride.fullName}
           </h1>
 
           <div className="flex items-center justify-center my-2 sm:my-3 space-x-4">
             <div className="h-[1px] w-16 sm:w-28 bg-gradient-to-r from-transparent via-gold to-gold/70" />
             <span className="text-2xl sm:text-4xl font-script text-gold-dark italic">
-              &amp;
+              {lang === 'hi' ? 'एवं' : '&'}
             </span>
             <div className="h-[1px] w-16 sm:w-28 bg-gradient-to-l from-transparent via-gold to-gold/70" />
           </div>
 
           <h1 className="text-4xl sm:text-6xl md:text-7xl font-script text-burgundy tracking-wide filter drop-shadow-sm leading-tight">
-            {data.couple.groom.fullName}
+            {lang === 'hi' ? (data.couple.groom.fullNameHi || data.couple.groom.fullName) : data.couple.groom.fullName}
           </h1>
         </motion.div>
 
@@ -133,7 +133,7 @@ export const HeroSection = ({ data, t, lang }) => {
             </div>
             {/* Elegant Name Badge Tag */}
             <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-3.5 py-0.5 rounded-full bg-cream-50/95 border border-gold/70 text-[10px] sm:text-[11px] font-serif uppercase tracking-widest text-burgundy font-semibold shadow-sm whitespace-nowrap">
-              Abhay &amp; Khushbu
+              {lang === 'hi' ? (t.hero.coupleShort || 'अभय एवं खुशबू') : 'Abhay & Khushbu'}
             </div>
           </div>
         </motion.div>
@@ -151,13 +151,13 @@ export const HeroSection = ({ data, t, lang }) => {
           <div className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-cream-card border border-gold/40 shadow-sm">
             <Calendar className="w-4 h-4 text-gold-dark" />
             <span className="font-playfair text-sm sm:text-base font-semibold tracking-wide">
-              {data.date.displayDate}
+              {lang === 'hi' ? (data.date.displayDateHi || data.date.displayDate) : data.date.displayDate}
             </span>
           </div>
           <div className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-cream-card border border-gold/40 shadow-sm">
             <MapPin className="w-4 h-4 text-burgundy" />
             <span className="font-serif text-xs sm:text-sm tracking-wider uppercase font-medium">
-              {data.venue.fullLocation}
+              {lang === 'hi' ? (data.venue.fullLocationHi || data.venue.fullLocation) : data.venue.fullLocation}
             </span>
           </div>
         </motion.div>

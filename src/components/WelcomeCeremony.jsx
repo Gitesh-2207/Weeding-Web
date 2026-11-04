@@ -2,36 +2,36 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CornerFlourish, FloralGarland } from './common/DecorativeElements';
 
-export const WelcomeCeremony = ({ lang = 'en' }) => {
+export const WelcomeCeremony = ({ lang = 'en', t }) => {
   // 1. Welcome Ceremony Details
   const ceremonyDetails = [
     {
       category: "Grandfathers",
-      categoryHi: "दादाजी (Grandfathers)",
+      categoryHi: "दादाजी",
       names: "Subhashchandra Ji, Chandrashekhar Ji",
       namesHi: "सुभाषचंद्र जी, चंद्रशेखर जी",
     },
     {
       category: "Paternal Aunts' Husbands (Fufaji)",
-      categoryHi: "फूफाजी (Fufaji)",
+      categoryHi: "फूफाजी",
       names: "Mahendra Ji, Mahadev Ji, Jagdish Ji, Dinesh Ji, Priyank Ji",
       namesHi: "महेंद्र जी, महादेव जी, जगदीश जी, दिनेश जी, प्रियंक जी",
     },
     {
       category: "Sisters' Husbands (Jijaji)",
-      categoryHi: "जीजाजी (Jijaji)",
+      categoryHi: "जीजाजी",
       names: "Vinit Ji",
       namesHi: "विनीत जी",
     },
     {
       category: "Maternal Uncles (Mamaji)",
-      categoryHi: "मामाजी (Mamaji)",
+      categoryHi: "मामाजी",
       names: "Mahadev Ji, Jitendra Ji",
       namesHi: "महादेव जी, जितेंद्र जी",
     },
     {
       category: "Maternal Aunts' Husbands (Mausaji)",
-      categoryHi: "मौसाजी (Mausaji)",
+      categoryHi: "मौसाजी",
       names: "Nitesh Ji",
       namesHi: "नितेश जी",
     },
@@ -41,27 +41,27 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
   const awaitingPresenceDetails = [
     {
       category: "Eldest Uncle (Bade Papa)",
-      categoryHi: "बड़े पापा (Bade Papa)",
+      categoryHi: "बड़े पापा",
       names: "Raghavendra Ji Patidar",
       namesHi: "राघवेंद्र जी पाटीदार",
     },
     {
       category: "Uncles (Uncle Ji)",
-      categoryHi: "अंकल जी (Uncle Ji)",
+      categoryHi: "चाचाजी",
       names: "Mahendra Ji, Jitendra Ji, Mukesh Ji, Surendra Ji Patidar",
       namesHi: "महेंद्र जी, जितेंद्र जी, मुकेश जी, सुरेंद्र जी पाटीदार",
     },
     {
       category: "Brothers (Bhaiya)",
-      categoryHi: "भैया (Bhaiya)",
+      categoryHi: "भैया",
       names: "Ankit, Ritik, Gitesh, Jaideep, Ram",
-      namesHi: "अंकित, रितिक, गीतेश, जयदीप, राम",
+      namesHi: "अंकित, रितिक, गितेश, जयदीप, राम",
     },
     {
       category: "Sisters (Bahan)",
-      categoryHi: "बहन (Bahan)",
+      categoryHi: "बहन",
       names: "Himanshi, Leena, Prisha (Mukati Family)",
-      namesHi: "हिमांषी, लीना, दिशा (मुकाती परिवार)",
+      namesHi: "हिमांषी, लीना, प्रिशा (मुकाती परिवार)",
     },
   ];
 
@@ -105,7 +105,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             <FloralGarland className="mb-3 sm:mb-4" />
 
             <h2 className="text-3xl sm:text-5xl font-playfair font-semibold text-royal-brown tracking-wide">
-              {isHindi ? 'स्वागत समारोह' : 'Welcome Ceremony'}
+              {t?.welcomeCeremony?.welcomeTitle || (isHindi ? 'स्वागत समारोह' : 'Welcome Ceremony')}
             </h2>
           </div>
 
@@ -163,7 +163,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             <FloralGarland className="mb-3 sm:mb-4" />
 
             <h2 className="text-3xl sm:text-5xl font-playfair font-semibold text-royal-brown tracking-wide">
-              {isHindi ? 'दर्शनाभिलाषी' : 'Awaiting Your Presence'}
+              {t?.welcomeCeremony?.awaitingTitle || (isHindi ? 'दर्शनाभिलाषी' : 'Awaiting Your Presence')}
             </h2>
           </div>
 
@@ -216,8 +216,6 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             PART 3: BAL MANUHAAR (SWEET INVITATION FROM BHAVYA)
            ========================================================================= */}
         <div>
-
-
           {/* Bal Manuhaar Card */}
           <motion.div
             initial={{ opacity: 0, y: 25 }}
@@ -238,14 +236,14 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             {/* Content: Rhyme & Name */}
             <div className="relative z-10 max-w-2xl mx-auto px-2 py-2 sm:py-3 space-y-3 sm:space-y-4">
               <p className="font-playfair italic text-base sm:text-xl md:text-2xl text-burgundy font-medium leading-relaxed drop-shadow-xs">
-                {isHindi
+                {t?.balManuhaar?.poemLine1 || (isHindi
                   ? "“आपका इंतज़ार है SMS की तरह, मेरी बुआ की शादी में आना Ringtone की तरह।"
-                  : "“Aapka Intajaar Hai SMS Ki Tarah, Meri Buaa Ki Shhadi Me Aana Ringtone Ki Tarah."}
+                  : "“Aapka Intajaar Hai SMS Ki Tarah, Meri Buaa Ki Shhadi Me Aana Ringtone Ki Tarah.")}
               </p>
               <p className="font-playfair italic text-base sm:text-xl md:text-2xl text-burgundy font-medium leading-relaxed drop-shadow-xs">
-                {isHindi
+                {t?.balManuhaar?.poemLine2 || (isHindi
                   ? "आशीर्वाद देना Balance की तरह, शादी में बिजी रहना Network की तरह।”"
-                  : "Aashirwad Dena Balance Ki Tarah, Shhadi Me Busy Rahna Network Ki Tarah.”"}
+                  : "Aashirwad Dena Balance Ki Tarah, Shhadi Me Busy Rahna Network Ki Tarah.”")}
               </p>
 
               {/* Decorative Divider */}
@@ -260,10 +258,10 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
               {/* Signature: Bhavya */}
               <div className="pt-1">
                 <span className="text-[11px] sm:text-xs font-serif uppercase tracking-[0.25em] text-gold-dark font-semibold block mb-0.5">
-                  {isHindi ? '— बाल मनुहार —' : '— With Love & Innocence —'}
+                  {t?.balManuhaar?.signatureLabel || (isHindi ? '— बाल मनुहार —' : '— With Love & Innocence —')}
                 </span>
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-playfair font-bold text-royal-brown tracking-wide">
-                  {isHindi ? 'भव्या (Bhavya)' : 'Bhavya'}
+                  {t?.balManuhaar?.name || (isHindi ? 'भव्य' : 'Bhavya')}
                 </h3>
               </div>
             </div>
@@ -279,7 +277,7 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
             <FloralGarland className="mb-3 sm:mb-4" />
 
             <h2 className="text-3xl sm:text-5xl font-playfair font-semibold text-royal-brown tracking-wide">
-              {isHindi ? 'विनीत' : 'Invited By Our Hosts'}
+              {t?.welcomeCeremony?.invitedTitle || (isHindi ? 'विनीत' : 'Invited By Our Hosts')}
             </h2>
           </div>
 
@@ -332,3 +330,5 @@ export const WelcomeCeremony = ({ lang = 'en' }) => {
     </section>
   );
 };
+
+export default WelcomeCeremony;

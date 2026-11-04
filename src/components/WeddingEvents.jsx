@@ -150,17 +150,10 @@ const MandapIllustration = () => (
   </svg>
 );
 
-export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
-  // Explicitly configured 4 chronological wedding events
-  const timelineEvents = [
+export const WeddingEvents = ({ data: _data, t, lang: _lang }) => {
+  const eventConfigs = [
     {
       number: "01",
-      badge: "SHUBH AARAMBH",
-      title: "Ganesh Pujan",
-      tagline: "A Sacred Beginning",
-      date: "24 November 2026",
-      time: "9:00 AM onwards",
-      venue: "Chowk Mohalla, Sundrel, Dhar, MP",
       themeBorder: "border-[#D4A853]/60 hover:border-[#D4A853]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF9ED] to-[#FFF3DC]",
       accentColor: "text-[#B45309]",
@@ -171,12 +164,6 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
     },
     {
       number: "02",
-      badge: "GULABI RANG • SUNEHRI SANG",
-      title: "Haldi Ceremony",
-      tagline: "A Little Haldi, A Lot of Happiness!",
-      date: "24 November 2026",
-      time: "2:00 PM onwards",
-      venue: "Chowk Mohalla, Sundrel, Dhar, MP",
       themeBorder: "border-[#F59E0B]/60 hover:border-[#F59E0B]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFFBEB] to-[#FEF9C3]",
       accentColor: "text-[#D97706]",
@@ -187,12 +174,6 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
     },
     {
       number: "03",
-      badge: "SWAR • SUR • SUROOR",
-      title: "Sangeet Night",
-      tagline: "Let's Dance Into Forever!",
-      date: "24 November 2026",
-      time: "8:00 PM onwards",
-      venue: "Chowk Mohalla, Sundrel, Dhar, MP",
       themeBorder: "border-[#F472B6]/60 hover:border-[#F472B6]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF7ED] to-[#FFE4E6]",
       accentColor: "text-[#BE185D]",
@@ -203,12 +184,6 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
     },
     {
       number: "04",
-      badge: "THE ROYAL PROCESSION",
-      title: "Baarat Aagaman",
-      tagline: "The Groom Arrives, The Celebration Begins!",
-      date: "25 November 2026",
-      time: "9:00 AM onwards",
-      venue: "Chowk Mohalla to Vivah Sthal, Sundrel, Dhar, MP",
       themeBorder: "border-[#F97316]/60 hover:border-[#EA580C]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF8EB] to-[#FFEDD5]",
       accentColor: "text-[#C2410C]",
@@ -219,12 +194,6 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
     },
     {
       number: "05",
-      badge: "THE SACRED UNION",
-      title: "Wedding Ceremony",
-      tagline: "The Day We Become One",
-      date: "25 November 2026",
-      time: "Following Baarat • Vivah Sanskar",
-      venue: "Sundrel, Dhar, Madhya Pradesh",
       themeBorder: "border-2 border-[#D4A853] hover:border-[#9B7832]",
       themeBg: "bg-gradient-to-br from-[#FFFDF9] via-[#FFF5ED] to-[#FFE8E8]",
       accentColor: "text-[#6F2927]",
@@ -234,6 +203,18 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
       isGrandFinale: true,
     },
   ];
+
+  const timelineEvents = eventConfigs.map((cfg, idx) => {
+    const item = t?.events?.items?.[idx] || {};
+    return {
+      ...cfg,
+      badge: item.badge || "",
+      title: item.title || "",
+      tagline: item.tagline || "",
+      date: item.date || "",
+      time: item.time || "",
+    };
+  });
 
   return (
     <section id="events" className="py-8 sm:py-10 px-4 sm:px-6 relative bg-gradient-to-b from-[#F8F1E3] via-[#FFFDF9] to-[#F8F1E3] overflow-hidden">
@@ -254,17 +235,17 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cream-50 border border-[#D4A853]/50 shadow-sm mb-3.5">
             <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" />
             <span className="text-xs font-serif tracking-[0.25em] uppercase text-burgundy font-semibold">
-              CHRONOLOGICAL TIMELINE
+              {t?.events?.timelineBadge || "CHRONOLOGICAL TIMELINE"}
             </span>
             <Sparkles className="w-3.5 h-3.5 text-[#D4A853]" />
           </div>
 
           <h2 className="text-3xl sm:text-5xl md:text-6xl font-playfair font-semibold text-burgundy tracking-wide leading-tight">
-            Our Wedding Celebrations
+            {t?.events?.title || "Our Wedding Celebrations"}
           </h2>
 
           <p className="mt-3.5 text-base sm:text-xl font-cormorant italic text-royal-brown/90 tracking-wide max-w-xl mx-auto">
-            Five beautiful moments, countless precious memories.
+            {t?.events?.subtitle || "Five beautiful moments, countless precious memories."}
           </p>
 
           <FloralGarland className="mt-5 max-w-sm mx-auto" />
@@ -317,10 +298,7 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
                   {/* Desktop Left-Side Card Column (Empty when card is on right) */}
                   <div className={`hidden lg:block lg:w-1/2 ${isEven ? 'order-1' : 'order-1 pr-12 text-right'}`}>
                     {!isEven && (
-                      <TimelineCard
-                        event={event}
-                        isLeft={true}
-                      />
+                      <TimelineCard event={event} isLeft={true} t={t} />
                     )}
                   </div>
 
@@ -328,19 +306,13 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
                   <div className={`w-full lg:w-1/2 ${isEven ? 'lg:order-2 lg:pl-12' : 'lg:order-2'} pl-14 sm:pl-20 lg:pl-12`}>
                     {(isEven || typeof window === 'undefined') && (
                       <div className="hidden lg:block">
-                        <TimelineCard
-                          event={event}
-                          isLeft={false}
-                        />
+                        <TimelineCard event={event} isLeft={false} t={t} />
                       </div>
                     )}
 
                     {/* Mobile Card Rendering (Always on right of mobile timeline line) */}
                     <div className="block lg:hidden w-full">
-                      <TimelineCard
-                        event={event}
-                        isLeft={false}
-                      />
+                      <TimelineCard event={event} isLeft={false} t={t} />
                     </div>
                   </div>
                 </div>
@@ -356,7 +328,7 @@ export const WeddingEvents = ({ data: _data, t: _t, lang: _lang }) => {
 };
 
 // Subcomponent: Premium Individual Event Card
-const TimelineCard = ({ event, isLeft }) => {
+const TimelineCard = ({ event, isLeft, t }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: isLeft ? -35 : 35, y: 20 }}
@@ -374,7 +346,7 @@ const TimelineCard = ({ event, isLeft }) => {
       <CornerFlourish className="absolute top-3 left-3 w-7 h-7 sm:w-9 sm:h-9 opacity-65 pointer-events-none" position="top-left" />
       <CornerFlourish className="absolute top-3 right-3 w-7 h-7 sm:w-9 sm:h-9 opacity-65 pointer-events-none" position="top-right" />
 
-      {/* Grand Finale Ribbon Badge for Wedding Ceremony */}
+      {/* {t?.events?.grandFinale || "Grand Finale"} Ribbon Badge for Wedding Ceremony */}
       {event.isGrandFinale && (
         <div className="absolute top-0 right-10 bg-gradient-to-r from-burgundy to-burgundy-light text-[#FFF9EF] text-[10px] font-serif uppercase tracking-[0.2em] font-semibold px-4 py-1 rounded-b-lg border-b border-x border-[#D4A853]/70 shadow-sm">
           Grand Finale
@@ -386,7 +358,7 @@ const TimelineCard = ({ event, isLeft }) => {
         <div>
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cream-50/90 border border-[#D4A853]/40 shadow-xs mb-2">
             <span className="text-[11px] font-serif uppercase tracking-widest text-[#B45309] font-bold">
-              EVENT {event.number}
+              {(t?.events?.eventLabel || "EVENT")} {event.number}
             </span>
             <span className="text-[10px] text-[#D4A853]">♦</span>
             <span className="text-[10px] font-serif uppercase tracking-wider text-royal-brown/80 font-medium">
