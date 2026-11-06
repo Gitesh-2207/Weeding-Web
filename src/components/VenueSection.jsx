@@ -57,7 +57,7 @@ export const VenueSection = ({ data, t, lang }) => {
                   {t?.venue?.locationName || (lang === 'hi' ? 'ग्राम सुंदरैल (धार), मध्य प्रदेश' : 'Sundrel, Dhar, Madhya Pradesh')}
                 </h3>
                 <p className="text-xs sm:text-sm font-serif text-royal-brown/75">
-                  {t?.venue?.locationDetails || (lang === 'hi' ? 'मध्य प्रदेश, भारत • पिनकोड: ४५४५५२' : 'Madhya Pradesh, India • PIN: 454552')}
+                  {t?.venue?.locationDetails || (lang === 'hi' ? 'मध्य प्रदेश, भारत • पिनकोड: 454552' : 'Madhya Pradesh, India • PIN: 454552')}
                 </p>
               </div>
             </div>
