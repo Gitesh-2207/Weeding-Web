@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { weddingData } from './data/weddingData';
 import { translations } from './data/translations';
 import { PetalsOverlay } from './components/common/PetalsOverlay';
@@ -176,6 +177,9 @@ export default function App() {
           lang={lang}
         />
       </motion.main>
+
+      {/* Vercel Web Analytics */}
+      <Analytics />
     </div>
   );
 }
