@@ -293,38 +293,6 @@ export const weddingData = {
       image: "https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?auto=format&fit=crop&w=800&q=80"
     }
   ],
-  gallery: [
-    {
-      id: 1,
-      title: "A Sacred Promise",
-      titleHi: "एक पावन वादा",
-      category: "Bridal Henna & Love",
-      categoryHi: "हल्दी व मेंहदी",
-      caption: "Bridal mehndi bearing their initials 'AK', resting with devotion upon the heart.",
-      captionHi: "हृदय पर विराजी प्रेम और समर्पण से सजी पावन मेंहदी।",
-      image: "/images/couple-hands-heart.jpeg",
-    },
-    {
-      id: 2,
-      title: "The Golden Rings",
-      titleHi: "मांगलिक मुद्रिका",
-      category: "Engagement Rituals",
-      categoryHi: "सगाई संस्कार",
-      caption: "The sparkling rings symbolizing eternity, trust, and lifelong companionship.",
-      captionHi: "विश्वास और आजीवन साथ का प्रतीक स्वर्णिम मुद्रिका।",
-      image: "/images/engagement-rings.jpeg",
-    },
-    {
-      id: 3,
-      title: "Better Together",
-      titleHi: "शुभ संगम",
-      category: "Engagement Stage",
-      categoryHi: "सगाई मंच",
-      caption: "A joyful celebration surrounded by roses, floral garlands, and boundless blessings.",
-      captionHi: "पुष्पों की महक और अग्रजों के आशीर्वाद से सजी मधुर बेला।",
-      image: "/images/couple-stage.jpeg",
-    },
-  ],
   hospitality: [
     {
       icon: "Hotel",

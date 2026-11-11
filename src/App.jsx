@@ -12,7 +12,6 @@ import { Countdown } from './components/Countdown';
 import { FamilyInvitation } from './components/FamilyInvitation';
 import { EngagementClips } from './components/EngagementClips';
 import { WeddingEvents } from './components/WeddingEvents';
-import { WeddingGallery } from './components/WeddingGallery';
 import { VenueSection } from './components/VenueSection';
 import { WelcomeCeremony } from './components/WelcomeCeremony';
 import { Footer } from './components/Footer';
@@ -146,13 +145,6 @@ export default function App() {
 
         {/* Four Chapters Celebrations */}
         <WeddingEvents
-          data={weddingData}
-          t={t}
-          lang={lang}
-        />
-
-        {/* Real Couple Photo Gallery & Lightbox */}
-        <WeddingGallery
           data={weddingData}
           t={t}
           lang={lang}
